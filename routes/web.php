@@ -42,7 +42,7 @@ Route::group(['middleware' => 'role:guru'], function () {
         // Route Guru Start from here
         Route::get('/dashboard', [HomeController::class, 'guru'])->name('dashboard.guru');
         Route::resources([
-            'data-siswa' => DataSiswaController::class,
+            'data-murid' => DataSiswaController::class,
             'materi-guru' => MateriGuruController::class,
             'tugas-guru' => TugasGuruController::class,
             'referensi-guru' => ReferensiGuruController::class,

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Guru;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class DataSiswaController extends Controller
 {
@@ -12,7 +13,9 @@ class DataSiswaController extends Controller
      */
     public function index()
     {
-        //
+        $murids = User::role('murid')->get();
+
+        return view('guru.dataMurid.index', compact('murids'));
     }
 
     /**
@@ -20,7 +23,7 @@ class DataSiswaController extends Controller
      */
     public function create()
     {
-        //
+        return view('guru.dataMurid.create');
     }
 
     /**
@@ -28,7 +31,14 @@ class DataSiswaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $murid = User::create([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'password' => bcrypt($request->input('password')),
+        ]);
+        $murid->assignRole('murid');
+
+        return redirect()->route('data-murid.index');
     }
 
     /**
@@ -36,7 +46,8 @@ class DataSiswaController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $murids = User::find($id);
+        return view('guru.dataMurid.show', compact('murids'));
     }
 
     /**
@@ -44,7 +55,8 @@ class DataSiswaController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $murids = User::find($id);
+        return view('guru.dataMurid.edit', compact('murids'));
     }
 
     /**
@@ -52,7 +64,13 @@ class DataSiswaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $murids = User::find($id);
+        $murids->name = $request->name;
+        $murids->email = $request->email;
+        $murids->name = bcrypt($request->password);
+        $murids->save();
+
+        return redirect()->route('data-murid.index');
     }
 
     /**
@@ -60,6 +78,9 @@ class DataSiswaController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $murids = User::find($id);
+        $murids->delete();
+
+        return redirect()->route('data-murid.index');
     }
 }
