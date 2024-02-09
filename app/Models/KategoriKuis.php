@@ -11,7 +11,7 @@ class KategoriKuis extends Model
 
     protected $table = 'kategori_kuis';
 
-    protected $fillable = ['kuis', 'tenggat', 'waktu'];
+    protected $fillable = ['kuis', 'waktu'];
 
     public function soal()
     {
