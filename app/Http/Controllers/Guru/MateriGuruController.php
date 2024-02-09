@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Guru;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Materi;
 
 class MateriGuruController extends Controller
 {
@@ -12,7 +13,9 @@ class MateriGuruController extends Controller
      */
     public function index()
     {
-        //
+        $materis = Materi::all();
+
+        return view('guru.materi.index', compact('materis'));
     }
 
     /**
@@ -20,7 +23,7 @@ class MateriGuruController extends Controller
      */
     public function create()
     {
-        //
+        return view('guru.materi.create');
     }
 
     /**
@@ -28,7 +31,22 @@ class MateriGuruController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $materis = Materi::create([
+            'nama' => $request->input('nama'),
+            'deskripsi' => $request->input('deskripsi'),
+        ]);
+
+        // Request column input type file
+        if ($request->hasFile('dokumen')) {
+            $dokumen = $request->file('dokumen');
+            $extension = $dokumen->getClientOriginalName();
+            $dokumenName = date('Ymd') . "." . $extension;
+            $dokumen->move(storage_path('app/public/materi/dokumen/'), $dokumenName);
+            $materis->dokumen = $dokumenName;
+            $materis->save();
+        }
+
+        return redirect()->route('materi-guru.index');
     }
 
     /**
@@ -36,7 +54,9 @@ class MateriGuruController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $materis = Materi::find($id)->first();
+
+        return view('guru.materi.show', compact('materis'));
     }
 
     /**
@@ -44,7 +64,9 @@ class MateriGuruController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $materis = Materi::find($id)->first();
+
+        return view('guru.materi.edit', compact('materis'));
     }
 
     /**
@@ -52,7 +74,19 @@ class MateriGuruController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $materis  = Materi::find($id);
+        $materis->nama = $request->nama;
+        $materis->deskripsi = $request->deskripsi;
+        if ($request->hasFile('dokumen')) {
+            $dokumen = $request->file('dokumen');
+            $extension = $dokumen->getClientOriginalName();
+            $dokumenName = date('Ymd') . "." . $extension;
+            $dokumen->move(storage_path('app/public/materi/dokumen/'), $dokumenName);
+            $materis->dokumen = $dokumenName;
+        }
+        $materis->save();
+
+        return redirect()->route('materi-guru.index');
     }
 
     /**
@@ -60,6 +94,9 @@ class MateriGuruController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $materis = Materi::find($id)->first();
+
+        $materis->delete();
+        return redirect()->route('materi-guru.index');
     }
 }

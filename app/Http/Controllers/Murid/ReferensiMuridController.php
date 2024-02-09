@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Murid;
 
 use App\Http\Controllers\Controller;
+use App\Models\Referensi;
 use Illuminate\Http\Request;
 
 class ReferensiMuridController extends Controller
@@ -12,7 +13,8 @@ class ReferensiMuridController extends Controller
      */
     public function index()
     {
-        //
+        $referensis = Referensi::all();
+        return view('murid.referensi.index', compact('referensis'));
     }
 
     /**
@@ -36,7 +38,9 @@ class ReferensiMuridController extends Controller
      */
     public function show(string $id)
     {
-        //
+
+        $referensis = Referensi::find($id);
+        return view('murid.referensi.show', compact('referensis'));
     }
 
     /**

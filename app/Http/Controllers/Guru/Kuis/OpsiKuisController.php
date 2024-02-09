@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Guru\Kuis;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Opsi;
+use App\Models\Soal;
 
 class OpsiKuisController extends Controller
 {
@@ -12,7 +14,9 @@ class OpsiKuisController extends Controller
      */
     public function index()
     {
-        //
+        $opsis = Opsi::all();
+
+        return view('guru.kuis.opsi.index', compact('opsis'));
     }
 
     /**
@@ -20,7 +24,9 @@ class OpsiKuisController extends Controller
      */
     public function create()
     {
-        //
+        $soals = Soal::all();
+
+        return view('guru.kuis.opsi.create', compact('soals'));
     }
 
     /**
@@ -28,7 +34,14 @@ class OpsiKuisController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Opsi::create([
+            'soal_id' => $request->input('soal_id'),
+            'opsi' => $request->input('opsi'),
+            'point' => $request->input('point'),
+        ]);
+
+
+        return redirect()->route('opsi.index');
     }
 
     /**
@@ -36,7 +49,9 @@ class OpsiKuisController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $opsis = Opsi::find($id)->first();
+
+        return view('guru.kuis.opsi.show', compact('opsis'));
     }
 
     /**
@@ -44,7 +59,9 @@ class OpsiKuisController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $soals = Soal::all();
+        $opsis = Opsi::find($id)->first();
+        return view('guru.kuis.opsi.edit', compact('opsis', 'soals'));
     }
 
     /**
@@ -53,6 +70,12 @@ class OpsiKuisController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $opsis = Opsi::find($id)->first();
+        $opsis->opsi = $request->opsi;
+        $opsis->point = $request->point;
+        $opsis->save();
+
+        return redirect()->route('opsi.index');
     }
 
     /**
@@ -61,5 +84,8 @@ class OpsiKuisController extends Controller
     public function destroy(string $id)
     {
         //
+        $opsis = Opsi::find($id)->first();
+        $opsis->delete();
+        return redirect()->route('opsi.index');
     }
 }
