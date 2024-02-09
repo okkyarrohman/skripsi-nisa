@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Guru\Kuis;
 
 use App\Http\Controllers\Controller;
 use App\Models\Soal;
+use App\Models\KategoriKuis;
 use Illuminate\Http\Request;
 
 class SoalKuisController extends Controller
@@ -21,7 +22,8 @@ class SoalKuisController extends Controller
      */
     public function create()
     {
-        return view('guru.kuis.soal.create');
+        $kategoris = KategoriKuis::all();
+        return view('guru.kuis.soal.create', compact('kategoris'));
     }
 
     /**
@@ -59,8 +61,9 @@ class SoalKuisController extends Controller
      */
     public function edit(string $id)
     {
+        $kategoris = KategoriKuis::all();
         $soals = Soal::find($id)->first();
-        return view('guru.kuis.soal.edit', compact('soals'));
+        return view('guru.kuis.soal.edit', compact('soals','kategoris'));
     }
 
     /**
