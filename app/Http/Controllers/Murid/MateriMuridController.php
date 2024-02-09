@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Murid;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Materi;
 
 class MateriMuridController extends Controller
 {
@@ -12,7 +13,8 @@ class MateriMuridController extends Controller
      */
     public function index()
     {
-        //
+        $materis = Materi::all();
+        return view('murid.materi.index', compact('materis'));
     }
 
     /**
@@ -36,7 +38,8 @@ class MateriMuridController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $materis = Materi::find($id)->first();
+        return view('murid.materi.index', compact('materis'));
     }
 
     /**
