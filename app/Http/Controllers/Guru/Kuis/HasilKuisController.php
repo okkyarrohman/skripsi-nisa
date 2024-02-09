@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Guru\Kuis;
 
 use App\Http\Controllers\Controller;
+use App\Models\Hasil;
 use Illuminate\Http\Request;
 
 class HasilKuisController extends Controller
@@ -12,7 +13,8 @@ class HasilKuisController extends Controller
      */
     public function index()
     {
-        //
+        $hasils = Hasil::all();
+        return view('guru.kuis.hasil.index', compact('hasils'));
     }
 
     /**
@@ -36,7 +38,9 @@ class HasilKuisController extends Controller
      */
     public function show(string $id)
     {
-        //
+
+        $hasils = Hasil::find($id)->first();
+        return view('guru.kuis.hasil.show', compact('hasils'));
     }
 
     /**
