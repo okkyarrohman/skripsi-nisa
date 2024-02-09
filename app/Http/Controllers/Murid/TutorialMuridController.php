@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Murid;
 
 use App\Http\Controllers\Controller;
+use App\Models\Tutorial;
 use Illuminate\Http\Request;
 
 class TutorialMuridController extends Controller
@@ -12,7 +13,9 @@ class TutorialMuridController extends Controller
      */
     public function index()
     {
-        //
+        $tutorials = Tutorial::all();
+
+        return view('murid.tutorial.index', compact('tutorials'));
     }
 
     /**
@@ -36,7 +39,10 @@ class TutorialMuridController extends Controller
      */
     public function show(string $id)
     {
-        //
+
+        $tutorials = Tutorial::find($id)->first();
+
+        return view('murid.tutorial.show', compact('tutorials'));
     }
 
     /**
