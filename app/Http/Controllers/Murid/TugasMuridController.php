@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Murid;
 
 use App\Http\Controllers\Controller;
+use App\Models\Tugas;
+use App\Models\TugasResult;
 use Illuminate\Http\Request;
 
 class TugasMuridController extends Controller
@@ -12,7 +14,9 @@ class TugasMuridController extends Controller
      */
     public function index()
     {
-        //
+        $tugases = Tugas::all();
+
+        return view('murid.tugas.index', compact('tugases'));
     }
 
     /**
@@ -28,7 +32,13 @@ class TugasMuridController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $tugases = new TugasResult();
+        $tugases->tugas_id = $request->tugas_id;
+        $tugases->user_id = auth()->user()->id;
+        $tugases->answer = $request->answer;
+        $tugases->save();
+
+        return redirect()->route('tugas.index');
     }
 
     /**
@@ -36,7 +46,9 @@ class TugasMuridController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $tugases = Tugas::find($id)->first();
+
+        return view('murid.tugas.index', compact('tugases'));
     }
 
     /**
@@ -52,7 +64,13 @@ class TugasMuridController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $tugases = TugasResult::find($id);
+        $tugases->tugas_id = $request->tugas_id;
+        $tugases->user_id = auth()->user()->id;
+        $tugases->answer = $request->answer;
+        $tugases->save();
+
+        return redirect()->route('tugas.index');
     }
 
     /**
