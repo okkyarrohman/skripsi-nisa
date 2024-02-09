@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Murid;
 
 use App\Http\Controllers\Controller;
+use App\Models\KategoriKuis;
+use App\Models\Hasil;
+use App\Models\Opsi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class KuisController extends Controller
 {
@@ -12,7 +16,8 @@ class KuisController extends Controller
      */
     public function index()
     {
-        //
+        $kuises = KategoriKuis::all();
+        return view('murid.kuis.index', compact('kuises'));
     }
 
     /**
@@ -28,15 +33,38 @@ class KuisController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $opsi = Opsi::find(array_values($request->input('soal')));
+
+        $hasilSeluruh = new Hasil();
+        $hasilSeluruh->user_id = Auth::user()->id;
+        $hasilSeluruh->kategori_kuis_id = $request->kategori_kuis_id;
+        $hasilSeluruh->total_points = $opsi->sum('point');
+        $hasilSeluruh->save();
+
+        $soal = $opsi->mapWithKeys(function ($option) {
+            return [
+                $option->soal_id => [
+                    'opsi_id' => $option->id,
+                    'point' => $option->point
+                ],
+            ];
+        })->toArray();
+
+        $hasilSeluruh->soal()->sync($soal);
+
+        return redirect()->route('kuis.index');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($result_id)
     {
-        //
+        $result = Hasil::whereHas('user', function ($query) {
+            $query->whereId(auth()->id());
+        })->findOrFail($result_id);
+
+        return view('murid.kuis.show', compact('result'));
     }
 
     /**
@@ -44,7 +72,16 @@ class KuisController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $categories = KategoriKuis::where('id', $id)->with(['soal' => function ($query) {
+            $query->inRandomOrder()
+                ->with(['opsi' => function ($query) {
+                    $query->inRandomOrder();
+                }]);
+        }])
+            ->whereHas('soal')
+            ->get();
+
+        return view('murid.kuis.edit', compact('categories'));
     }
 
     /**
