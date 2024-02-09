@@ -115,5 +115,4 @@ email = murid@gmail.com
 password = murid123
 
 ## License
-This program has been development by [Xanoy](https://github.com/okkyarrohman)
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This program has been development by [Xanoy](https://github.com/okkyarrohman) and Teams
