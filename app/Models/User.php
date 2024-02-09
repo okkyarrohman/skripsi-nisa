@@ -43,4 +43,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function tugasResult()
+    {
+        return $this->hasMany(TugasResult::class);
+    }
+
+    public function hasil()
+    {
+        return $this->hasMany(Hasil::class);
+    }
 }

@@ -17,7 +17,7 @@ use App\Http\Controllers\Murid\MateriMuridController;
 use App\Http\Controllers\Murid\ReferensiMuridController;
 use App\Http\Controllers\Murid\TugasMuridController;
 use App\Http\Controllers\Murid\TutorialMuridController;
-use Dflydev\DotAccessData\Data;
+
 
 /*
 |--------------------------------------------------------------------------
