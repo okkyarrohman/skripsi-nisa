@@ -16,4 +16,9 @@ class Tugas extends Model
         'deskripsi',
         'dokumen'
     ];
+
+    public function tugasResult()
+    {
+        return $this->hasMany(TugasResult::class);
+    }
 }
