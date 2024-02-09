@@ -7,60 +7,113 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+# About Skripsi Nisa
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Aplikasi Learning Manajeman Sistem yang terdapat Guru dan Murid yang dimana setiap Role memiliki Feature yang Berbeda beda
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+# Feature Aplikasi Skripsi Nisa 
+Guru : 
+- Login, Register
+- Informasi Akun
+- Dashboard
+- CRUD Materi
+- CRUD Tugas
+- CRUD Quiz
+- Penilaian
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Murid : 
+- Login, Register
+- Informasi Akun
+- Dashboard
+- Materi
+- Tugas
+- Quiz
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Teknologi Yang Digunakan
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- PHP 8.1+
+- Laravel 10
+- Composer
+- MySql
+- NPM
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Instalasi Aplikasi
 
-## Laravel Sponsors
+### Instalalsi Awal
+- Clone Repository 
+- Buka Project yang sudah berhasil di clone
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- Pada Terminal Jalankan Action 
+```terminal
+composer update
+```
+- Tunggu Proses Composer membuild ke dalam folder vendor 
 
-### Premium Partners
+- Lalu jalankan Action
+```terminal
+npm install
+```
+- Tunggu Proses selesai untuk membuild file javascript kedalam folder node_modules
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+- Kemudian jalankan Action untuk mencopy file .env
+```terminal
+cp .env.example .env
+```
 
-## Contributing
+- Kemudian generate Key dengan action 
+```terminal
+php artisan generate:key
+```
+- Instalasi awal sudah dilakukan
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-## Code of Conduct
+### Instalasi Integrasi Dengan Database
+- Buat terlebih dahulu database pada MySQL
+- Taruh nama database yang sudah dibuat tadi kedalam folder .env pada bagian DB_DATABASE 
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+- Lalu, lakukan migrasi dengan menjalankan action pada terminal 
+```terminal
+php artisan migrate
+```
+- Setelah migrasi berhasil, jika ada dummy data jalankan action 
+```terminal
+php artisan db:seed
+```
+- Lalu ketikan action berikut untuk membuat storage link pada public
+```terminal
+php artisan storage:link
+```
 
-## Security Vulnerabilities
+- Integrasi dengan database selesai dilakukan 
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+
+## Menjalankan Aplikasi 
+- Untuk menjalankan Aplikasi ini memerlukan 2 terminal
+- untuk terminal pertama, jalankan action : 
+```terminal
+php artisan serve
+```
+
+- Untuk terminal kedua, jalankan action : 
+```terminal
+npm run dev
+```
+
+- Aplikasi sudah bisa dijalankan, silahkan pergi ke link yang ada pada terminal pertama untuk melihat aplikasi
+
+
+
+### User Account Testing
+
+Role Guru : 
+email = guru@gmail.com
+password = guru123
+
+Role Murid : 
+email = murid@gmail.com
+password = murid123
 
 ## License
-
+This program has been development by [Xanoy](https://github.com/okkyarrohman)
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
