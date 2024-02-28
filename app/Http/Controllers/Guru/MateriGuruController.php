@@ -54,9 +54,10 @@ class MateriGuruController extends Controller
      */
     public function show(string $id)
     {
+        $materi_all = Materi::all();
         $materis = Materi::find($id)->first();
 
-        return view('guru.materi.show', compact('materis'));
+        return view('guru.materi.show', compact('materis', 'materi_all'));
     }
 
     /**
