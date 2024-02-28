@@ -6,7 +6,7 @@
     <div class="grid grid-cols-2 gap-4 mb-14">
         <div class="px-14 w-full space-y-5">
             {{-- BUTTON KUNING --}}
-            <a href="" class="border-1 rounded border-kuning text-kuning block w-full p-2 text-center text-lg">
+            <a href="{{ route('materi-guru.create') }}" class="border-1 rounded border-kuning text-kuning block w-full p-2 text-center text-lg">
                 <div class="flex justify-center items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="w-6 h-6">

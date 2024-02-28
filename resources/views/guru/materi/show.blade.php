@@ -6,7 +6,8 @@
     <div class="grid grid-cols-2 gap-4">
         <div class="px-14 w-full space-y-5">
             {{-- BUTTON KUNING --}}
-            <a href="" class="border-1 rounded border-kuning text-kuning block w-full p-2 text-center text-lg">
+            <a href="{{ route('materi-guru.create') }}"
+                class="border-1 rounded border-kuning text-kuning block w-full p-2 text-center text-lg">
                 <div class="flex justify-center items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="w-6 h-6">
@@ -84,6 +85,15 @@
         </div>
         <div class="max-h-96 overflow-auto">
             {!! $materis->deskripsi !!}
+
+            <div class="mt-8">
+                @if ($materis->dokumen)
+                    <a href="{{ asset('storage/materi/dokumen/' . $materis->dokumen) }}" target="_blank"
+                        class="rounded bg-kuning p-2">
+                        Lihat Dokumen
+                    </a>
+                @endif
+            </div>
         </div>
     </div>
 @endsection
