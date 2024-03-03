@@ -23,7 +23,9 @@ class MateriGuruController extends Controller
      */
     public function create()
     {
-        return view('guru.materi.create');
+        $materi_all = Materi::all();
+        
+        return view('guru.materi.create', compact('materi_all'));
     }
 
     /**
@@ -54,9 +56,10 @@ class MateriGuruController extends Controller
      */
     public function show(string $id)
     {
-        $materis = Materi::find($id)->first();
+        $materi_all = Materi::all();
+        $materis = Materi::find($id);
 
-        return view('guru.materi.show', compact('materis'));
+        return view('guru.materi.show', compact('materis', 'materi_all'));
     }
 
     /**
