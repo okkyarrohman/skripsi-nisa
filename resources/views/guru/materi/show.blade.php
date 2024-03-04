@@ -1,6 +1,34 @@
 @extends('layouts.app')
 
 {{-- @dd($materis) --}}
+@push('script-bottom')
+    <script>
+        // Swal.fire({
+        //     title: 'Berhasil!',
+        //     text: 'Materi berhasil dihapus',
+        //     icon: 'success',
+        //     confirmButtonText: 'Oke'
+        // })
+
+        function hapus(id) {
+            const hapusForm = document.getElementById('delete-' + id);
+            Swal.fire({
+                title: 'Apakah anda yakin?',
+                text: "Materi yang dihapus tidak dapat dikembalikan!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Ya, hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    hapusForm.submit();
+                }
+            })
+        }
+    </script>
+@endpush
 
 @section('content')
     <div class="grid grid-cols-2 gap-4">
@@ -64,7 +92,8 @@
                                     <p>Edit</p>
                                 </div>
                             </a>
-                            <div id="1-item" class="text-center space-y-1 text-merah">
+                            <div id="1-item" class="text-center space-y-1 text-merah cursor-pointer"
+                                onclick="hapus({{ $item->id }})">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor" class="w-8 h-8 ">
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -72,6 +101,12 @@
                                 </svg>
 
                                 <p>Hapus</p>
+
+                                <form action="{{ route('materi-guru.destroy', ['materi_guru' => $item->id]) }}"
+                                    method="post" id="delete-{{ $item->id }}">
+                                    @csrf
+                                    @method('delete')
+                                </form>
                             </div>
                         </div>
                     </div>

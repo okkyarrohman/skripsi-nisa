@@ -83,5 +83,7 @@
             @yield('content')
         </main>
     </div>
+
+    @stack('script-bottom')
 </body>
 </html>
