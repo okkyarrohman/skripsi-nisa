@@ -23,7 +23,9 @@ class TugasGuruController extends Controller
      */
     public function create()
     {
-        return view('guru.tugas.create');
+        $tugases = Tugas::all();
+
+        return view('guru.tugas.create',compact('tugases'));
     }
 
     /**
@@ -54,9 +56,10 @@ class TugasGuruController extends Controller
      */
     public function show(string $id)
     {
-        $tugases = Tugas::find($id)->first();
+        $tugases = Tugas::find($id);
+        $tugas_all = Tugas::all();
 
-        return view('guru.tugas.show', compact('tugases'));
+        return view('guru.tugas.show', compact('tugases', 'tugas_all'));
     }
 
     /**
@@ -64,8 +67,9 @@ class TugasGuruController extends Controller
      */
     public function edit(string $id)
     {
-        $tugases = Tugas::find($id)->first();
-        return view('guru.tugas.edit', compact('tugases'));
+        $tugas_all = Tugas::all();
+        $tugases = Tugas::find($id);
+        return view('guru.tugas.edit', compact('tugases', 'tugas_all'));
     }
 
     /**
@@ -73,7 +77,7 @@ class TugasGuruController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $tugases = Tugas::find($id)->first();
+        $tugases = Tugas::find($id);
         $tugases->nama = $request->nama;
         if ($request->hasFile('dokumen')) {
             $dokumen = $request->file('dokumen');

@@ -17,6 +17,7 @@ export default {
                 netral: "#45484F",
                 "primary-blue": "#ACC9E2",
                 merah: "#CB3D10",
+                "blue-border": "#215784",
             },
         },
     },
