@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Guru;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Materi;
+use app\Repository\MateriRepository;
 
 class MateriGuruController extends Controller
 {
@@ -24,29 +25,20 @@ class MateriGuruController extends Controller
     public function create()
     {
         $materi_all = Materi::all();
-        
+
         return view('guru.materi.create', compact('materi_all'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, MateriRepository $repository)
     {
-        $materis = Materi::create([
-            'nama' => $request->input('nama'),
-            'deskripsi' => $request->input('deskripsi'),
-        ]);
-
-        // Request column input type file
-        if ($request->hasFile('dokumen')) {
-            $dokumen = $request->file('dokumen');
-            $extension = $dokumen->getClientOriginalName();
-            $dokumenName = date('Ymd') . "." . $extension;
-            $dokumen->move(storage_path('app/public/materi/dokumen/'), $dokumenName);
-            $materis->dokumen = $dokumenName;
-            $materis->save();
-        }
+        $materi =  $repository->store($request->only([
+            'nama',
+            'deskripsi',
+        ]));
+        $this->handleFileUpload($request, $materi, 'dokumen');
 
         return redirect()->route('materi-guru.index');
     }
@@ -75,19 +67,14 @@ class MateriGuruController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Materi $materi, MateriRepository $repository)
     {
-        $materis  = Materi::find($id);
-        $materis->nama = $request->nama;
-        $materis->deskripsi = $request->deskripsi;
-        if ($request->hasFile('dokumen')) {
-            $dokumen = $request->file('dokumen');
-            $extension = $dokumen->getClientOriginalName();
-            $dokumenName = date('Ymd') . "." . $extension;
-            $dokumen->move(storage_path('app/public/materi/dokumen/'), $dokumenName);
-            $materis->dokumen = $dokumenName;
-        }
-        $materis->save();
+        $materi = $repository->update($materi, $request->only([
+            'nama',
+            'deskripsi',
+            'dokumen' => $this->handleFileUpload($request, $materi, 'dokumen'),
+        ]));
+
 
         return redirect()->route('materi-guru.index');
     }
@@ -101,5 +88,17 @@ class MateriGuruController extends Controller
 
         $materis->delete();
         return redirect()->route('materi-guru.index');
+    }
+
+    private function handleFileUpload(Request $request, Materi $materi, $columnName)
+    {
+        if ($request->hasFile($columnName)) {
+            $file = $request->file($columnName);
+            $extension = $file->getClientOriginalExtension();
+            $fileName = date('YmdHi') . '.' . $materi->nama . '.' . $extension;
+            $file->storeAs('public/Materi/' . $columnName, $fileName);
+            $materi->$columnName = $fileName;
+            $materi->save();
+        }
     }
 }
