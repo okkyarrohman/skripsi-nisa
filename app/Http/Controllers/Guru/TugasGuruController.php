@@ -95,7 +95,7 @@ class TugasGuruController extends Controller
      */
     public function destroy(string $id)
     {
-        $tugases = Tugas::find($id)->first();
+        $tugases = Tugas::find($id);
         $tugases->delete();
 
         return redirect()->route('tugas-guru.index');

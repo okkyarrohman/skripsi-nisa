@@ -169,10 +169,12 @@
                     </div>
 
                     @if ($tugases->dokumen)
-                        <a href="{{ asset('storage/tugas/dokumen/' . $tugases->dokumen) }}" target="_blank"
-                            class="rounded bg-kuning p-2">
-                            Lihat Dokumen
-                        </a>
+                        <div>
+                            <a href="{{ asset('storage/tugas/dokumen/' . $tugases->dokumen) }}" target="_blank"
+                                class="rounded bg-kuning p-2">
+                                Lihat Dokumen
+                            </a>
+                        </div>
                     @endif
 
                     {{-- <button type="submit" class="w-full mt-5 bg-kuning text-white rounded p-1">
