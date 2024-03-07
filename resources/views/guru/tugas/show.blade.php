@@ -163,9 +163,12 @@
 
                     <div class="space-y-2">
                         <p>Deskripsi Tugas</p>
-                        <input readonly type="text" name="deskripsi"
+                        {{-- <input readonly type="text" name="deskripsi"
                             class="w-full border-1 rounded p-1 border-blue-border" id=""
-                            value="{{ $tugases->deskripsi }}">
+                            value="{{ $tugases->deskripsi }}"> --}}
+
+                        <textarea readonly name="" id="" name="deskripsi" class="w-full border-1 rounded p-1 border-blue-border"
+                            cols="30" rows="5">{{ $tugases->deskripsi }}</textarea>
                     </div>
 
                     @if ($tugases->dokumen)

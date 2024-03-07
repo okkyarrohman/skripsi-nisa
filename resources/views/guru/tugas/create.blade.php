@@ -146,7 +146,8 @@
                             id="">
                     </div>
 
-                    <button class="border-1 rounded border-kuning text-kuning block w-full p-1 text-center text-base" type="button">
+                    <button class="border-1 rounded border-kuning text-kuning block w-full p-1 text-center text-base"
+                        type="button">
                         <div class="flex justify-center items-center gap-2">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="w-6 h-6">
@@ -161,8 +162,11 @@
 
                     <div class="space-y-2">
                         <p>Deskripsi Tugas</p>
-                        <input type="text" name="deskripsi" class="w-full border-1 rounded p-1 border-blue-border"
-                            id="">
+                        {{-- <input type="text" name="deskripsi" class="w-full border-1 rounded p-1 border-blue-border"
+                            id=""> --}}
+
+                        <textarea id="deskripsi" name="deskripsi" class="w-full border-1 rounded p-1 border-blue-border"
+                            cols="30" rows="5"></textarea>
                     </div>
 
                     <div class="space-y-2">

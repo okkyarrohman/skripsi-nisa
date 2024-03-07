@@ -129,8 +129,8 @@
             <div class="w-full p-4 rounded-lg shadow-md">
                 <h1 class="text-xl text-kuning font-semibold text-center mb-6">Edit Tugas</h1>
 
-                <form action="{{ route('tugas-guru.update', ['tugas_guru' => $tugases->id]) }}" method="post" class="space-y-3"
-                    enctype="multipart/form-data">
+                <form action="{{ route('tugas-guru.update', ['tugas_guru' => $tugases->id]) }}" method="post"
+                    class="space-y-3" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
 
@@ -163,8 +163,10 @@
 
                     <div class="space-y-2">
                         <p>Deskripsi Tugas</p>
-                        <input type="text" name="deskripsi" class="w-full border-1 rounded p-1 border-blue-border"
-                            id="" value="{{ $tugases->deskripsi }}">
+                        {{-- <input type="text" name="deskripsi" class="w-full border-1 rounded p-1 border-blue-border"
+                            id="" value="{{ $tugases->deskripsi }}"> --}}
+                        <textarea id="deskripsi" name="deskripsi" class="w-full border-1 rounded p-1 border-blue-border"
+                            cols="30" rows="5">{{ $tugases->deskripsi }}</textarea>
                     </div>
 
                     <div class="space-y-2">
