@@ -121,7 +121,7 @@
 
             </div>
         </div>
-        <div class="flex flex-col gap-2 justify-center items-center mt-36">
+        <div class="flex flex-col gap-2 justify-center items-center mt-24">
             <img src="{{ asset('assets/image/pilih materi.png') }}" alt="">
             <p class="text-[#B0ACAC]">Silakan Pilih materi anda</p>
         </div>
