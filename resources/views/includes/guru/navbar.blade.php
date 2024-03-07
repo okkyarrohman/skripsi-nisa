@@ -4,17 +4,17 @@
 </div>
 <div class="mt-7 flex justify-between px-16 text-[#A2A3A7]">
     <a href="{{ route('materi-guru.index') }}"
-        class="mb-5  inline-block rounded-sm {{ request()->routeIs('materi-guru*') ? 'text-[#215784] border-[#215784] border-b-4' : '' }}">Materi</a>
+        class=" {{ request()->routeIs('tugas-guru.nilai') ? 'mb-2' : 'mb-5' }}  inline-block rounded-sm {{ request()->routeIs('materi-guru*') ? 'text-[#215784] border-[#215784] border-b-4' : '' }}">Materi</a>
     <a href="{{ route('tugas-guru.index') }}"
-        class="mb-5  inline-block rounded-sm {{ request()->routeIs('tugas-guru*') ? 'text-[#215784] border-[#215784] border-b-4' : '' }}">Tugas</a>
+        class="{{ request()->routeIs('tugas-guru.nilai') ? 'mb-2' : 'mb-5' }}  inline-block rounded-sm {{ request()->routeIs('tugas-guru*') || request()->routeIs('tugas-guru.nilai') ? 'text-[#215784] border-[#215784] border-b-4' : '' }}">Tugas</a>
     <a href="{{ route('data-murid.index') }}"
-        class="mb-5  inline-block rounded-sm {{ request()->routeIs('data-murid*') ? 'text-[#215784] border-[#215784] border-b-4' : '' }}">Data
+        class="{{ request()->routeIs('tugas-guru.nilai') ? 'mb-2' : 'mb-5' }}  inline-block rounded-sm {{ request()->routeIs('data-murid*') ? 'text-[#215784] border-[#215784] border-b-4' : '' }}">Data
         Siswa</a>
     <a href="#"
-        class="mb-5  inline-block rounded-sm {{ request()->routeIs('kuis*') ? 'text-[#215784] border-[#215784] border-b-4' : '' }}">Kuis</a>
+        class="{{ request()->routeIs('tugas-guru.nilai') ? 'mb-2' : 'mb-5' }}  inline-block rounded-sm {{ request()->routeIs('kuis*') ? 'text-[#215784] border-[#215784] border-b-4' : '' }}">Kuis</a>
     <a href="{{ route('referensi-guru.index') }}"
-        class="mb-5  inline-block rounded-sm {{ request()->routeIs('referensi-guru*') ? 'text-[#215784] border-[#215784] border-b-4' : '' }}">Referensi</a>
+        class="{{ request()->routeIs('tugas-guru.nilai') ? 'mb-2' : 'mb-5' }}  inline-block rounded-sm {{ request()->routeIs('referensi-guru*') ? 'text-[#215784] border-[#215784] border-b-4' : '' }}">Referensi</a>
     <a href="{{ route('tutorial-guru.index') }}"
-        class="mb-5  inline-block rounded-sm {{ request()->routeIs('tutorial-guru*') ? 'text-[#215784] border-[#215784] border-b-4' : '' }}">Tutorial</a>
+        class="{{ request()->routeIs('tugas-guru.nilai') ? 'mb-2' : 'mb-5' }}  inline-block rounded-sm {{ request()->routeIs('tutorial-guru*') ? 'text-[#215784] border-[#215784] border-b-4' : '' }}">Tutorial</a>
     <a href="#">Absen</a>
 </div>

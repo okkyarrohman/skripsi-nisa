@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Guru;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Tugas;
+use App\Models\TugasResult;
 
 class TugasGuruController extends Controller
 {
@@ -25,7 +26,7 @@ class TugasGuruController extends Controller
     {
         $tugases = Tugas::all();
 
-        return view('guru.tugas.create',compact('tugases'));
+        return view('guru.tugas.create', compact('tugases'));
     }
 
     /**
@@ -99,5 +100,13 @@ class TugasGuruController extends Controller
         $tugases->delete();
 
         return redirect()->route('tugas-guru.index');
+    }
+
+    public function nilai(string $id)
+    {
+        $tugases = Tugas::find($id);
+        $result = TugasResult::with(['user', 'tugas'])->where('tugas_id', $id)->get();
+
+        return view('guru.tugas.nilai', compact('result', 'tugases'));
     }
 }

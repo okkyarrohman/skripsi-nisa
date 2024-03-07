@@ -109,10 +109,12 @@
                                     @method('delete')
                                 </form>
                             </div>
-                            <div id="1-item"
-                                class="text-center space-y-1 cursor-pointer text-kuning border-2 border-kuning p-1 rounded">
-                                Nilai Tugas
-                            </div>
+                            <a href="{{ route('tugas-guru.nilai', ['id' => $item->id]) }}">
+                                <div id="1-item"
+                                    class="text-center space-y-1 cursor-pointer text-kuning border-2 border-kuning p-1 rounded">
+                                    Nilai Tugas
+                                </div>
+                            </a>
                         </div>
                     </div>
                 @empty
@@ -165,8 +167,8 @@
                         <p>Deskripsi Tugas</p>
                         {{-- <input type="text" name="deskripsi" class="w-full border-1 rounded p-1 border-blue-border"
                             id="" value="{{ $tugases->deskripsi }}"> --}}
-                        <textarea id="deskripsi" name="deskripsi" class="w-full border-1 rounded p-1 border-blue-border"
-                            cols="30" rows="5">{{ $tugases->deskripsi }}</textarea>
+                        <textarea id="deskripsi" name="deskripsi" class="w-full border-1 rounded p-1 border-blue-border" cols="30"
+                            rows="5">{{ $tugases->deskripsi }}</textarea>
                     </div>
 
                     <div class="space-y-2">

@@ -48,6 +48,9 @@ Route::group(['middleware' => 'role:guru'], function () {
             'referensi-guru' => ReferensiGuruController::class,
             'tutorial-guru' => TutorialGuruController::class,
         ]);
+        Route::get('/tugas-guru/{id}/nilai', [TugasGuruController::class, 'nilai'])->name('tugas-guru.nilai');
+
+
         Route::prefix('kuis')->group(function () {
             // Routes Kuis Start From Here
             Route::resources([
