@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Guru;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Tugas;
+use App\Models\TugasResult;
 
 class TugasGuruController extends Controller
 {
@@ -23,7 +24,9 @@ class TugasGuruController extends Controller
      */
     public function create()
     {
-        return view('guru.tugas.create');
+        $tugases = Tugas::all();
+
+        return view('guru.tugas.create', compact('tugases'));
     }
 
     /**
@@ -54,9 +57,10 @@ class TugasGuruController extends Controller
      */
     public function show(string $id)
     {
-        $tugases = Tugas::find($id)->first();
+        $tugases = Tugas::find($id);
+        $tugas_all = Tugas::all();
 
-        return view('guru.tugas.show', compact('tugases'));
+        return view('guru.tugas.show', compact('tugases', 'tugas_all'));
     }
 
     /**
@@ -64,8 +68,9 @@ class TugasGuruController extends Controller
      */
     public function edit(string $id)
     {
-        $tugases = Tugas::find($id)->first();
-        return view('guru.tugas.edit', compact('tugases'));
+        $tugas_all = Tugas::all();
+        $tugases = Tugas::find($id);
+        return view('guru.tugas.edit', compact('tugases', 'tugas_all'));
     }
 
     /**
@@ -73,7 +78,7 @@ class TugasGuruController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $tugases = Tugas::find($id)->first();
+        $tugases = Tugas::find($id);
         $tugases->nama = $request->nama;
         if ($request->hasFile('dokumen')) {
             $dokumen = $request->file('dokumen');
@@ -91,9 +96,17 @@ class TugasGuruController extends Controller
      */
     public function destroy(string $id)
     {
-        $tugases = Tugas::find($id)->first();
+        $tugases = Tugas::find($id);
         $tugases->delete();
 
         return redirect()->route('tugas-guru.index');
+    }
+
+    public function nilai(string $id)
+    {
+        $tugases = Tugas::find($id);
+        $result = TugasResult::with(['user', 'tugas'])->where('tugas_id', $id)->get();
+
+        return view('guru.tugas.nilai', compact('result', 'tugases'));
     }
 }

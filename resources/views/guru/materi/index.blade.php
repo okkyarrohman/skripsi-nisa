@@ -2,11 +2,41 @@
 
 {{-- @dd($materis) --}}
 
+@push('script-bottom')
+    <script>
+        // Swal.fire({
+        //     title: 'Berhasil!',
+        //     text: 'Materi berhasil dihapus',
+        //     icon: 'success',
+        //     confirmButtonText: 'Oke'
+        // })
+
+        function hapus(id) {
+            const hapusForm = document.getElementById('delete-' + id);
+            Swal.fire({
+                title: 'Apakah anda yakin?',
+                text: "Materi yang dihapus tidak dapat dikembalikan!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Ya, hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    hapusForm.submit();
+                }
+            })
+        }
+    </script>
+@endpush
+
 @section('content')
     <div class="grid grid-cols-2 gap-4 mb-14">
         <div class="px-14 w-full space-y-5">
             {{-- BUTTON KUNING --}}
-            <a href="{{ route('materi-guru.create') }}" class="border-1 rounded border-kuning text-kuning block w-full p-2 text-center text-lg">
+            <a href="{{ route('materi-guru.create') }}"
+                class="border-1 rounded border-kuning text-kuning block w-full p-2 text-center text-lg">
                 <div class="flex justify-center items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="w-6 h-6">
@@ -54,14 +84,17 @@
                         </a>
                         {{-- ACTION --}}
                         <div class="w-24 flex items-center justify-between">
-                            <div id="1-item" class="text-center space-y-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-black" viewBox="0 0 24 24">
-                                    <path fill="currentColor"
-                                        d="M3.548 20.938h16.9a.5.5 0 0 0 0-1h-16.9a.5.5 0 0 0 0 1M9.71 17.18a2.587 2.587 0 0 0 1.12-.65l9.54-9.54a1.75 1.75 0 0 0 0-2.47l-.94-.93a1.788 1.788 0 0 0-2.47 0l-9.54 9.53a2.473 2.473 0 0 0-.64 1.12L6.04 17a.737.737 0 0 0 .19.72a.767.767 0 0 0 .53.22Zm.41-1.36a1.468 1.468 0 0 1-.67.39l-.97.26l-1-1l.26-.97a1.521 1.521 0 0 1 .39-.67l.38-.37l1.99 1.99Zm1.09-1.08l-1.99-1.99l6.73-6.73l1.99 1.99Zm8.45-8.45L18.65 7.3l-1.99-1.99l1.01-1.02a.748.748 0 0 1 1.06 0l.93.94a.754.754 0 0 1 0 1.06" />
-                                </svg>
-                                <p>Edit</p>
-                            </div>
-                            <div id="1-item" class="text-center space-y-1 text-merah">
+                            <a href="{{ route('materi-guru.edit', ['materi_guru' => $item->id]) }}">
+                                <div id="1-item" class="text-center space-y-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-black" viewBox="0 0 24 24">
+                                        <path fill="currentColor"
+                                            d="M3.548 20.938h16.9a.5.5 0 0 0 0-1h-16.9a.5.5 0 0 0 0 1M9.71 17.18a2.587 2.587 0 0 0 1.12-.65l9.54-9.54a1.75 1.75 0 0 0 0-2.47l-.94-.93a1.788 1.788 0 0 0-2.47 0l-9.54 9.53a2.473 2.473 0 0 0-.64 1.12L6.04 17a.737.737 0 0 0 .19.72a.767.767 0 0 0 .53.22Zm.41-1.36a1.468 1.468 0 0 1-.67.39l-.97.26l-1-1l.26-.97a1.521 1.521 0 0 1 .39-.67l.38-.37l1.99 1.99Zm1.09-1.08l-1.99-1.99l6.73-6.73l1.99 1.99Zm8.45-8.45L18.65 7.3l-1.99-1.99l1.01-1.02a.748.748 0 0 1 1.06 0l.93.94a.754.754 0 0 1 0 1.06" />
+                                    </svg>
+                                    <p>Edit</p>
+                                </div>
+                            </a>
+                            <div id="1-item" class="text-center space-y-1 text-merah cursor-pointer"
+                                onclick="hapus({{ $item->id }})">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor" class="w-8 h-8 ">
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -69,6 +102,12 @@
                                 </svg>
 
                                 <p>Hapus</p>
+
+                                <form action="{{ route('materi-guru.destroy', ['materi_guru' => $item->id]) }}"
+                                    method="post" id="delete-{{ $item->id }}">
+                                    @csrf
+                                    @method('delete')
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -82,7 +121,7 @@
 
             </div>
         </div>
-        <div class="flex flex-col gap-2 justify-center items-center mt-36">
+        <div class="flex flex-col gap-2 justify-center items-center mt-24">
             <img src="{{ asset('assets/image/pilih materi.png') }}" alt="">
             <p class="text-[#B0ACAC]">Silakan Pilih materi anda</p>
         </div>

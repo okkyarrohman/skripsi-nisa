@@ -67,9 +67,10 @@ class MateriGuruController extends Controller
      */
     public function edit(string $id)
     {
-        $materis = Materi::find($id)->first();
+        $materis = Materi::find($id);
+        $materi_all = Materi::all();
 
-        return view('guru.materi.edit', compact('materis'));
+        return view('guru.materi.edit', compact('materis', 'materi_all'));
     }
 
     /**
@@ -97,7 +98,7 @@ class MateriGuruController extends Controller
      */
     public function destroy(string $id)
     {
-        $materis = Materi::find($id)->first();
+        $materis = Materi::find($id);
 
         $materis->delete();
         return redirect()->route('materi-guru.index');
