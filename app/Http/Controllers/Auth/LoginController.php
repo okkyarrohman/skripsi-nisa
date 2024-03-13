@@ -40,13 +40,12 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    protected function authenticated(Request $request, $user)
+    protected function authenticated($user)
     {
-        $guru = $user->hasRoles('guru');
 
-        if ($guru) {
+        if ($user->hasRoles('guru')) {
             return redirect()->route('dashboard.guru');
-        } else {
+        } else if ($user->hasRoles('murid')) {
             $user->session_login_at = Carbon::now();
             $user->save();
 
