@@ -109,4 +109,5 @@ class TugasGuruController extends Controller
 
         return view('guru.tugas.nilai', compact('result', 'tugases'));
     }
+    
 }

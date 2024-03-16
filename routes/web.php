@@ -68,6 +68,9 @@ Route::group(['middleware' => 'role:guru'], function () {
 Route::group(['middleware' => 'role:murid'], function () {
     Route::prefix('murid')->group(function () {
         // Route Murid Start from here
+
+        Route::get('/tugas/belum-kelompok', [TugasMuridController::class, 'belumKelompok'])->name('tugas.belum_kelompok');
+        
         Route::get('/dashboard', [HomeController::class, 'murid'])->name('dashboard.murid');
         Route::resources([
             'materi' => MateriMuridController::class,
