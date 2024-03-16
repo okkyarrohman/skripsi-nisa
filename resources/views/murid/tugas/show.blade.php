@@ -18,8 +18,52 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         var editor = ace.edit("editor");
+        // seteditor value
+        editor.setValue(`#include <iostream>
+using namespace std;
+int main() {
+    cout << "Hello, World!";
+    return 0;
+}`);
+        editor.clearSelection();
+
+
         editor.setTheme("ace/theme/monokai");
         editor.session.setMode("ace/mode/c_cpp");
+
+        document.getElementById('cpp-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // make new input name cpp_code
+            var input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'cpp_code';
+            input.value = editor.getValue();
+
+            document.getElementById('cpp-form').appendChild(input);
+            document.getElementById('cpp-form').submit();
+
+            // var cppCode = editor.getValue();
+            // var formData = new FormData();
+            // formData.append('cpp_code', cppCode);
+            // formData.append('_token', '{{ csrf_token() }}');
+
+            // fetch('{{ route('run_cpp') }}', {
+            //         method: 'POST',
+            //         body: formData
+            //     })
+            //     .then(response => response.json())
+            //     .then(data => {
+            //         if (data.error) {
+            //             document.getElementById('output').innerText = 'Error: ' + data.error;
+            //         } else {
+            //             document.getElementById('output').innerText = data.output;
+            //         }
+            //     })
+            //     .catch(error => {
+            //         console.error('Error:', error);
+            //     });
+        });
     </script>
 @endpush
 
@@ -130,16 +174,24 @@
                     </a>
                 </div>
 
-                <div class="relative min-w-96 min-h-64">
-                    <div id="editor">function foo(items) {
-                        var x = "All this is syntax highlighted";
-                        return x;
-                        }</div>
-                </div>
+                <form id="cpp-form" method="POST" action="{{ route('run_cpp') }}">
+                    @csrf
+                    @method('POST')
+                    <div class="relative min-w-96 min-h-64">
+                        <div id="editor"></div>
+                    </div>
+
+                    <button type="submit" class="border-1 border-kuning p-2">
+                        submit
+                    </button>
+                </form>
                 <img src="./asset/filetugas1.png" alt="">
                 <div class="flex items-center justify-center bg-[#708CD5] w-fit px-3 py-2 mt-6 rounded-lg gap-2">
                     <p class="text-white">
                         Output
+                    </p>
+                    <p id="output">
+
                     </p>
                     <a href="">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
