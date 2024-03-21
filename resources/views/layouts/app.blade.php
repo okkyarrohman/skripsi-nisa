@@ -88,7 +88,7 @@
             @include('includes.murid.navbar')
         @endrole
 
-        <main class="py-4">
+        <main class="{{ Request::routeIs('login', 'register') ? '' : 'py-4' }}">
             @yield('content')
         </main>
     </div>

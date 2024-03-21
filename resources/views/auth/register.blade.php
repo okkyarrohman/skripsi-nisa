@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+    {{-- <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -73,5 +73,54 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
+    <div class="flex h-screen">
+        <div class="h-screen w-1/2 flex flex-col items-center justify-center gap-14">
+            <h1 class="font-bold text-3xl items-center flex flex-col justify-center text-center">Halo! Selamat Datang
+                di<br />
+                (Nama Website)</h1>
+            <img src="{{ asset('assets/image/login.png') }}" alt="" class="w-[500px]" />
+        </div>
+        <div class=" flex-col flex items-center justify-center w-1/2 bg-[#215784] min-h-screen gap-4">
+            <h1 class="text-white flex w-full justify-center font-bold text-xl">Registrasi</h1>
+            <div class="flex justify-center w-full items-center">
+                <form class="bg-white w-3/5  shadow-md rounded-xl px-8 pt-6 pb-8 mb-4 min-h-[450px]">
+                    <div class="mb-4 mt-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2 " for="username">
+                            Full Name
+                        </label>
+                        <input
+                            class="shadow appearance-none border w-full py-2 px-5 text-gray-700 rounded-3xl leading-tight focus:outline-none focus:shadow-outline"
+                            id="fullname" type="text" placeholder="nama lengkap">
+                    </div>
+                    <div class="mb-4 mt-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2 " for="username">
+                            Username
+                        </label>
+                        <input
+                            class="shadow appearance-none border w-full py-2 px-5 text-gray-700 rounded-3xl leading-tight focus:outline-none focus:shadow-outline"
+                            id="username" type="text" placeholder="Username">
+                    </div>
+                    <div class="mb-6">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+                            Password
+                        </label>
+                        <input
+                            class="shadow appearance-none border w-full py-2 px-5 flex items-center justify-center text-gray-700 rounded-3xl leading-tight focus:outline-none focus:shadow-outline"
+                            id="password" type="password" placeholder="******************">
+                    </div>
+                    <div class="flex items-center justify-between mb-5 mt-14">
+                        <button
+                            class="bg-[#B8B4B1] hover:bg-gray-400 w-full text-white font-bold py-2 px-4 rounded-3xl focus:outline-none focus:shadow-outline"
+                            type="button">
+                            Sign In
+                        </button>
+                    </div>
+                    <div>
+                        Sudah punya akun ? <a href="{{ route('login') }}" class="text-[#215784] font-bold">Login</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection

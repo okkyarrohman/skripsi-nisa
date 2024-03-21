@@ -19,12 +19,12 @@ class CppController extends Controller
 
         // Periksa apakah ada kesalahan dalam kompilasi
         if ($output) {
-            return response()->json(['error' => $output]);
+            return view('murid.tugas.show', compact('output', 'cpp_code'));
         }
 
         // Jalankan executable C++ dan ambil outputnya
         $output = shell_exec(storage_path('app/cpp_executable'));
 
-        return response()->json(['output' => $output]);
+        return view('murid.tugas.show', compact('output', 'cpp_code'));
     }
 }

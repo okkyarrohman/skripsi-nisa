@@ -19,12 +19,25 @@
     <script>
         var editor = ace.edit("editor");
         // seteditor value
-        editor.setValue(`#include <iostream>
+        @if (isset($cpp_code))
+            editor.setValue(`{!! $cpp_code !!}`);
+        @else
+            editor.setValue(`#include <iostream>
 using namespace std;
 int main() {
     cout << "Hello, World!";
     return 0;
 }`);
+        @endif
+
+        editor.setOptions({
+            fontSize: "12pt",
+            showLineNumbers: true,
+            showGutter: true,
+            vScrollBarAlwaysVisible: true,
+            enableBasicAutocompletion: true,
+            enableLiveAutocompletion: true,
+        });
         editor.clearSelection();
 
 
@@ -42,27 +55,6 @@ int main() {
 
             document.getElementById('cpp-form').appendChild(input);
             document.getElementById('cpp-form').submit();
-
-            // var cppCode = editor.getValue();
-            // var formData = new FormData();
-            // formData.append('cpp_code', cppCode);
-            // formData.append('_token', '{{ csrf_token() }}');
-
-            // fetch('{{ route('run_cpp') }}', {
-            //         method: 'POST',
-            //         body: formData
-            //     })
-            //     .then(response => response.json())
-            //     .then(data => {
-            //         if (data.error) {
-            //             document.getElementById('output').innerText = 'Error: ' + data.error;
-            //         } else {
-            //             document.getElementById('output').innerText = data.output;
-            //         }
-            //     })
-            //     .catch(error => {
-            //         console.error('Error:', error);
-            //     });
         });
     </script>
 @endpush
@@ -181,8 +173,9 @@ int main() {
                         <div id="editor"></div>
                     </div>
 
-                    <button type="submit" class="border-1 border-kuning p-2">
-                        submit
+                    <button type="submit"
+                        class="border-1 text-kuning border-kuning p-2 rounded-lg hover:bg-kuning hover:text-white mt-4 w-full">
+                        Run Program
                     </button>
                 </form>
                 <img src="./asset/filetugas1.png" alt="">
@@ -200,6 +193,7 @@ int main() {
                         </svg>
                     </a>
                 </div>
+                <textarea name="" id="" class="min-w-96 min-h-10 p-2 border-slate-700 rounded-2xl border-1 bg-slate-700 text-white font-mono" readonly>Output: {{ $output ?? 'belum ada output' }}</textarea>
                 <img src="./asset/filetugas2.png" alt="">
             </div>
         </div>
