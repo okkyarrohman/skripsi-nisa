@@ -46,9 +46,9 @@ class TugasMuridController extends Controller
      */
     public function show(string $id)
     {
-        $tugases = Tugas::find($id)->first();
+        $tugases = Tugas::find($id);
 
-        return view('murid.tugas.index', compact('tugases'));
+        return view('murid.tugas.show', compact('tugases'));
     }
 
     /**
@@ -56,7 +56,7 @@ class TugasMuridController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('murid.tugas.edit');
     }
 
     /**
@@ -79,5 +79,11 @@ class TugasMuridController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function belumKelompok()
+    {
+
+        return view('murid.tugas.belum_kelompok');
     }
 }

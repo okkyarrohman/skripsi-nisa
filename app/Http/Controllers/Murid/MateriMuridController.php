@@ -38,7 +38,7 @@ class MateriMuridController extends Controller
      */
     public function show(string $id)
     {
-        $materis = Materi::find($id)->first();
+        $materis = Materi::find($id);
         return view('murid.materi.show', compact('materis'));
     }
 
