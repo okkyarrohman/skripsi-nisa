@@ -62,7 +62,13 @@ class KuisController extends Controller
     {
         $result = Hasil::whereHas('user', function ($query) {
             $query->whereId(auth()->id());
-        })->findOrFail($result_id);
+        })->find($result_id);
+
+        // if there is no result, return to index
+        // if (!$result) {
+        //     // result = null
+        //     $result = null;
+        // }
 
         return view('murid.kuis.show', compact('result'));
     }
@@ -98,5 +104,11 @@ class KuisController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function mulai($id)
+    {
+        $kategori = KategoriKuis::find($id);
+        return view('murid.kuis.mulai', compact('kategori'));
     }
 }

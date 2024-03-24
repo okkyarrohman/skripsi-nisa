@@ -71,9 +71,10 @@ Route::group(['middleware' => 'role:murid'], function () {
         // Route Murid Start from here
 
         Route::get('/tugas/belum-kelompok', [TugasMuridController::class, 'belumKelompok'])->name('tugas.belum_kelompok');
+        Route::get("/kuis/{kategori_kuis}/mulai", [KuisController::class, 'mulai'])->name('kuis.mulai');
 
         Route::post('/run_cpp', [CppController::class, 'runCpp'])->name('run_cpp');
-        
+
         Route::get('/dashboard', [HomeController::class, 'murid'])->name('dashboard.murid');
         Route::resources([
             'materi' => MateriMuridController::class,
