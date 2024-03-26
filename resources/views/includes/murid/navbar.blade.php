@@ -13,5 +13,5 @@
         class="{{ request()->routeIs('referensi.index') ? 'mb-2' : 'mb-0' }}  inline-block rounded-sm {{ request()->routeIs('referensi*') ? 'text-[#215784] border-[#215784] border-b-4' : '' }}">Referensi</a>
     <a href="{{ route('tutorial.index') }}"
         class="{{ request()->routeIs('tutorial.index') ? 'mb-2' : 'mb-0' }}  inline-block rounded-sm {{ request()->routeIs('tutorial*') ? 'text-[#215784] border-[#215784] border-b-4' : '' }}">Tutorial</a>
-    <a href="#">Absen</a>
+    <a href="{{ route('absen.index') }}">Absen</a>
 </div>

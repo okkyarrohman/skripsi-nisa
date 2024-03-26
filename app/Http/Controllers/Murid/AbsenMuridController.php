@@ -3,19 +3,17 @@
 namespace App\Http\Controllers\Murid;
 
 use App\Http\Controllers\Controller;
-use App\Models\Tutorial;
 use Illuminate\Http\Request;
 
-class TutorialMuridController extends Controller
+class AbsenMuridController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $tutorials = Tutorial::all();
-
-        return view('murid.tutorial.index', compact('tutorials'));
+        //
+        return view("murid.absen.index");
     }
 
     /**
@@ -39,10 +37,7 @@ class TutorialMuridController extends Controller
      */
     public function show(string $id)
     {
-
-        $tutorials = Tutorial::find($id);
-
-        return view('murid.tutorial.show', compact('tutorials'));
+        //
     }
 
     /**

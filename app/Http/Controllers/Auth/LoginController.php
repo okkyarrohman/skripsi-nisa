@@ -42,7 +42,7 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
-        $guru = $user->hasRoles('guru');
+        $guru = $user->hasRole('guru');
 
         if ($guru) {
             return redirect()->route('dashboard.guru');

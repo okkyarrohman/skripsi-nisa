@@ -18,7 +18,7 @@ use App\Http\Controllers\Murid\ReferensiMuridController;
 use App\Http\Controllers\Murid\TugasMuridController;
 use App\Http\Controllers\Murid\TutorialMuridController;
 use App\Http\Controllers\CppController;
-
+use App\Http\Controllers\Murid\AbsenMuridController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,7 +32,7 @@ use App\Http\Controllers\CppController;
 */
 
 // Landing Page
-Route::view('/', 'welcome');
+Route::view('/', 'landingpage')->name('landingpage');
 
 // Auth Routes
 Auth::routes();
@@ -82,6 +82,7 @@ Route::group(['middleware' => 'role:murid'], function () {
             'kuis' => KuisController::class,
             'referensi' => ReferensiMuridController::class,
             'tutorial' => TutorialMuridController::class,
+            "absen" => AbsenMuridController::class,
         ]);
     });
 });
