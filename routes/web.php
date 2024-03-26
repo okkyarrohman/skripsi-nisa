@@ -18,6 +18,7 @@ use App\Http\Controllers\Murid\ReferensiMuridController;
 use App\Http\Controllers\Murid\TugasMuridController;
 use App\Http\Controllers\Murid\TutorialMuridController;
 use App\Http\Controllers\CppController;
+use App\Http\Controllers\Guru\AbsenController;
 use App\Http\Controllers\Murid\AbsenMuridController;
 
 /*
@@ -44,6 +45,7 @@ Route::group(['middleware' => 'role:guru'], function () {
         Route::get('/dashboard', [HomeController::class, 'guru'])->name('dashboard.guru');
         Route::get('/data-murid/kelompok', [DataSiswaController::class, 'kelompok'])->name('data-murid.kelompok');
         Route::resources([
+            'absen-guru' => AbsenController::class,
             'data-murid' => DataSiswaController::class,
             'materi-guru' => MateriGuruController::class,
             'tugas-guru' => TugasGuruController::class,
