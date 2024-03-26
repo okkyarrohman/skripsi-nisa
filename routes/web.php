@@ -18,7 +18,7 @@ use App\Http\Controllers\Murid\ReferensiMuridController;
 use App\Http\Controllers\Murid\TugasMuridController;
 use App\Http\Controllers\Murid\TutorialMuridController;
 use App\Http\Controllers\CppController;
-
+use App\Http\Controllers\Murid\AbsenMuridController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,7 +32,7 @@ use App\Http\Controllers\CppController;
 */
 
 // Landing Page
-Route::view('/', 'welcome');
+Route::view('/', 'landingpage')->name('landingpage');
 
 // Auth Routes
 Auth::routes();
@@ -42,6 +42,7 @@ Route::group(['middleware' => 'role:guru'], function () {
     Route::prefix('guru')->group(function () {
         // Route Guru Start from here
         Route::get('/dashboard', [HomeController::class, 'guru'])->name('dashboard.guru');
+        Route::get('/data-murid/kelompok', [DataSiswaController::class, 'kelompok'])->name('data-murid.kelompok');
         Route::resources([
             'data-murid' => DataSiswaController::class,
             'materi-guru' => MateriGuruController::class,
@@ -71,9 +72,10 @@ Route::group(['middleware' => 'role:murid'], function () {
         // Route Murid Start from here
 
         Route::get('/tugas/belum-kelompok', [TugasMuridController::class, 'belumKelompok'])->name('tugas.belum_kelompok');
+        Route::get("/kuis/{kategori_kuis}/mulai", [KuisController::class, 'mulai'])->name('kuis.mulai');
 
         Route::post('/run_cpp', [CppController::class, 'runCpp'])->name('run_cpp');
-        
+
         Route::get('/dashboard', [HomeController::class, 'murid'])->name('dashboard.murid');
         Route::resources([
             'materi' => MateriMuridController::class,
@@ -81,6 +83,7 @@ Route::group(['middleware' => 'role:murid'], function () {
             'kuis' => KuisController::class,
             'referensi' => ReferensiMuridController::class,
             'tutorial' => TutorialMuridController::class,
+            "absen" => AbsenMuridController::class,
         ]);
     });
 });

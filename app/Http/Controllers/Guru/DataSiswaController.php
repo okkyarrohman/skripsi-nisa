@@ -46,8 +46,9 @@ class DataSiswaController extends Controller
      */
     public function show(string $id)
     {
-        $murids = User::find($id);
-        return view('guru.dataMurid.show', compact('murids'));
+        $murids = User::role('murid')->get();
+        $murid = User::find($id);
+        return view('guru.dataMurid.show', compact('murids', 'murid'));
     }
 
     /**
@@ -82,5 +83,12 @@ class DataSiswaController extends Controller
         $murids->delete();
 
         return redirect()->route('data-murid.index');
+    }
+
+    public function kelompok()
+    {
+        // $murids = User::role('murid')->get();
+
+        return view('guru.dataMurid.kelompok');
     }
 }

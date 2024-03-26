@@ -23,7 +23,9 @@ class ReferensiGuruController extends Controller
      */
     public function create()
     {
-        return view('guru.referensi.create');
+        $referensis = Referensi::all();
+
+        return view('guru.referensi.create', compact('referensis'));
     }
 
     /**
@@ -51,8 +53,9 @@ class ReferensiGuruController extends Controller
      */
     public function show(string $id)
     {
-        $referensis = Referensi::find($id)->first();
-        return view('guru.referensi.show', compact('referensis'));
+        $referensis = Referensi::all();
+        $referensi = Referensi::find($id);
+        return view('guru.referensi.show', compact('referensis', 'referensi'));
     }
 
     /**
@@ -60,8 +63,9 @@ class ReferensiGuruController extends Controller
      */
     public function edit(string $id)
     {
-        $referensis = Referensi::find($id)->first();
-        return view('guru.referensi.edit', compact('referensis'));
+        $referensis = Referensi::all();
+        $referensi = Referensi::find($id);
+        return view('guru.referensi.edit', compact('referensis', 'referensi'));
     }
 
     /**

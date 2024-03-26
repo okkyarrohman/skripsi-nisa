@@ -42,7 +42,6 @@ class LoginController extends Controller
 
     protected function authenticated($user)
     {
-
         if ($user->hasRoles('guru')) {
             return redirect()->route('dashboard.guru');
         } else if ($user->hasRoles('murid')) {
