@@ -22,7 +22,9 @@ class TutorialGuruController extends Controller
      */
     public function create()
     {
-        return view('guru.tutorial.create');
+        $tutorials = Tutorial::all();
+
+        return view('guru.tutorial.create', compact('tutorials'));
     }
 
     /**
@@ -43,9 +45,10 @@ class TutorialGuruController extends Controller
      */
     public function show(string $id)
     {
-        $tutorials = Tutorial::find($id)->first();
+        $tutorials = Tutorial::all();
+        $tutorial = Tutorial::find($id);
 
-        return view('guru.tutorial.show', compact('tutorials'));
+        return view('guru.tutorial.show', compact('tutorials', 'tutorial'));
     }
 
     /**
@@ -53,8 +56,9 @@ class TutorialGuruController extends Controller
      */
     public function edit(string $id)
     {
-        $tutorials = Tutorial::find($id)->first();
-        return view('guru.tutorial.edit', compact('tutorials'));
+        $tutorials = Tutorial::all();
+        $tutorial = Tutorial::find($id);
+        return view('guru.tutorial.edit', compact('tutorials', 'tutorial'));
     }
 
     /**

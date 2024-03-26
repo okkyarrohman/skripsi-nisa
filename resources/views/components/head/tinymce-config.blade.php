@@ -1,4 +1,4 @@
-<script src="https://cdn.tiny.cloud/1/uitihtwbfu6021o6ry10dgzbanc9soo11oo0a23wcjy6lyiz/tinymce/6/tinymce.min.js"
+<script src="https://cdn.tiny.cloud/1/kweimab9ngeita2i5py2oynm8fyxmk65gi2autfxjknf2ea4/tinymce/6/tinymce.min.js"
     referrerpolicy="origin"></script>
 <script>
     tinymce.init({
