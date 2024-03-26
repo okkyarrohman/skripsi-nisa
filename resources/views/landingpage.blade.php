@@ -60,14 +60,22 @@
                 <a href="/"
                     class="inline-block text-lg font-semibold px-4 py-2 mx-3 leading-none border rounded-2xl border-transparent text-[#055EA8] hover:border-[#215784] hover:border-x-transparent hover:border-t-transparent mt-4 lg:mt-0">Beranda</a>
             </div>
-            <div>
-                <a href="{{ route('login') }}"
-                    class="inline-block text-lg font-semibold px-4 py-2 mx-3 leading-none border rounded-2xl text-[#055EA8] border-[#215784] hover:border-transparent hover:text-white hover:bg-[#215784] mt-4 lg:mt-0">Login</a>
-            </div>
-            <div>
-                <a href="{{ route('register') }}"
-                    class="inline-block text-lg font-semibold px-4 py-2 mx-3 leading-none border rounded-2xl text-white bg-[#215784] hover:border-transparent hover:text-[#055EA8] hover:bg-white mt-4 lg:mt-0">Register</a>
-            </div>
+            @auth
+                <div>
+                    <a href="{{ route('home') }}"
+                        class="inline-block text-lg font-semibold px-4 py-2 mx-3 leading-none border rounded-2xl text-[#055EA8] border-[#215784] hover:border-transparent hover:text-white hover:bg-[#215784] mt-4 lg:mt-0">Dashboard</a>
+                </div>
+            @else
+                <div>
+                    <a href="{{ route('login') }}"
+                        class="inline-block text-lg font-semibold px-4 py-2 mx-3 leading-none border rounded-2xl text-[#055EA8] border-[#215784] hover:border-transparent hover:text-white hover:bg-[#215784] mt-4 lg:mt-0">Login</a>
+                </div>
+                <div>
+                    <a href="{{ route('register') }}"
+                        class="inline-block text-lg font-semibold px-4 py-2 mx-3 leading-none border rounded-2xl text-white bg-[#215784] hover:border-transparent hover:text-[#055EA8] hover:bg-white mt-4 lg:mt-0">Register</a>
+                </div>
+            @endauth
+
         </div>
     </nav>
 </header>

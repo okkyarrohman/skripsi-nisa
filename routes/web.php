@@ -42,6 +42,7 @@ Route::group(['middleware' => 'role:guru'], function () {
     Route::prefix('guru')->group(function () {
         // Route Guru Start from here
         Route::get('/dashboard', [HomeController::class, 'guru'])->name('dashboard.guru');
+        Route::get('/data-murid/kelompok', [DataSiswaController::class, 'kelompok'])->name('data-murid.kelompok');
         Route::resources([
             'data-murid' => DataSiswaController::class,
             'materi-guru' => MateriGuruController::class,

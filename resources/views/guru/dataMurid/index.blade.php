@@ -35,7 +35,7 @@
     <div class="grid grid-cols-2 gap-4 mb-14">
         <div class="px-14 w-full space-y-5">
             {{-- BUTTON KUNING --}}
-            <a href="{{ route('data-murid.create') }}"
+            <a href="#"
                 class="border-1 rounded border-kuning text-kuning block w-full p-2 text-center text-lg">
                 <div class="flex justify-center items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -47,7 +47,8 @@
                 </div>
             </a>
 
-            <a href="" class="w-full mt-3 bg-kuning text-white rounded p-2 text-center block text-lg">
+            <a href="{{ route('data-murid.kelompok') }}"
+                class="w-full mt-3 bg-kuning text-white rounded p-2 text-center block text-lg">
                 Kelompok Siswa
             </a>
 
@@ -63,7 +64,8 @@
                         <a href="{{ route('data-murid.show', ['data_murid' => $item->id]) }}"
                             class="flex-grow flex justify-between items-center px-4 py-1 border rounded">
                             <div class="rounded-full p-2 ">
-                                <img src="https://ui-avatars.com/api/?name={{$item->name}}&background=random" class="rounded-full w-8 h-8" alt="">
+                                <img src="https://ui-avatars.com/api/?name={{ $item->name }}&background=random"
+                                    class="rounded-full w-8 h-8" alt="">
                             </div>
 
                             <h1 class="text-lg font-semibold text-netral">{{ $item->name }}</h1>
