@@ -172,24 +172,24 @@
                     @forelse ($soals as $item)
                         <input type="hidden" name="soal_id[]" value="{{ $item->id }}">
                         <div class="space-y-2">
-                            <p>Soal {{ $loop->iteration }}</p>
+                            <p class="font-extrabold underline underline-offset-1">Soal {{ $loop->iteration }}</p>
                             <textarea name="soal[]" class="border w-full rounded-lg px-4 py-2" placeholder="Isi Soal">{{ $item->soal }}</textarea>
                         </div>
 
                         <div class="space-y-2">
-                            <p>Gambar Soal {{ $loop->iteration }}</p>
+                            <p class="font-extrabold underline underline-offset-1">Gambar Soal {{ $loop->iteration }}</p>
                             <img src="{{ asset('storage/kuis/soal/gambar') . '/' . $item->gambar }}" class="w-20 h-20"
                                 alt="">
                             <input type="file" name="gambar[]" class="w-full border rounded p-1">
                         </div>
                     @empty
                         <div class="space-y-2">
-                            <p>Soal 1</p>
+                            <p class="font-extrabold underline underline-offset-1">Soal 1</p>
                             <textarea name="soal[]" class="border w-full rounded-lg px-4 py-2" id="" placeholder="Isi Soal"></textarea>
                         </div>
 
                         <div class="space-y-2">
-                            <p>Gambar Soal 1</p>
+                            <p class="font-extrabold underline underline-offset-1">Gambar Soal 1</p>
                             <input type="file" name="gambar[]" class="w-full border rounded p-1">
                         </div>
                     @endforelse

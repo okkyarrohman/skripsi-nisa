@@ -118,8 +118,9 @@ class SoalKuisController extends Controller
      */
     public function show(string $id)
     {
-        $soals = Soal::find($id)->first();
-        return view('guru.kuis.soal.show', compact('soals'));
+        $kategoris = KategoriKuis::all();
+        $soals = Soal::where('kategori_kuis_id', $id)->get();
+        return view('guru.kuis.soal.show', compact('soals', 'kategoris', 'id'));
     }
 
     /**
