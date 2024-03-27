@@ -84,6 +84,10 @@
 
         @role('guru')
             @include('includes.guru.navbar')
+
+            @if (Request::routeIs('kategori*', 'soal*', 'opsi*', 'hasil*'))
+                @include('includes.guru.navbar-kuis')
+            @endif
         @endrole
 
         @role('murid')

@@ -23,7 +23,9 @@ class KategoriKuisController extends Controller
      */
     public function create()
     {
-        return view('guru.kuis.kategoriKuis.create');
+        $kategoris = KategoriKuis::all();
+
+        return view('guru.kuis.kategoriKuis.create', compact('kategoris'));
     }
 
     /**
