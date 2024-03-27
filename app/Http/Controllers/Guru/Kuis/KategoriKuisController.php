@@ -46,8 +46,9 @@ class KategoriKuisController extends Controller
      */
     public function show(string $id)
     {
-        $kategoris = KategoriKuis::find($id)->first();
-        return view('guru.kuis.kategoriKuis.show', compact('kategoris'));
+        $kategoris = KategoriKuis::all();
+        $kategori = KategoriKuis::find($id);
+        return view('guru.kuis.kategoriKuis.show', compact('kategoris', 'kategori'));
     }
 
     /**
@@ -55,8 +56,10 @@ class KategoriKuisController extends Controller
      */
     public function edit(string $id)
     {
-        $kategoris = KategoriKuis::find($id)->first();
-        return view('guru.kuis.kategoriKuis.edit', compact('kategoris'));
+
+        $kategoris = KategoriKuis::all();
+        $kategori = KategoriKuis::find($id);
+        return view('guru.kuis.kategoriKuis.edit', compact('kategoris', 'kategori'));
     }
 
     /**
@@ -64,7 +67,7 @@ class KategoriKuisController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $kategoris = KategoriKuis::find($id)->first();
+        $kategoris = KategoriKuis::find($id);
         $kategoris->kuis = $request->kuis;
         $kategoris->waktu = $request->waktu;
         $kategoris->save();
@@ -77,7 +80,7 @@ class KategoriKuisController extends Controller
      */
     public function destroy(string $id)
     {
-        $kategoris = KategoriKuis::find($id)->first();
+        $kategoris = KategoriKuis::find($id);
         $kategoris->delete();
         return redirect()->route('kategori.index');
     }

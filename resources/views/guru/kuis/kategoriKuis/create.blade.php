@@ -56,7 +56,7 @@
                 @forelse ($kategoris as $item)
                     {{-- BUTTON --}}
                     <div class="flex items-center gap-3">
-                        <a href="{{ route('kategori.show', ['kuis_guru' => $item->id]) }}"
+                        <a href="{{ route('kategori.show', ['kategori' => $item->id]) }}"
                             class="flex-grow flex justify-between items-center px-4 py-1 border rounded">
                             <div class="rounded-full p-2 bg-primary-blue">
                                 <svg class="w-7 h-7 " viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -74,7 +74,8 @@
                                 </svg>
                             </div>
 
-                            <h1 class="text-lg font-semibold text-netral">{{ $item->nama }}</h1>
+                            <h1 class="text-lg font-semibold text-netral">{{ $item->kuis }}- {{ $item->waktu }} menit
+                            </h1>
 
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="w-6 h-6">
@@ -84,7 +85,7 @@
                         </a>
                         {{-- ACTION --}}
                         <div class="w-24 flex items-center justify-between">
-                            <a href="{{ route('kategori.edit', ['kuis_guru' => $item->id]) }}">
+                            <a href="{{ route('kategori.edit', ['kategori' => $item->id]) }}">
                                 <div id="1-item" class="text-center space-y-1">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-black" viewBox="0 0 24 24">
                                         <path fill="currentColor"
@@ -103,7 +104,7 @@
 
                                 <p>Hapus</p>
 
-                                <form action="{{ route('kategori.destroy', ['kuis_guru' => $item->id]) }}" method="post"
+                                <form action="{{ route('kategori.destroy', ['kategori' => $item->id]) }}" method="post"
                                     id="delete-{{ $item->id }}">
                                     @csrf
                                     @method('delete')
