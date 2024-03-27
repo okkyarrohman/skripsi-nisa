@@ -24,7 +24,7 @@ class Hasil extends Model
         return $this->belongsToMany(Soal::class)->with(['kategori', 'opsi'])->withPivot(['opsi_id', 'point']);
     }
 
-    public function kategorikuis()
+    public function kategori_kuis()
     {
         return $this->belongsTo(KategoriKuis::class);
     }

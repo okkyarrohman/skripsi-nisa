@@ -14,6 +14,8 @@ class HasilKuisController extends Controller
     public function index()
     {
         $hasils = Hasil::all();
+
+        // dd($hasils[1]->kategori_kuis);
         return view('guru.kuis.hasil.index', compact('hasils'));
     }
 
