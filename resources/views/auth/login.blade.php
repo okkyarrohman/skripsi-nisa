@@ -103,7 +103,7 @@
         <div class="h-screen w-1/2 flex flex-col items-center justify-center gap-14">
             <h1 class="font-bold text-3xl items-center flex flex-col justify-center text-center">Halo! Selamat Datang
                 di<br />
-                (Nama Website)</h1>
+                E-Study</h1>
             <img src="{{ asset('assets/image/login.png') }}" alt="" class="w-[500px]" />
         </div>
         <div class=" flex-col flex items-center justify-center w-1/2 bg-[#215784] min-h-screen gap-4">
