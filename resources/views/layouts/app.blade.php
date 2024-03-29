@@ -21,6 +21,8 @@
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     @vite('resources/css/app.css')
+
+    @stack('head-2')
 </head>
 
 <body>
