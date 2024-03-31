@@ -136,6 +136,20 @@
                     </div>
 
                     <div class="space-y-2">
+                        <p>Deskripsi Kuis</p>
+                        {{-- textarea --}}
+                        <textarea name="deskripsi" id="deskripsi" 
+                            class="w-full border-1 rounded p-1 border-blue-border"></textarea>
+                    </div>
+
+                    {{-- tenggat_waktu --}}
+                    <div class="space-y-2">
+                        <p>Masukkan Tenggat Waktu:</p>
+                        <input type="date" id="tenggat_waktu" name="tenggat_waktu"
+                            class="w-full border-1 rounded p-1 border-blue-border">
+                    </div>
+
+                    <div class="space-y-2">
                         <p>Masukkan waktu (menit):</p>
                         <input type="number" id="time" name="waktu" min="0"
                             class="w-full border-1 rounded p-1 border-blue-border" placeholder="Masukkan waktu dalam menit">

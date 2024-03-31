@@ -35,7 +35,9 @@ class KategoriKuisController extends Controller
     {
         KategoriKuis::create([
             'kuis' => $request->input('kuis'),
-            'waktu' => $request->input('waktu')
+            'waktu' => $request->input('waktu'),
+            'deskripsi' => $request->input('deskripsi'),
+            'tenggat_waktu' => $request->input('tenggat_waktu')
         ]);
 
         return redirect()->route('kategori.index');

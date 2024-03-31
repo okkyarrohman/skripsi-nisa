@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('kategori_kuis', function (Blueprint $table) {
             $table->id();
             $table->string('kuis');
+            $table->text('deskripsi');
+            $table->timestamp('tenggat_waktu');
             $table->string('waktu');
             $table->timestamps();
         });
