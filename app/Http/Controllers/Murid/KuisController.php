@@ -86,8 +86,10 @@ class KuisController extends Controller
         }])
             ->whereHas('soal')
             ->get();
+        $kategori = KategoriKuis::find($id);
+        $is_pass_deadline = $kategori->tenggat_waktu < now();
 
-        return view('murid.kuis.edit', compact('categories'));
+        return view('murid.kuis.edit', compact('categories', 'kategori', 'is_pass_deadline'));
     }
 
     /**
@@ -108,7 +110,15 @@ class KuisController extends Controller
 
     public function mulai($id)
     {
+        $categories = KategoriKuis::where('id', $id)->with(['soal' => function ($query) {
+            $query->inRandomOrder()
+                ->with(['opsi' => function ($query) {
+                    $query->inRandomOrder();
+                }]);
+        }])
+            ->whereHas('soal')
+            ->get();
         $kategori = KategoriKuis::find($id);
-        return view('murid.kuis.mulai', compact('kategori'));
+        return view('murid.kuis.mulai', compact('kategori', 'categories'));
     }
 }

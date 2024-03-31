@@ -1,8 +1,17 @@
 @extends('layouts.app')
 
+{{-- @dd($categories) --}}
+{{-- @foreach ($categories->soal as $soal)
+    <h1>{{ $soal->soal }}</h1>
+    @foreach ($soal->opsi as $opsi)
+        <p>{{ $opsi->opsi }}</p>
+    @endforeach
+@endforeach --}}
+
 @push('head')
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/css/pagination.css') }}">
 @endpush
 
 @section('content')
@@ -13,9 +22,6 @@
             <div class="w-4/5 mr-6">
                 <div class="mb-6">
                     <div>
-                        <!-- <div
-                                class="inline-block mb-2 ms-[calc(25%-1.25rem)] py-0.5 px-1.5 bg-blue-50 border border-blue-200 text-xs font-medium text-blue-600 rounded-lg dark:bg-blue-800/30 dark:border-blue-800 dark:text-blue-500">
-                                25%</div> -->
                         <div class="flex justify-between items-center mb-2 mt-5">
                             <div class=" text-[#45484F] font-medium ">
                                 Progress 25%</div>
@@ -30,7 +36,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="text-white border font-bold bg-[#215784] w-fit px-4 py-2 rounded-lg mb-3">
+                <div id="soal"></div>
+                {{-- <div class="text-white border font-bold bg-[#215784] w-fit px-4 py-2 rounded-lg mb-3">
                     Soal 3
                 </div>
                 <p class="mb-3">
@@ -64,19 +71,19 @@
                         class="border hover:bg-blue-200 border-[#055EA8] px-3 py-1 focus:bg-[#055EA8] focus:text-white w-fit rounded">
                         E. Sangat Kurang
                     </button>
-                </div>
+                </div> --}}
             </div>
             <div class="w-1/5 mx-6">
                 <div class="border border-[#C1C2C4] rounded-lg">
                     <p class="border-b border-b-[#C1C2C4] py-3 flex justify-center items-center font-semibold">Soal</p>
                     <table class="table-fixed flex justify-center my-3">
                         <!-- <thead>
-                                <tr>
-                                    <th>Song</th>
-                                    <th>Artist</th>
-                                    <th>Year</th>
-                                </tr>
-                            </thead> -->
+                                                                                                                                                    <tr>
+                                                                                                                                                        <th>Song</th>
+                                                                                                                                                        <th>Artist</th>
+                                                                                                                                                        <th>Year</th>
+                                                                                                                                                    </tr>
+                                                                                                                                                </thead> -->
                         <tbody>
                             <tr class="flex">
                                 <td class="bg-[#A2A2A2] w-7 flex items-center p-2 justify-center m-2 rounded text-white">
@@ -170,6 +177,49 @@
     <div class="my-10 flex justify-around items-center">
         <a href="" class="text-[#A2A2A2] bg-[#E9E9E9] border border-[#A2A2A2] px-7 py-2 rounded-lg">Sebelumnya</a>
         <a href="" class="bg-[#EAA718] text-white px-7 py-2 rounded-lg">Ragu - ragu</a>
-        <a href="{{ route('kuis.show', ['kui'=>1]) }}" class="bg-[#215784] text-white px-7 py-2 rounded-lg">Selanjutnya</a>
+        <a href="{{ route('kuis.show', ['kui' => 1]) }}"
+            class="bg-[#215784] text-white px-7 py-2 rounded-lg">Selanjutnya</a>
     </div>
+
+    <div id="demo"></div>
 @endsection
+
+@push('script-bottom')
+    <script>
+        $('#demo').pagination({
+            dataSource: @json($categories[0]->soal),
+            pageSize: 1,
+            showPageNumbers: true,
+            showNavigator: true,
+            className: 'paginationjs-theme-blue paginationjs-big',
+
+            callback: function(data, pagination) {
+                var dataContainer = $('#soal');
+                var tampung = '';
+
+                data.forEach((element, index) => {
+                    var element = `<div class="text-white border font-bold bg-[#215784] w-fit px-4 py-2 rounded-lg mb-3">
+                    Soal ${index+1}
+                </div>
+                <p class="mb-3">
+                    ${element.soal}
+                </p>
+                <div class="flex flex-col gap-2">
+                    ${
+                        element.opsi.map(opsi => {
+                            return `<button class="border hover:bg-blue-200 border-[#055EA8] px-3 py-1 focus:bg-[#055EA8] focus:text-white w-fit rounded">
+                                                                            ${opsi.opsi}
+                                                                        </button>`
+                        }).join('')
+                    }
+                </div>`
+
+                    tampung += element;
+
+                });
+                $('#soal').html(tampung)
+                // dataContainer.html(html);
+            }
+        })
+    </script>
+@endpush
