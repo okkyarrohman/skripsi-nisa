@@ -13,13 +13,15 @@
 }
 .paginationjs .paginationjs-pages {
     float: left;
+    margin-top: 15px;
     margin-left: 10px;
+    /* max-width: 300px; */
 }
 .paginationjs .paginationjs-pages ul {
-    /* max-width: 300px; */
     float: left;
     margin: 0;
     padding: 0;
+    /* max-width: 300px; */
 }
 .paginationjs .paginationjs-go-button,
 .paginationjs .paginationjs-go-input,
@@ -31,15 +33,20 @@
 .paginationjs .paginationjs-pages li {
     float: left;
     border: 1px solid #aaa;
-    /* border-right: none; */
+    border-right: none;
     list-style: none;
+}
+
+.paginationjs-pages ul li:not(:last-child) {
+    margin-right: 15px;
+    margin-bottom: 15px;
 }
 .paginationjs .paginationjs-pages li > a {
     min-width: 30px;
     height: 28px;
     line-height: 28px;
     display: block;
-    background: #F1F1F1;
+    background: #fff;
     font-size: 14px;
     color: #333;
     text-decoration: none;
@@ -56,7 +63,7 @@
     height: 30px;
     line-height: 30px;
     background: #aaa;
-    color: #F1F1F1;
+    color: #fff;
     cursor: default;
 }
 .paginationjs .paginationjs-pages li.disabled > a {
@@ -69,20 +76,20 @@
 .paginationjs .paginationjs-pages li:first-child,
 .paginationjs .paginationjs-pages li:first-child > a {
     border-radius: 3px 0 0 3px;
-    /* display: none; */
+    display: none;
 }
 .paginationjs .paginationjs-pages li:last-child {
     border-right: 1px solid #aaa;
     border-radius: 0 3px 3px 0;
-    /* display: none; */
+    display: none;
 }
 .paginationjs .paginationjs-pages li:last-child > a {
     border-radius: 0 3px 3px 0;
-    /* display: none; */
+    display: none;
 }
 .paginationjs .paginationjs-size-changer > select {
     height: 28px;
-    background: #F1F1F1;
+    background: #fff;
     border-radius: 3px;
     border: 1px solid #aaa;
     padding: 0;
@@ -96,7 +103,7 @@
 .paginationjs .paginationjs-go-input > input[type="text"] {
     width: 30px;
     height: 28px;
-    background: #F1F1F1;
+    background: #fff;
     border-radius: 3px;
     border: 1px solid #aaa;
     padding: 0;
@@ -111,7 +118,7 @@
     min-width: 40px;
     height: 30px;
     line-height: 28px;
-    background: #F1F1F1;
+    background: #fff;
     border-radius: 3px;
     border: 1px solid #aaa;
     text-align: center;
@@ -128,7 +135,6 @@
     background-color: #f8f8f8;
 }
 .paginationjs .paginationjs-nav {
-    display: none;
     float: left;
     height: 30px;
     line-height: 30px;
@@ -230,19 +236,17 @@
     /* border-color: #289de9; */
     border: none;
     border-radius: 5px;
-    margin: 10px;
-    /* background-color: black; */
 }
 .paginationjs.paginationjs-theme-blue .paginationjs-pages li > a {
+    /* color: #289de9; */
     color: black;
-    /* margin: 10px; */
 }
 .paginationjs.paginationjs-theme-blue .paginationjs-pages li > a:hover {
     background: #e9f4fc;
 }
 .paginationjs.paginationjs-theme-blue .paginationjs-pages li.active > a {
     background: #215784;
-    color: #F1F1F1;
+    color: #f1f1f1;
 }
 .paginationjs.paginationjs-theme-blue
     .paginationjs-pages
@@ -261,7 +265,7 @@
     > input[type="button"] {
     background: #289de9;
     border-color: #289de9;
-    color: #F1F1F1;
+    color: #fff;
 }
 .paginationjs.paginationjs-theme-blue
     .paginationjs-go-button
@@ -279,7 +283,7 @@
 }
 .paginationjs.paginationjs-theme-green .paginationjs-pages li.active > a {
     background: #449d44;
-    color: #F1F1F1;
+    color: #fff;
 }
 .paginationjs.paginationjs-theme-green
     .paginationjs-pages
@@ -298,7 +302,7 @@
     > input[type="button"] {
     background: #449d44;
     border-color: #449d44;
-    color: #F1F1F1;
+    color: #fff;
 }
 .paginationjs.paginationjs-theme-green
     .paginationjs-go-button
@@ -316,7 +320,7 @@
 }
 .paginationjs.paginationjs-theme-yellow .paginationjs-pages li.active > a {
     background: #ec971f;
-    color: #F1F1F1;
+    color: #fff;
 }
 .paginationjs.paginationjs-theme-yellow
     .paginationjs-pages
@@ -335,7 +339,7 @@
     > input[type="button"] {
     background: #ec971f;
     border-color: #ec971f;
-    color: #F1F1F1;
+    color: #fff;
 }
 .paginationjs.paginationjs-theme-yellow
     .paginationjs-go-button
@@ -353,7 +357,7 @@
 }
 .paginationjs.paginationjs-theme-red .paginationjs-pages li.active > a {
     background: #c9302c;
-    color: #F1F1F1;
+    color: #fff;
 }
 .paginationjs.paginationjs-theme-red .paginationjs-pages li.disabled > a:hover {
     background: 0 0;
@@ -369,7 +373,7 @@
     > input[type="button"] {
     background: #c9302c;
     border-color: #c9302c;
-    color: #F1F1F1;
+    color: #fff;
 }
 .paginationjs.paginationjs-theme-red
     .paginationjs-go-button

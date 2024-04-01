@@ -1,43 +1,39 @@
 @extends('layouts.app')
 
-{{-- @dd($categories) --}}
-{{-- @foreach ($categories->soal as $soal)
-    <h1>{{ $soal->soal }}</h1>
-    @foreach ($soal->opsi as $opsi)
-        <p>{{ $opsi->opsi }}</p>
-    @endforeach
-@endforeach --}}
-
 @push('head')
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="{{ asset('assets/css/pagination.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/pagination.css') }}">
 @endpush
 
 @section('content')
-    <div class="border-b-2 border-b-[#C1C2C4] mx-16 mt-16 mb-8 min-h-[510px] pb-10">
-        <h1 class="text-[#45484F] font-bold text-3xl">Quiz</h1>
-        <p class="text-[#215784] font-semibold text-lg">Dasar-dasar CSS</p>
-        <div class="flex">
-            <div class="w-4/5 mr-6">
-                <div class="mb-6">
-                    <div>
-                        <div class="flex justify-between items-center mb-2 mt-5">
-                            <div class=" text-[#45484F] font-medium ">
-                                Progress 25%</div>
-                            <div class="border px-3 py-1 w-fit border-[#215784] text-[#215784] rounded-lg">
-                                00:29:17
+    <form action="{{ route('kuis.store') }}" method="POST">
+        @csrf
+
+        <input type="hidden" name="kategori_kuis_id" value="{{ $kategori->id }}">
+        <div class="border-b-2 border-b-[#C1C2C4] mx-16 mt-16 mb-8 min-h-[510px] pb-10">
+            <h1 class="text-[#45484F] font-bold text-3xl">Quiz</h1>
+            <p class="text-[#215784] font-semibold text-lg">Dasar-dasar CSS</p>
+            <div class="flex">
+                <div class="w-4/5 mr-6">
+                    <div class="mb-6">
+                        <div>
+                            <div class="flex justify-between items-center mb-2 mt-5">
+                                <div class=" text-[#45484F] font-medium ">
+                                    Progress <span id="progres"></span>%</div>
+                                <div class="border px-3 py-1 w-fit border-[#215784] text-[#215784] rounded-lg">
+                                    00:29:17
+                                </div>
+                            </div>
+                            <div class="flex w-full h-2 bg-[#C1C2C4] rounded-full overflow-hidden " role="progressbar"
+                                aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                                <div class="flex flex-col justify-center rounded-full overflow-hidden bg-[#215784] text-xs text-white text-center whitespace-nowrap transition duration-500 "
+                                    style="width: 25%"></div>
                             </div>
                         </div>
-                        <div class="flex w-full h-2 bg-[#C1C2C4] rounded-full overflow-hidden " role="progressbar"
-                            aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                            <div class="flex flex-col justify-center rounded-full overflow-hidden bg-[#215784] text-xs text-white text-center whitespace-nowrap transition duration-500 "
-                                style="width: 25%"></div>
-                        </div>
                     </div>
-                </div>
-                <div id="soal"></div>
-                {{-- <div class="text-white border font-bold bg-[#215784] w-fit px-4 py-2 rounded-lg mb-3">
+                    <div id="soal"></div>
+                    {{-- <div class="text-white border font-bold bg-[#215784] w-fit px-4 py-2 rounded-lg mb-3">
                     Soal 3
                 </div>
                 <p class="mb-3">
@@ -72,18 +68,18 @@
                         E. Sangat Kurang
                     </button>
                 </div> --}}
-            </div>
-            <div class="w-1/5 mx-6">
-                <div class="border border-[#C1C2C4] rounded-lg">
-                    <p class="border-b border-b-[#C1C2C4] py-3 flex justify-center items-center font-semibold">Soal</p>
-                    <table class="table-fixed flex justify-center my-3">
+                </div>
+                <div class="w-1/5 mx-6">
+                    <div class="border border-[#C1C2C4] rounded-lg">
+                        <p class="border-b border-b-[#C1C2C4] py-3 flex justify-center items-center font-semibold">Soal</p>
+                        {{-- <table class="table-fixed flex justify-center my-3">
                         <!-- <thead>
-                                                                                                                                                    <tr>
-                                                                                                                                                        <th>Song</th>
-                                                                                                                                                        <th>Artist</th>
-                                                                                                                                                        <th>Year</th>
-                                                                                                                                                    </tr>
-                                                                                                                                                </thead> -->
+                                                                                                                                                                                                    <tr>
+                                                                                                                                                                                                        <th>Song</th>
+                                                                                                                                                                                                        <th>Artist</th>
+                                                                                                                                                                                                        <th>Year</th>
+                                                                                                                                                                                                    </tr>
+                                                                                                                                                                                                </thead> -->
                         <tbody>
                             <tr class="flex">
                                 <td class="bg-[#A2A2A2] w-7 flex items-center p-2 justify-center m-2 rounded text-white">
@@ -169,23 +165,95 @@
                                 </td>
                             </tr>
                         </tbody>
-                    </table>
+                    </table> --}}
+                        <div class="">
+                            <div id="demo"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="my-10 flex justify-around items-center">
-        <a href="" class="text-[#A2A2A2] bg-[#E9E9E9] border border-[#A2A2A2] px-7 py-2 rounded-lg">Sebelumnya</a>
-        <a href="" class="bg-[#EAA718] text-white px-7 py-2 rounded-lg">Ragu - ragu</a>
-        <a href="{{ route('kuis.show', ['kui' => 1]) }}"
-            class="bg-[#215784] text-white px-7 py-2 rounded-lg">Selanjutnya</a>
-    </div>
+        <div class="my-10 flex justify-around items-center">
+            <button type="button" id="sebelum-btn"
+                class="text-white bg-[#215784] border border-[#A2A2A2] px-7 py-2 rounded-lg">Sebelumnya</button>
 
-    <div id="demo"></div>
+            <button type="submit" class="bg-[#EAA718] text-white px-7 py-2 rounded-lg">Submit</button>
+
+            <button type="button" id="selanjut-btn"
+                class="bg-[#215784] text-white px-7 py-2 rounded-lg">Selanjutnya</button>
+        </div>
+    </form>
 @endsection
 
 @push('script-bottom')
     <script>
+        var selectedOptions = {};
+        var totalSoal = @json($categories[0]->soal->count());
+
+        var selanjutBtn = document.getElementById('selanjut-btn');
+        var sebelumBtn = document.getElementById('sebelum-btn');
+        selanjutBtn.addEventListener('click', function() {
+            var demo = $('#demo');
+            demo.pagination('next');
+        });
+        sebelumBtn.addEventListener('click', function() {
+            var demo = $('#demo');
+            demo.pagination('previous');
+        });
+
+        $(document).on('change', 'input[type="radio"]', function() {
+            var id = $(this).closest('.soal-container').data('soal-id');
+            // var value = $('input[name="opsi_' + id + '"]:checked').val();
+            var value = $('input[id="opsi_' + id + '"]:checked').val();
+            selectedOptions[id] = value;
+
+            var jumlahDikerjakan = Object.keys(selectedOptions).length;
+            var progress = (jumlahDikerjakan / totalSoal) * 100;
+            $('#progres').text(progress.toFixed(0));
+        });
+
+        $('form').submit(function(e) {
+            e.preventDefault();
+            if (Object.keys(selectedOptions).length < @json($categories[0]->soal->count())) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Anda belum menjawab semua soal!',
+                });
+                return;
+            }
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Anda tidak dapat mengubah jawaban setelah mengirim!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, kirim!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    buatInputSoal();
+                    this.submit();
+                }
+            })
+
+        });
+
+        function buatInputSoal() {
+            for (var key in selectedOptions) {
+                if (selectedOptions.hasOwnProperty(key)) {
+                    // Buat elemen input
+                    var input = $('<input>').attr({
+                        type: 'hidden',
+                        name: 'soal[]',
+                        value: selectedOptions[key]
+                    });
+                    // Masukkan elemen input ke dalam formulir
+                    $('form').append(input);
+                }
+            }
+        }
+
         $('#demo').pagination({
             dataSource: @json($categories[0]->soal),
             pageSize: 1,
@@ -197,9 +265,14 @@
                 var dataContainer = $('#soal');
                 var tampung = '';
 
+                // console.log(data)
+
                 data.forEach((element, index) => {
-                    var element = `<div class="text-white border font-bold bg-[#215784] w-fit px-4 py-2 rounded-lg mb-3">
-                    Soal ${index+1}
+                    // console.log(element)
+                    var element = `
+                    <div class="soal-container" data-soal-id="${element.id}">
+                    <div class="text-white border font-bold bg-[#215784] w-fit px-4 py-2 rounded-lg mb-3">
+                    Soal ${element.id}
                 </div>
                 <p class="mb-3">
                     ${element.soal}
@@ -207,14 +280,23 @@
                 <div class="flex flex-col gap-2">
                     ${
                         element.opsi.map(opsi => {
-                            return `<button class="border hover:bg-blue-200 border-[#055EA8] px-3 py-1 focus:bg-[#055EA8] focus:text-white w-fit rounded">
-                                                                            ${opsi.opsi}
-                                                                        </button>`
+                            console.log(opsi.id)
+                            var radioName = `soal_${element.id}`;
+                            var checked = selectedOptions[element.id] == opsi.id ? 'checked' : '';
+                            return `
+                                                                                            <label class="inline-flex items-center mt-3 mr-3">
+                                                                                                <input type="radio" class="form-radio h-5 w-5 text-blue-600" name="testing" id="opsi_${element.id}" value="${opsi.id}" ${checked}>
+                                                                                                    <span class="ml-2">${opsi.opsi}</span>
+                                                                                                </label>`
                         }).join('')
                     }
-                </div>`
+                </div>
+            </div>
+                `
 
                     tampung += element;
+                    // $('#soal').html(element)
+
 
                 });
                 $('#soal').html(tampung)

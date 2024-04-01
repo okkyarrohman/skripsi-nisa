@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 {{-- @dd($is_pass_deadline) --}}
-{{-- @dd($categories) --}}
 
 @push('script-bottom')
     <script>
@@ -187,7 +186,8 @@
                 <div class="min-w-full">
                     <div class="flex justify-between">
                         <h1 class="font-bold text-xl mb-4">{{ $kategori->kuis }}</h1>
-                        <div class="flex">0/<p class="text-[#215784] font-semibold">100</p>
+                        <div class="flex">
+                            {{ $kategori->hasil->first()->total_points }}/<p class="text-[#215784] font-semibold">100</p>
                         </div>
                     </div>
                     <p class="text-justify min-w-full">{{ $kategori->deskripsi }}</p>

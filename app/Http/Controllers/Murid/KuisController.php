@@ -33,6 +33,7 @@ class KuisController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $opsi = Opsi::find(array_values($request->input('soal')));
 
         $hasilSeluruh = new Hasil();
