@@ -8,10 +8,22 @@
 
         hapusForm.onclick = function() {
             const lewatDeadline = @json($is_pass_deadline);
+            const point = {{ $kategori->hasil->first()->total_points ?? 0}};
             if (lewatDeadline) {
                 Swal.fire({
                     title: 'Waktu kuis sudah berakhir!',
                     text: "Anda tidak bisa memulai kuis karena waktu kuis sudah berakhir!",
+                    icon: 'warning',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Oke'
+                });
+                return;
+            }
+
+            if (point > 0) {
+                Swal.fire({
+                    title: 'Anda sudah mengerjakan kuis ini!',
+                    text: "Anda tidak bisa memulai kuis karena sudah mengerjakan kuis ini!",
                     icon: 'warning',
                     confirmButtonColor: '#3085d6',
                     confirmButtonText: 'Oke'
@@ -187,7 +199,8 @@
                     <div class="flex justify-between">
                         <h1 class="font-bold text-xl mb-4">{{ $kategori->kuis }}</h1>
                         <div class="flex">
-                            {{ $kategori->hasil->first()->total_points }}/<p class="text-[#215784] font-semibold">100</p>
+                            {{ $kategori->hasil->first()->total_points ?? 0 }}/<p class="text-[#215784] font-semibold">100
+                            </p>
                         </div>
                     </div>
                     <p class="text-justify min-w-full">{{ $kategori->deskripsi }}</p>

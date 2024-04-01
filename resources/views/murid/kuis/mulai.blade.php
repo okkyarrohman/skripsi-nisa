@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+{{-- @dd($categories[0]->waktu) --}}
+
 @push('head')
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
@@ -21,8 +23,9 @@
                             <div class="flex justify-between items-center mb-2 mt-5">
                                 <div class=" text-[#45484F] font-medium ">
                                     Progress <span id="progres"></span>%</div>
-                                <div class="border px-3 py-1 w-fit border-[#215784] text-[#215784] rounded-lg">
-                                    00:29:17
+                                <div class="border px-3 py-1 w-fit border-[#215784] text-[#215784] rounded-lg"
+                                    id="hitungan-mundur">
+                                    {{-- 00:29:17 --}}
                                 </div>
                             </div>
                             <div class="flex w-full h-2 bg-[#C1C2C4] rounded-full overflow-hidden " role="progressbar"
@@ -177,7 +180,8 @@
             <button type="button" id="sebelum-btn"
                 class="text-white bg-[#215784] border border-[#A2A2A2] px-7 py-2 rounded-lg">Sebelumnya</button>
 
-            <button type="submit" class="bg-[#EAA718] text-white px-7 py-2 rounded-lg">Submit</button>
+            <button type="button" onclick="submitForm()"
+                class="bg-[#EAA718] text-white px-7 py-2 rounded-lg">Submit</button>
 
             <button type="button" id="selanjut-btn"
                 class="bg-[#215784] text-white px-7 py-2 rounded-lg">Selanjutnya</button>
@@ -212,8 +216,8 @@
             $('#progres').text(progress.toFixed(0));
         });
 
-        $('form').submit(function(e) {
-            e.preventDefault();
+        function submitForm() {
+            // e.preventDefault();
             if (Object.keys(selectedOptions).length < @json($categories[0]->soal->count())) {
                 Swal.fire({
                     icon: 'error',
@@ -233,11 +237,37 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     buatInputSoal();
-                    this.submit();
+                    $('form').submit();
                 }
             })
+        }
 
-        });
+        // $('form').submit(function(e) {
+        //     e.preventDefault();
+        //     if (Object.keys(selectedOptions).length < @json($categories[0]->soal->count())) {
+        //         Swal.fire({
+        //             icon: 'error',
+        //             title: 'Oops...',
+        //             text: 'Anda belum menjawab semua soal!',
+        //         });
+        //         return;
+        //     }
+        //     Swal.fire({
+        //         title: 'Apakah Anda yakin?',
+        //         text: "Anda tidak dapat mengubah jawaban setelah mengirim!",
+        //         icon: 'warning',
+        //         showCancelButton: true,
+        //         confirmButtonColor: '#3085d6',
+        //         cancelButtonColor: '#d33',
+        //         confirmButtonText: 'Ya, kirim!'
+        //     }).then((result) => {
+        //         if (result.isConfirmed) {
+        //             buatInputSoal();
+        //             this.submit();
+        //         }
+        //     })
+
+        // });
 
         function buatInputSoal() {
             for (var key in selectedOptions) {
@@ -269,11 +299,16 @@
 
                 data.forEach((element, index) => {
                     // console.log(element)
+                    // console.log(element)
+                    var gambar = element.gambar ? element.gambar : '';
                     var element = `
                     <div class="soal-container" data-soal-id="${element.id}">
                     <div class="text-white border font-bold bg-[#215784] w-fit px-4 py-2 rounded-lg mb-3">
                     Soal ${element.id}
                 </div>
+                ${
+                    element.gambar ? `<img src="{{ asset('storage/kuis/soal/gambar') . '/' . '${gambar}' }}" alt="gambar soal" class="mb-3 w-56">` : ''
+                }
                 <p class="mb-3">
                     ${element.soal}
                 </p>
@@ -284,10 +319,10 @@
                             var radioName = `soal_${element.id}`;
                             var checked = selectedOptions[element.id] == opsi.id ? 'checked' : '';
                             return `
-                                                                                            <label class="inline-flex items-center mt-3 mr-3">
-                                                                                                <input type="radio" class="form-radio h-5 w-5 text-blue-600" name="testing" id="opsi_${element.id}" value="${opsi.id}" ${checked}>
-                                                                                                    <span class="ml-2">${opsi.opsi}</span>
-                                                                                                </label>`
+                                                                                                                                                <label class="inline-flex items-center mt-3 mr-3">
+                                                                                                                                                    <input type="radio" class="form-radio h-5 w-5 text-blue-600" name="testing" id="opsi_${element.id}" value="${opsi.id}" ${checked}>
+                                                                                                                                                        <span class="ml-2">${opsi.opsi}</span>
+                                                                                                                                                    </label>`
                         }).join('')
                     }
                 </div>
@@ -303,5 +338,68 @@
                 // dataContainer.html(html);
             }
         })
+
+        const idKuis = {{ $kategori->id }};
+
+        // Fungsi untuk menyimpan waktu kuis ke dalam localStorage
+        function simpanWaktuKuis(waktu) {
+            localStorage.setItem('waktu_kuis' + idKuis, waktu.toString());
+        }
+
+        // Fungsi untuk mendapatkan waktu kuis dari localStorage
+        function dapatkanWaktuKuisDariLocalStorage() {
+            return localStorage.getItem('waktu_kuis' + idKuis);
+        }
+
+        // Fungsi untuk mendapatkan waktu kuis dari database
+        function dapatkanWaktuKuisDariDatabase() {
+            // Masukkan kode untuk mengambil waktu kuis dari database di sini
+            return {{ $categories[0]->waktu }} * 60 * 1000; // Konversi menit ke milidetik
+        }
+
+        // Fungsi untuk memulai hitungan mundur dan menyimpan waktu kuis ke localStorage
+        function mulaiHitungMundur() {
+            const waktuKuisLocalStorage = dapatkanWaktuKuisDariLocalStorage();
+            const waktuKuisDatabase = dapatkanWaktuKuisDariDatabase();
+
+            const waktuKuis = waktuKuisLocalStorage ? parseInt(waktuKuisLocalStorage) : waktuKuisDatabase;
+
+            const waktuSelesai = new Date().getTime() + waktuKuis;
+
+            const hitungMundur = setInterval(function() {
+                const sekarang = new Date().getTime();
+                const selisih = waktuSelesai - sekarang;
+
+                const jam = Math.floor(selisih / (1000 * 60 * 60));
+                const menit = Math.floor((selisih % (1000 * 60 * 60)) / (1000 * 60));
+                const detik = Math.floor((selisih % (1000 * 60)) / 1000);
+
+                document.getElementById('hitungan-mundur').innerHTML = jam + ':' + menit + ':' + detik;
+
+                if (selisih < 0) {
+                    clearInterval(hitungMundur);
+                    document.getElementById('hitungan-mundur').innerHTML = 'Waktu sudah habis';
+
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Waktu sudah habis!',
+                        text: 'Kuis akan segera ditutup.',
+                        showConfirmButton: false,
+                        timer: 2000
+                    }).then(function() {
+                        // $('form').submit();
+                        buatInputSoal();
+                        $('form').submit();
+                    });
+
+                }
+
+                // Simpan waktu kuis ke dalam localStorage setiap detik
+                simpanWaktuKuis(selisih);
+            }, 1000);
+        }
+
+        // Panggil fungsi untuk memulai hitungan mundur
+        mulaiHitungMundur();
     </script>
 @endpush
