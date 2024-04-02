@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Guru\Kuis;
 
 use App\Http\Controllers\Controller;
 use App\Models\Hasil;
+use App\Models\KategoriKuis;
 use Illuminate\Http\Request;
 
 class HasilKuisController extends Controller
@@ -14,9 +15,10 @@ class HasilKuisController extends Controller
     public function index()
     {
         $hasils = Hasil::all();
+        $kategoris = KategoriKuis::all();
 
         // dd($hasils[1]->kategori_kuis);
-        return view('guru.kuis.hasil.index', compact('hasils'));
+        return view('guru.kuis.hasil.index', compact('hasils', 'kategoris'));
     }
 
     /**
@@ -41,8 +43,9 @@ class HasilKuisController extends Controller
     public function show(string $id)
     {
 
-        $hasils = Hasil::find($id)->first();
-        return view('guru.kuis.hasil.show', compact('hasils'));
+        $hasils = Hasil::all();
+        $hasil = Hasil::find($id);
+        return view('guru.kuis.hasil.show', compact('hasils', 'hasil'));
     }
 
     /**
