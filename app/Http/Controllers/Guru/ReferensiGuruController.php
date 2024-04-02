@@ -74,7 +74,7 @@ class ReferensiGuruController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $referensis = Referensi::find($id)->first();
+        $referensis = Referensi::find($id);
         $referensis->nama = $request->input('nama');
         $referensis->deskripsi = $request->input('deskripsi');
         if ($request->hasFile('dokumen')) {
@@ -93,7 +93,7 @@ class ReferensiGuruController extends Controller
      */
     public function destroy(string $id)
     {
-        $referensis = Referensi::find($id)->first();
+        $referensis = Referensi::find($id);
         $referensis->delete();
         return redirect()->route('referensi-guru.index');
     }

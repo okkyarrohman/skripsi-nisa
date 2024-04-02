@@ -33,9 +33,19 @@ class TutorialGuruController extends Controller
     public function store(Request $request)
     {
         $tutorials = Tutorial::create([
-            'nama' => $request->input('nama'),
-            'link'  => $request->input('link'),
+            'judul' => $request->input('judul'),
+            'deskripsi'  => $request->input('deskripsi'),
         ]);
+
+        if ($request->hasFile('dokumen')) {
+            $dokumen = $request->file('dokumen');
+            $extension = $dokumen->getClientOriginalName();
+            $dokumenName = date('Ymd') . "." . $extension;
+            $dokumen->move(storage_path('app/public/tutorial/dokumen/'), $dokumenName);
+            $tutorials->dokumen = $dokumenName;
+        }
+
+        $tutorials->save();
 
         return redirect()->route('tutorial-guru.index');
     }
@@ -66,9 +76,17 @@ class TutorialGuruController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $tutorials = Tutorial::find($id)->first();
-        $tutorials->nama = $request->nama;
-        $tutorials->link = $request->link;
+        // dd($id);
+        $tutorials = Tutorial::find($id);
+        $tutorials->judul = $request->input('judul');
+        $tutorials->deskripsi = $request->input('deskripsi');
+        if ($request->hasFile('dokumen')) {
+            $dokumen = $request->file('dokumen');
+            $extension = $dokumen->getClientOriginalName();
+            $dokumenName = date('Ymd') . "." . $extension;
+            $dokumen->move(storage_path('app/public/tutorial/dokumen/'), $dokumenName);
+            $tutorials->dokumen = $dokumenName;
+        }
         $tutorials->save();
 
         return redirect()->route('tutorial-guru.index');
@@ -79,7 +97,7 @@ class TutorialGuruController extends Controller
      */
     public function destroy(string $id)
     {
-        $tutorials = Tutorial::find($id)->first();
+        $tutorials = Tutorial::find($id);
         $tutorials->delete();
         return redirect()->route('tutorial-guru.index');
     }

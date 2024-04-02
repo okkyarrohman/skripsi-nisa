@@ -79,7 +79,7 @@
                                 </svg>
                             </div>
 
-                            <h1 class="text-lg font-semibold text-netral">{{ $item->nama }}</h1>
+                            <h1 class="text-lg font-semibold text-netral text-center">{{ $item->judul }}</h1>
 
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="w-6 h-6">
@@ -130,23 +130,20 @@
             <div class="p-4 rounded-lg shadow-md">
                 <h1 class="text-xl text-kuning font-semibold text-center mb-6">Edit tutorial</h1>
 
-                <form action="{{ route('tutorial-guru.store') }}" method="post" class="space-y-3"
-                    enctype="multipart/form-data">
+                <form action="{{ route('tutorial-guru.update', ['tutorial_guru' => $tutorial->id]) }}" method="post"
+                    class="space-y-3" enctype="multipart/form-data">
                     @csrf
-                    @method('POST')
+                    @method('PUT')
 
                     <div class="space-y-2">
                         <p>Judul tutorial</p>
-                        <input type="text" name="nama" class="w-full border-1 rounded p-1 border-blue-border"
-                            value="{{ $tutorial->nama }}">
+                        <input type="text" name="judul" class="w-full border-1 rounded p-1 border-blue-border"
+                            value="{{ $tutorial->judul }}">
                     </div>
-
-
-
 
                     <div class="space-y-2">
                         <p>Deskripsi tutorial</p>
-                        
+
                         <textarea id="myeditorinstance" name="deskripsi">
                             {!! $tutorial->deskripsi !!}
                         </textarea>
