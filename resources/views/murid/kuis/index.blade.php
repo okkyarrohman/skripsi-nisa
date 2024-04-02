@@ -122,7 +122,7 @@
             </ul>
         </div>
         <div class="flex items-center justify-center w-1/2">
-            <img src="/asset/materi.png" alt="">
+            <img src="{{ asset('assets/image/materi.png') }}" alt="">
         </div>
     </div>
 @endsection
