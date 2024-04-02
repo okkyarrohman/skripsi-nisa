@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-{{-- @dd($categories[0]->waktu) --}}
+{{-- @dd($categories->first()->waktu) --}}
 
 @push('head')
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
@@ -15,7 +15,7 @@
         <input type="hidden" name="kategori_kuis_id" value="{{ $kategori->id }}">
         <div class="border-b-2 border-b-[#C1C2C4] mx-16 mt-16 mb-8 min-h-[510px] pb-10">
             <h1 class="text-[#45484F] font-bold text-3xl">Quiz</h1>
-            <p class="text-[#215784] font-semibold text-lg">Dasar-dasar CSS</p>
+            <p class="text-[#215784] font-semibold text-lg">{{ $categories->first()->kuis }}</p>
             <div class="flex">
                 <div class="w-4/5 mr-6">
                     <div class="mb-6">
@@ -319,10 +319,10 @@
                             var radioName = `soal_${element.id}`;
                             var checked = selectedOptions[element.id] == opsi.id ? 'checked' : '';
                             return `
-                                                                                                                                                <label class="inline-flex items-center mt-3 mr-3">
-                                                                                                                                                    <input type="radio" class="form-radio h-5 w-5 text-blue-600" name="testing" id="opsi_${element.id}" value="${opsi.id}" ${checked}>
-                                                                                                                                                        <span class="ml-2">${opsi.opsi}</span>
-                                                                                                                                                    </label>`
+                                                                                                                                                        <label class="inline-flex items-center mt-3 mr-3">
+                                                                                                                                                            <input type="radio" class="form-radio h-5 w-5 text-blue-600" name="testing" id="opsi_${element.id}" value="${opsi.id}" ${checked}>
+                                                                                                                                                                <span class="ml-2">${opsi.opsi}</span>
+                                                                                                                                                            </label>`
                         }).join('')
                     }
                 </div>

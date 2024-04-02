@@ -2,37 +2,7 @@
 
 {{-- @dd($materi) --}}
 @push('head-2')
-    <style>
-        h1 {
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
-
-        p {
-            font-size: 16px;
-            line-height: 1.5;
-            margin-bottom: 1em;
-        }
-
-        h2 {
-            font-size: 1.25rem;
-            font-weight: 500;
-        }
-
-        h3 {
-            font-size: 1.125rem;
-            font-weight: 500;
-        }
-
-        h4 {
-            font-size: 1rem;
-            font-weight: 500;
-        }
-
-        .reset-css {
-            all: unset !important;
-        }
-    </style>
+    @include('includes.base_font_style')
 @endpush
 
 @section('content')
@@ -139,11 +109,13 @@
         </div>
         <div class="flex flex-col w-1/2 my-6 mr-3">
             <div>
-                <h1 class="font-bold text-2xl ">{{ $materi->nama }}</h1>
+                <h1 class="font-bold text-2xl capitalize">{{ $materi->nama }}</h1>
             </div>
             <div class="text-[#45484F]">
                 {{-- <div> --}}
-                {!! $materi->deskripsi !!}
+                <div class="render">
+                    {!! $materi->deskripsi !!}
+                </div>
                 {{-- </div> --}}
                 {{-- <h3 class="font-semibold">Apa itu CSS?</h3>
                 CSS (Cascade Style Sheet) adalah sebuah bahasa untuk mengatur tampilan web sehingga terlihat lebih

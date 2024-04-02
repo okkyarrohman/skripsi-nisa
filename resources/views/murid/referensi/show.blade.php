@@ -122,7 +122,7 @@
         </div>
         <div class="flex flex-col mt-10 w-1/2 space-y-5">
             {{-- <img src="{{ asset('assets/image/materi.png') }}" alt=""> --}}
-            <h1>{{ $referensi->nama }}</h1>
+            <h1 class="capitalize">{{ $referensi->nama }}</h1>
 
             <p>{{ $referensi->deskripsi }}</p>
 

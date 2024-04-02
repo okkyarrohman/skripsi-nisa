@@ -34,6 +34,15 @@ class SoalKuisController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
+        // if array soal is empty
+        $soalCollection = collect($request->input('soal'));
+
+        // Periksa apakah ada nilai null di dalam koleksi
+        if ($soalCollection->contains(null)) {
+            return redirect()->back()->with('error', 'Ada soal yang tidak diisi');
+        }
+
         // $soals = Soal::create([
         //     'kategori_kuis_id' => $request->input('kategori_kuis_id'),
         //     'soal' => $request->input('soal')

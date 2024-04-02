@@ -26,4 +26,13 @@
         font-size: 1rem;
         font-weight: 500;
     }
+
+    .render a {
+        color: #3182ce;
+        text-decoration: underline;
+    }
+
+    /* strong {
+        font-weight: bold;
+    } */
 </style>

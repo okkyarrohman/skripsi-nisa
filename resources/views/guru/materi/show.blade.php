@@ -1,33 +1,7 @@
 @extends('layouts.app')
 
 @push('head-2')
-    <style>
-        h1 {
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
-
-        p {
-            font-size: 16px;
-            line-height: 1.5;
-            margin-bottom: 1em;
-        }
-
-        h2 {
-            font-size: 1.25rem;
-            font-weight: 500;
-        }
-
-        h3 {
-            font-size: 1.125rem;
-            font-weight: 500;
-        }
-
-        h4 {
-            font-size: 1rem;
-            font-weight: 500;
-        }
-    </style>
+    @include('includes.base_font_style')
 @endpush
 
 {{-- @dd($materis) --}}
@@ -151,7 +125,7 @@
             </div>
         </div>
         <div class="max-h-96 overflow-auto">
-            <div>
+            <div class="render">
                 {!! $materis->deskripsi !!}
             </div>
 

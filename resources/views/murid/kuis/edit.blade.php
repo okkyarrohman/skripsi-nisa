@@ -8,7 +8,7 @@
 
         hapusForm.onclick = function() {
             const lewatDeadline = @json($is_pass_deadline);
-            const point = {{ $kategori->hasil->first()->total_points ?? 0}};
+            const point = {{ $kategori->hasil->first()->total_points ?? 0 }};
             if (lewatDeadline) {
                 Swal.fire({
                     title: 'Waktu kuis sudah berakhir!',
@@ -205,7 +205,18 @@
                     </div>
                     <p class="text-justify min-w-full">{{ $kategori->deskripsi }}</p>
                 </div>
-                <div class="flex justify-end w-full mt-4">
+
+
+                <div class="flex justify-end w-full mt-4 gap-x-11">
+                    @if ($kategori->hasil->first()->total_points)
+                        <a id="lihat" href="{{ route('kuis.show', ['kui' => $kategori->id]) }}"
+                            class="flex items-center text-white bg-kuning p-2 rounded-lg font-bold">Lihat Nilai
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                            </svg>
+                        </a>
+                    @endif
                     <a id="mulai" href="#" class="flex items-center gap-4 text-[#E59B0C] font-bold">Mulai Kuis
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="w-5 h-5">

@@ -126,14 +126,15 @@
             <div class="p-4 rounded-lg shadow-md">
                 <h1 class="text-xl text-kuning font-semibold text-center mb-6">Edit Referensi</h1>
 
-                <form action="{{ route('referensi-guru.store') }}" method="post" class="space-y-3"
-                    enctype="multipart/form-data">
+                <form action="{{ route('referensi-guru.update', ['referensi_guru' => $referensi->id]) }}" method="post"
+                    class="space-y-3" enctype="multipart/form-data">
                     @csrf
-                    @method('POST')
+                    @method('PUT')
 
                     <div class="space-y-2">
                         <p>Judul Referensi</p>
-                        <input type="text" name="nama" class="w-full border-1 rounded p-1 border-blue-border"
+                        <input type="text" name="nama"
+                            class="w-full border-1 rounded p-1 border-blue-border text-center"
                             value="{{ $referensi->nama }}">
                     </div>
 
