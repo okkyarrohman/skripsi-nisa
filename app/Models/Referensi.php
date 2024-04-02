@@ -13,6 +13,7 @@ class Referensi extends Model
 
     protected $fillable = [
         'nama',
-        'dokumen'
+        'dokumen',
+        'deskripsi'
     ];
 }

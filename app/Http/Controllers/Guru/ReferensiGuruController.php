@@ -35,6 +35,7 @@ class ReferensiGuruController extends Controller
     {
         $referensis = Referensi::create([
             'nama' => $request->input('nama'),
+            'deskripsi' => $request->input('deskripsi'),
         ]);
         if ($request->hasFile('dokumen')) {
             $dokumen = $request->file('dokumen');
@@ -74,6 +75,8 @@ class ReferensiGuruController extends Controller
     public function update(Request $request, string $id)
     {
         $referensis = Referensi::find($id)->first();
+        $referensis->nama = $request->input('nama');
+        $referensis->deskripsi = $request->input('deskripsi');
         if ($request->hasFile('dokumen')) {
             $dokumen = $request->file('dokumen');
             $extension = $dokumen->getClientOriginalName();
