@@ -72,6 +72,8 @@ class KategoriKuisController extends Controller
         $kategoris = KategoriKuis::find($id);
         $kategoris->kuis = $request->kuis;
         $kategoris->waktu = $request->waktu;
+        $kategoris->deskripsi = $request->deskripsi;
+        $kategoris->tenggat_waktu = $request->tenggat_waktu;
         $kategoris->save();
 
         return redirect()->route('kategori.index');

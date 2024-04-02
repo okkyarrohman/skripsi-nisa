@@ -76,7 +76,7 @@
         <div class="mt-0 w-1/2 mb-20 ml-4">
             <h1 class="font-bold text-xl ml-2">Daftar Kuis</h1>
             <ul class="p-2 menu dropdown-content z-[1] w-[90%] gap-7">
-                @forelse ($categories as $item)
+                @forelse ($kuises as $item)
                     <li class="border rounded-xl shadow p-1">
                         <a class="" href="{{ route('kuis.edit', ['kui' => $item->id]) }}">
                             <div class="bg-[#ACC9E2] rounded-full p-2">
@@ -208,7 +208,7 @@
 
 
                 <div class="flex justify-end w-full mt-4 gap-x-11">
-                    @if ($kategori->hasil->first()->total_points)
+                    @if (isset($kategori->hasil->first()->total_points))
                         <a id="lihat" href="{{ route('kuis.show', ['kui' => $kategori->hasil->first()->id]) }}"
                             class="flex items-center text-white bg-kuning p-2 rounded-lg font-bold">Lihat Nilai
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"

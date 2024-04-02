@@ -65,6 +65,8 @@ class KuisController extends Controller
             $query->whereId(auth()->id());
         })->find($result_id);
 
+        // dd($result->soal->last()->pivot);
+
         // if there is no result, return to index
         // if (!$result) {
         //     // result = null
@@ -88,9 +90,10 @@ class KuisController extends Controller
             ->whereHas('soal')
             ->get();
         $kategori = KategoriKuis::find($id);
+        $kuises = KategoriKuis::all();
         $is_pass_deadline = $kategori->tenggat_waktu < now();
 
-        return view('murid.kuis.edit', compact('categories', 'kategori', 'is_pass_deadline'));
+        return view('murid.kuis.edit', compact('categories', 'kategori', 'is_pass_deadline', 'kuises'));
     }
 
     /**
