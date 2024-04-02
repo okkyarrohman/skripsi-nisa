@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 {{-- @dd($hasils[0]->kategorikuis->kuis) --}}
+{{-- @dd($kategoris) --}}
 
 @push('script-bottom')
     <script>
@@ -10,6 +11,23 @@
         //     icon: 'success',
         //     confirmButtonText: 'Oke'
         // })
+        function hapusHasil(id) {
+            const hapusForm = document.getElementById('delete-hasil-' + id);
+            Swal.fire({
+                title: 'Apakah anda yakin?',
+                text: "kuis yang dihapus tidak dapat dikembalikan!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Ya, hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    hapusForm.submit();
+                }
+            })
+        }
 
         function hapus(id) {
             const hapusForm = document.getElementById('delete-' + id);
@@ -53,7 +71,7 @@
                     <h1 class="w-24 text-xl font-semibold">Aksi</h1>
                 </div>
 
-                @forelse ($hasils as $item)
+                @forelse ($kategoris as $item)
                     {{-- BUTTON --}}
                     <div class="flex items-center gap-3">
                         <a href="{{ route('hasil.show', ['hasil' => $item->id]) }}"
@@ -74,8 +92,10 @@
                                 </svg>
                             </div>
 
-                            <h1 class="text-lg font-semibold text-netral">{{ $item->user->name }} -
-                                {{ $item->kategori_kuis->kuis }}
+                            <h1 class="text-lg font-semibold text-netral">
+                                {{-- {{ $item->user->name }} -
+                                {{ $item->kategori_kuis->kuis }} --}}
+                                {{ $item->kuis }}
                             </h1>
 
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -142,7 +162,7 @@
                         <td colspan="5" class="border-t-2 border-blue-border"></td>
                     </tr>
                     {{-- garis biru --}}
-                    @forelse ($hasils as $item)
+                    @forelse ($hasil as $item)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $item->user->name }}</td>
@@ -153,8 +173,14 @@
                             -center justify-center gap-2  py-2  rounded">
                                 {{ $item->total_points }}
                             </td>
+                            <form action="{{ route('hasil.destroy', ['hasil' => $item->id]) }}"
+                                id="delete-hasil-{{ $item->id }}" method="POST">
+                                @csrf
+                                @method('delete')
+                            </form>
                             <td>
-                                <button class="bg-red-700 rounded p-2 text-white">
+                                <button onclick="hapusHasil({{ $item->id }})"
+                                    class="bg-red-700 rounded p-2 text-white">
                                     Hapus
                                 </button>
                             </td>

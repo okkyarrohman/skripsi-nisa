@@ -42,10 +42,11 @@ class HasilKuisController extends Controller
      */
     public function show(string $id)
     {
-
+        $kategoris = KategoriKuis::all();
         $hasils = Hasil::all();
-        $hasil = Hasil::find($id);
-        return view('guru.kuis.hasil.show', compact('hasils', 'hasil'));
+        $hasil = Hasil::where('kategori_kuis_id', $id)->get();
+        // dd($hasil->first()->user);
+        return view('guru.kuis.hasil.show', compact('hasils', 'hasil', 'kategoris'));
     }
 
     /**
@@ -69,6 +70,9 @@ class HasilKuisController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $hasil = Hasil::find($id);
+        $hasil->delete();
+
+        return redirect()->back();
     }
 }
