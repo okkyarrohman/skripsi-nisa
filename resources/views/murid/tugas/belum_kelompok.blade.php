@@ -1,4 +1,4 @@
-@extends('layouts.app')
+{{-- @extends('layouts.app') --}}
 
 @section('content')
     <div class="flex justify-center my-10 mt-0 w-full">
@@ -31,7 +31,30 @@
                 </tr>
             </thead>
             <tbody class="text-center">
-                <tr>
+                @forelse ($kelompoks as $item)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $item->nama }}</td>
+                        <td>{{ $item->murids->count() }}/{{ $item->kuota }}</td>
+                        <td>
+                            <form action="{{ route('kelompok-murid.store', ['id' => $item->id]) }}" method="POST">
+                                @csrf
+                                <button type="submit">
+                                    <div
+                                        class="bg-[#36C879] hover:bg-green-700 flex items-center justify-center text-white font-bold py-3 mx-7 my-2 px-4">
+                                        Gabung</div>
+                                </button>
+
+                            </form>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="4" class="text-center">Belum ada kelompok</td>
+                    </tr>
+                @endforelse
+
+                {{-- <tr>
                     <td>1</td>
                     <td>JavaScript</td>
                     <td>1/5</td>
@@ -83,7 +106,7 @@
                                 Gabung</div>
                         </a>
                     </td>
-                </tr>
+                </tr> --}}
             </tbody>
         </table>
     </div>

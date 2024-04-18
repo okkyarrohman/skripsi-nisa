@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-{{-- @dd($kelompokes) --}}
+{{-- @dd($kelompok[0]->murids->count()) --}}
 {{-- @dd($result) --}}
 
 @push('script-bottom')
@@ -29,12 +29,30 @@
                 }
             })
         }
+
+        function modal(id) {
+            $.ajax({
+                url: '/guru/kelompok-guru/' + id + '/edit',
+                type: 'GET',
+                success: function(response) {
+                    console.log(response)
+                    $('#edit-nama').val(response.nama);
+                    $('#edit-kuota').val(response.kuota);
+                    $('input[name="edit-id"]').val(response.id);
+                    $('#edit-form').attr('action', '/guru/kelompok-guru/' + response.id);
+                    document.getElementById('my_modal_4').showModal();
+                    // $('#editKelompok').html(response);
+                    // $('#editModal').modal('show');
+                }
+            });
+        }
     </script>
 @endpush
 
 @section('content')
     <div class="">
         <div class="px-14 w-full space-y-4">
+            <input type="hidden" name="edit-id">
             {{-- BUTTON KUNING --}}
             <a href="{{ route('data-murid.index') }}" class=" rounded text-kuning pl-0 p-2 text-center text-lg">
                 {{-- HEADER --}}
@@ -63,6 +81,50 @@
                 </p>
             </button>
 
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+
+            {{-- MODAL EDIT KELOMPOK --}}
+            <dialog id="my_modal_4" class="modal">
+                <div class="modal-box">
+                    <form method="dialog">
+                        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                    </form>
+
+                    <form action="{{ route('kelompok-guru.update', ['kelompok_guru' => 1]) }}" method="post"
+                        class="p-8 space-y-5" id="edit-form">
+                        @csrf
+                        @method('PUT')
+                        <h1 class="font-bold text-kuning text-3xl">EDIT Kelompok</h1>
+
+                        <div class="flex items-center gap-4">
+                            <label for="" class="w-32">Nama Kelompok</label>
+                            <input type="text" class="p-2 border rounded border-blue-border grow" name="nama"
+                                id="edit-nama">
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <label for="" class="w-32">Kuota</label>
+                            <input type="text" class="p-2 border rounded border-blue-border grow" name="kuota"
+                                id="edit-kuota">
+                        </div>
+
+                        <button class="flex items-center p-2 bg-kuning rounded-md gap-2 float-end my-2" id="edit-btn"
+                            type="submit">
+                            <p class="text-white capitalize">
+                                Simpan
+                            </p>
+                        </button>
+                    </form>
+                </div>
+            </dialog>
 
             {{-- MODAL BUAT KELOMPOK --}}
             <dialog id="my_modal_3" class="modal">
@@ -71,17 +133,17 @@
                         <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                     </form>
 
-                    <form action="" method="post" class="p-8 space-y-5">
+                    <form action="{{ route('kelompok-guru.store') }}" method="post" class="p-8 space-y-5">
                         @csrf
                         <h1 class="font-bold text-kuning text-3xl">Buat Kelompok</h1>
 
                         <div class="flex items-center gap-4">
                             <label for="" class="w-32">Nama Kelompok</label>
-                            <input type="text" class="p-2 border rounded border-blue-border grow">
+                            <input type="text" class="p-2 border rounded border-blue-border grow" name="nama">
                         </div>
                         <div class="flex items-center gap-4">
                             <label for="" class="w-32">Kuota</label>
-                            <input type="text" class="p-2 border rounded border-blue-border grow">
+                            <input type="text" class="p-2 border rounded border-blue-border grow" name="kuota">
                         </div>
 
                         <button class="flex items-center p-2 bg-kuning rounded-md gap-2 float-end my-2" type="submit">
@@ -92,7 +154,6 @@
                     </form>
                 </div>
             </dialog>
-
 
             {{-- TABLE --}}
             <table class="border-spacing-x-5 border-spacing-y-2 border-separate text-center w-full">
@@ -111,40 +172,46 @@
                         <td colspan="5" class="border-t-2 border-blue-border"></td>
                     </tr>
                     {{-- GARIS BIRU --}}
-
-
-                    {{-- RENDER DATA --}}
-                    {{-- @forelse ($result as $item)
+                    @forelse ($kelompoks as $item)
                         <tr>
-                            <td>1</td>
-                            <td>{{$item->user->name}}</td>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $item->nama }}</td>
                             <td>
-                                1. Mengenal Abc
+                                {{ $item->murids->count() }} / {{ $item->kuota }}
                             </td>
-                            <td class="flex items-center justify-center gap-2 text-blue-border py-2">
-                                Lihat <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 256 256">
-                                    <path fill="currentColor"
-                                        d="M245.48 125.57c-.34-.78-8.66-19.23-27.24-37.81C201 70.54 171.38 50 128 50S55 70.54 37.76 87.76c-18.58 18.58-26.9 37-27.24 37.81a6 6 0 0 0 0 4.88c.34.77 8.66 19.22 27.24 37.8C55 185.47 84.62 206 128 206s73-20.53 90.24-37.75c18.58-18.58 26.9-37 27.24-37.8a6 6 0 0 0 0-4.88M128 194c-31.38 0-58.78-11.42-81.45-33.93A134.77 134.77 0 0 1 22.69 128a134.56 134.56 0 0 1 23.86-32.06C69.22 73.42 96.62 62 128 62s58.78 11.42 81.45 33.94A134.56 134.56 0 0 1 233.31 128C226.94 140.21 195 194 128 194m0-112a46 46 0 1 0 46 46a46.06 46.06 0 0 0-46-46m0 80a34 34 0 1 1 34-34a34 34 0 0 1-34 34" />
-                                </svg>
-                            </td>
-                            <td class="border-1 border-kuning rounded text-kuning py-2">
-                                / 100
+                            <td class="flex items-center justify-center gap-8 text-blue-border py-2">
+                                <button class="flex items-center gap-2" onclick="modal({{ $item->id }})">
+                                    Edit
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                        viewBox="0 0 24 24">
+                                        <path fill="currentColor"
+                                            d="M3.548 20.938h16.9a.5.5 0 0 0 0-1h-16.9a.5.5 0 0 0 0 1M9.71 17.18a2.587 2.587 0 0 0 1.12-.65l9.54-9.54a1.75 1.75 0 0 0 0-2.47l-.94-.93a1.788 1.788 0 0 0-2.47 0l-9.54 9.53a2.473 2.473 0 0 0-.64 1.12L6.04 17a.737.737 0 0 0 .19.72a.767.767 0 0 0 .53.22Zm.41-1.36a1.468 1.468 0 0 1-.67.39l-.97.26l-1-1l.26-.97a1.521 1.521 0 0 1 .39-.67l.38-.37l1.99 1.99Zm1.09-1.08l-1.99-1.99l6.73-6.73l1.99 1.99Zm8.45-8.45L18.65 7.3l-1.99-1.99l1.01-1.02a.748.748 0 0 1 1.06 0l.93.94a.754.754 0 0 1 0 1.06" />
+                                    </svg>
+                                </button>
+
+                                <button class="flex items-center gap-2" onclick="hapus({{ $item->id }})">
+                                    Delete
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                        viewBox="0 0 24 24">
+                                        <path fill="currentColor"
+                                            d="M7 21q-.825 0-1.412-.587T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413T17 21zm2-4h2V8H9zm4 0h2V8h-2z" />
+                                    </svg>
+                                </button>
+
                             </td>
                         </tr>
-                    @empty --}}
-                    <tr>
-                        <td>1</td>
-                        <td>Javascript</td>
-                        <td>
-                            1/5
-                        </td>
-                        <td class="flex items-center justify-center gap-2 text-blue-border py-2">
-                            Lihat <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 256 256">
-                                <path fill="currentColor"
-                                    d="M245.48 125.57c-.34-.78-8.66-19.23-27.24-37.81C201 70.54 171.38 50 128 50S55 70.54 37.76 87.76c-18.58 18.58-26.9 37-27.24 37.81a6 6 0 0 0 0 4.88c.34.77 8.66 19.22 27.24 37.8C55 185.47 84.62 206 128 206s73-20.53 90.24-37.75c18.58-18.58 26.9-37 27.24-37.8a6 6 0 0 0 0-4.88M128 194c-31.38 0-58.78-11.42-81.45-33.93A134.77 134.77 0 0 1 22.69 128a134.56 134.56 0 0 1 23.86-32.06C69.22 73.42 96.62 62 128 62s58.78 11.42 81.45 33.94A134.56 134.56 0 0 1 233.31 128C226.94 140.21 195 194 128 194m0-112a46 46 0 1 0 46 46a46.06 46.06 0 0 0-46-46m0 80a34 34 0 1 1 34-34a34 34 0 0 1-34 34" />
-                            </svg>
-                        </td>
-                    </tr>
+
+                        <form action="{{ route('kelompok-guru.destroy', ['kelompok_guru' => $item->id]) }}"
+                            method="post" id="delete-{{ $item->id }}">
+                            @csrf
+                            @method('delete')
+                        </form>
+                    @empty
+                        <tr>
+                            <td colspan="5" class="text-center">Belum ada data</td>
+                        </tr>
+                    @endforelse
+
                     {{-- @endforelse --}}
 
                     {{-- @endforeach --}}

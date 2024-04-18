@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Guru;
 
 use App\Http\Controllers\Controller;
+use App\Models\Kelompok;
 use Illuminate\Http\Request;
 use App\Models\User;
 
@@ -88,7 +89,8 @@ class DataSiswaController extends Controller
     public function kelompok()
     {
         // $murids = User::role('murid')->get();
+        $kelompoks = Kelompok::all();
 
-        return view('guru.dataMurid.kelompok');
+        return view('guru.dataMurid.kelompok', compact('kelompoks'));
     }
 }

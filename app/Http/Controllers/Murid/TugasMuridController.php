@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Murid;
 
 use App\Http\Controllers\Controller;
+use App\Models\Kelompok;
 use App\Models\Tugas;
 use App\Models\TugasResult;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class TugasMuridController extends Controller
@@ -14,9 +16,14 @@ class TugasMuridController extends Controller
      */
     public function index()
     {
+        $kelompoks = Kelompok::all();
+        $kelompok = Kelompok::with('murids')->whereHas('murids', function ($query) {
+            $query->where('murid_id', auth()->user()->id);
+        })->first();
+
         $tugases = Tugas::all();
 
-        return view('murid.tugas.index', compact('tugases'));
+        return view('murid.tugas.index', compact('tugases', 'kelompoks', 'kelompok'));
     }
 
     /**

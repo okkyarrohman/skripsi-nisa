@@ -53,4 +53,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Hasil::class);
     }
+
+    public function kelompokMurid()
+    {
+        return $this->belongsTo(KelompokMurid::class, 'murid_id', 'id');
+    }
 }
