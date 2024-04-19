@@ -14,7 +14,8 @@ class Tugas extends Model
     protected $fillable = [
         'nama',
         'deskripsi',
-        'dokumen'
+        'dokumen',
+        'kelompok_id'
     ];
 
     public function tugasResult()

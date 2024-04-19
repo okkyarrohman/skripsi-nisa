@@ -16,8 +16,6 @@ return new class extends Migration
             $table->string('nama')->nullable();
             $table->longText('deskripsi')->nullable();
             $table->string('dokumen')->nullable();
-            $table->unsignedBigInteger('kelompok_id')->nullable();
-            $table->foreign('kelompok_id')->references('id')->on('kelompok')->onDelete('cascade');
             $table->timestamps();
         });
     }

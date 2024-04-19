@@ -17,8 +17,6 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('tugas_id')->nullable();
             $table->foreign('tugas_id')->references('id')->on('tugas')->onDelete('cascade');
-            $table->unsignedBigInteger('sub_tugas_id')->nullable();
-            $table->foreign('sub_tugas_id')->references('id')->on('sub_tugas')->onDelete('cascade');
             $table->longText('answer')->nullable();
             $table->timestamps();
         });
