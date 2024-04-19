@@ -21,4 +21,14 @@ class Tugas extends Model
     {
         return $this->hasMany(TugasResult::class);
     }
+
+    public function kelompok()
+    {
+        return $this->belongsTo(Kelompok::class);
+    }
+
+    public function subTugas()
+    {
+        return $this->hasMany(SubTugas::class);
+    }
 }

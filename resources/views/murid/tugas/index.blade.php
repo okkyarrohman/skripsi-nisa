@@ -1,18 +1,23 @@
 @extends('layouts.app')
 
+{{-- @dd($kelompok->murids) --}}
+
 @if (!empty($kelompok))
     @section('content')
         <div class="flex mx-10">
             <div class="mt-8 w-1/2 mb-20">
                 <div class="mb-10">
-                    <h1 class="text-xl font-bold">Selamat Datang Okky,</h1>
-                    <p class="text-xl mb-4 font-bold">Selamat bergabung dalam JavaScript!</p>
+                    <h1 class="text-xl font-bold">Selamat Datang {{ auth()->user()->name }},</h1>
+                    <p class="text-xl mb-4 font-bold">Selamat bergabung dalam {{ $kelompok->nama }}!</p>
                     <p class="">
                     <ol class="space-y-1 ml-5 list-decimal list-inside">
-                        <li>Esther Howard</li>
+                        @foreach ($kelompok->murids as $murid)
+                            <li>{{ $murid->name }}</li>
+                        @endforeach
+                        {{-- <li>Esther Howard</li>
                         <li>Cameron Williamson</li>
                         <li>Jenny Wilson</li>
-                        <li>Jacob Jones</li>
+                        <li>Jacob Jones</li> --}}
                     </ol>
                     </p>
                 </div>
