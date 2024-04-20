@@ -15,7 +15,8 @@ class Tugas extends Model
         'nama',
         'deskripsi',
         'dokumen',
-        'kelompok_id'
+        'kelompok_id',
+        'tenggat_waktu',
     ];
 
     public function tugasResult()

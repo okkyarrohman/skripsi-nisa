@@ -15,6 +15,6 @@ class KelompokMurid extends Model
 
     public function murid()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'id', 'murid_id');
     }
 }

@@ -142,12 +142,22 @@
                             value="{{ $tugases->nama }}">
                     </div>
 
-
                     <div class="space-y-2">
-                        <p>Sub Tugas</p>
-                        <input readonly type="text" name="" class="w-full border-1 rounded p-1 border-blue-border"
-                            id="">
+                        <p>Tenggat Waktu</p>
+                        <input type="date" name="tenggat_waktu" class="w-full border-1 rounded p-1 border-blue-border"
+                            value="{{ date('Y-m-d', strtotime($tugases->tenggat_waktu)) }}" readonly>
+
                     </div>
+
+
+                    @foreach ($tugases->subTugas as $item)
+                        <div class="space-y-2">
+                            <p>Sub Tugas</p>
+                            <input readonly type="text" name=""
+                                class="w-full border-1 rounded p-1 border-blue-border" id=""
+                                value="{{ $item->nama_sub_tugas }}">
+                        </div>
+                    @endforeach
 
                     {{-- <button class="border-1 rounded border-kuning text-kuning block w-full p-1 text-center text-base"
                         type="button">

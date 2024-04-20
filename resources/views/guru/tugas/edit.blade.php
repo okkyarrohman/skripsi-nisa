@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-{{-- @dd($tugases) --}}
+{{-- @dd($tugases->subTugas->count()) --}}
 
 @push('script-bottom')
     <script>
@@ -28,6 +28,21 @@
                 }
             })
         }
+
+        var sub = {{ $tugases->subTugas->count() + 1 }};
+
+        $('#add-sub').click(function() {
+
+            const subTugas = document.createElement('div');
+            subTugas.classList.add('space-y-2');
+            subTugas.innerHTML = `
+                <p>Sub Tugas ${sub}</p>
+                <input type="text" name="sub_tugas[]" class="w-full border-1 rounded p-1 border-blue-border" id="">
+            `;
+
+            document.querySelector('#sub-tugas-container').appendChild(subTugas);
+            sub++;
+        })
     </script>
 @endpush
 
@@ -141,16 +156,29 @@
                         <input type="text" name="nama" class="w-full border-1 rounded p-1 border-blue-border"
                             value="{{ $tugases->nama }}">
                     </div>
-
+                    {{-- @dd($tugases->tenggat_waktu) --}}
 
                     <div class="space-y-2">
-                        <p>Sub Tugas</p>
-                        <input type="text" name="" class="w-full border-1 rounded p-1 border-blue-border"
-                            id="">
+                        <p>Tenggat Waktu</p>
+                        <input type="date" name="tenggat_waktu" class="w-full border-1 rounded p-1 border-blue-border"
+                            value="{{ date('Y-m-d', strtotime($tugases->tenggat_waktu)) }}">
+
+                    </div>
+
+
+                    <div id="sub-tugas-container">
+                        @foreach ($tugases->subTugas as $item)
+                            <div class="space-y-2">
+                                <p>Sub Tugas {{ $loop->iteration }}</p>
+                                <input type="text" name="sub_tugas[]"
+                                    class="w-full border-1 rounded p-1 border-blue-border" id=""
+                                    value="{{ $item->nama_sub_tugas }}">
+                            </div>
+                        @endforeach
                     </div>
 
                     <button class="border-1 rounded border-kuning text-kuning block w-full p-1 text-center text-base"
-                        type="button">
+                        type="button" id="add-sub">
                         <div class="flex justify-center items-center gap-2">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="w-6 h-6">

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nama')->nullable();
             $table->longText('deskripsi')->nullable();
             $table->string('dokumen')->nullable();
+            $table->timestamp('tenggat_waktu');
             $table->timestamps();
         });
     }

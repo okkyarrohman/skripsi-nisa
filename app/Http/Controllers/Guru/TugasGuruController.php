@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Guru;
 
 use App\Http\Controllers\Controller;
+use App\Models\Kelompok;
 use Illuminate\Http\Request;
 use App\Models\Tugas;
 use App\Models\TugasResult;
@@ -25,8 +26,9 @@ class TugasGuruController extends Controller
     public function create()
     {
         $tugases = Tugas::all();
+        $kelompoks = Kelompok::all();
 
-        return view('guru.tugas.create', compact('tugases'));
+        return view('guru.tugas.create', compact('tugases', 'kelompoks'));
     }
 
     /**
@@ -34,10 +36,19 @@ class TugasGuruController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'nama' => 'required',
+            'deskripsi' => 'required',
+            'kelompok_id' => 'required',
+            'tenggat_waktu' => 'required',
+            'dokumen' => 'required',
+            'sub_tugas' => 'required'
+        ]);
         $tugases = Tugas::create([
             'nama' => $request->input('nama'),
             'deskripsi' => $request->input('deskripsi'),
-
+            'kelompok_id' => $request->input('kelompok_id'),
+            'tenggat_waktu' => $request->input('tenggat_waktu'),
         ]);
         if ($request->hasFile('dokumen')) {
             $dokumen = $request->file('dokumen');
@@ -48,6 +59,12 @@ class TugasGuruController extends Controller
             $tugases->save();
         }
 
+        foreach ($request->input('sub_tugas') as $sub) {
+            $tugases->subTugas()->create([
+                'nama_sub_tugas' => $sub,
+                'tugas_id' => $tugases->id
+            ]);
+        }
 
         return redirect()->route('tugas-guru.index');
     }
@@ -80,12 +97,24 @@ class TugasGuruController extends Controller
     {
         $tugases = Tugas::find($id);
         $tugases->nama = $request->nama;
+        $tugases->deskripsi = $request->deskripsi;
+        $tugases->tenggat_waktu = $request->tenggat_waktu;
         if ($request->hasFile('dokumen')) {
             $dokumen = $request->file('dokumen');
             $extension = $dokumen->getClientOriginalName();
             $dokumenName = date('Ymd') . "." . $extension;
             $dokumen->move(storage_path('app/public/tugas/dokumen/'), $dokumenName);
             $tugases->dokumen = $dokumenName;
+        }
+
+        // delete all sub tugas
+        $tugases->subTugas()->delete();
+
+        foreach ($request->input('sub_tugas') as $sub) {
+            $tugases->subTugas()->create([
+                'nama_sub_tugas' => $sub,
+                'tugas_id' => $tugases->id
+            ]);
         }
         $tugases->save();
         return redirect()->route('tugas-guru.index');
@@ -109,5 +138,4 @@ class TugasGuruController extends Controller
 
         return view('guru.tugas.nilai', compact('result', 'tugases'));
     }
-    
 }

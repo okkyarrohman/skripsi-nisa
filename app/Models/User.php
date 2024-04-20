@@ -56,6 +56,6 @@ class User extends Authenticatable
 
     public function kelompokMurid()
     {
-        return $this->belongsTo(KelompokMurid::class, 'murid_id', 'id');
+        return $this->belongsTo(KelompokMurid::class, 'id', 'murid_id');
     }
 }
