@@ -107,15 +107,40 @@ class TugasGuruController extends Controller
             $tugases->dokumen = $dokumenName;
         }
 
-        // delete all sub tugas
-        $tugases->subTugas()->delete();
+        $jumlah_sub_tugas = count($request->input('sub_tugas'));
 
-        foreach ($request->input('sub_tugas') as $sub) {
-            $tugases->subTugas()->create([
-                'nama_sub_tugas' => $sub,
-                'tugas_id' => $tugases->id
-            ]);
+        for ($i = 0; $i < $jumlah_sub_tugas; $i++) {
+            if (isset($request->input('id_sub')[$i])) {
+                $subTugas = $tugases->subTugas->find($request->input('id_sub')[$i]);
+                $subTugas->nama_sub_tugas = $request->input('sub_tugas')[$i];
+                $subTugas->save();
+            } else {
+                $tugases->subTugas()->create([
+                    'nama_sub_tugas' => $request->input('sub_tugas')[$i],
+                    'tugas_id' => $tugases->id
+                ]);
+            }
         }
+
+        // foreach ($request->input('sub_tugas') as $sub) {
+        //     $found = false;
+
+        //     // Periksa setiap subtugas yang sudah ada
+        //     foreach ($tugases->subTugas as $subTugas) {
+        //         if ($subTugas->nama_sub_tugas == $sub) {
+        //             $found = true; // Setel kecocokan ditemukan menjadi true
+        //             break; // Keluar dari loop karena kecocokan sudah ditemukan
+        //         }
+        //     }
+
+        //     // Jika subtugas tidak ditemukan, buat subtugas baru
+        //     if (!$found) {
+        //         $tugases->subTugas()->create([
+        //             'nama_sub_tugas' => $sub,
+        //             'tugas_id' => $tugases->id
+        //         ]);
+        //     }
+        // }
         $tugases->save();
         return redirect()->route('tugas-guru.index');
     }
@@ -134,8 +159,27 @@ class TugasGuruController extends Controller
     public function nilai(string $id)
     {
         $tugases = Tugas::find($id);
-        $result = TugasResult::with(['user', 'tugas'])->where('tugas_id', $id)->get();
+        $result = TugasResult::where('tugas_id', $id)->get();
+
+        // dd($result->first()->subTugas);
 
         return view('guru.tugas.nilai', compact('result', 'tugases'));
+    }
+
+    public function getTugasResult(string $id)
+    {
+        $result = TugasResult::find($id);
+        $subTugas = $result->subTugas;
+        $tugas = $result->tugas;
+        $user = $result->user;
+
+        return response()->json(
+            [
+                'result' => $result,
+                'subTugas' => $subTugas,
+                'tugas' => $tugas,
+                'user' => $user
+            ]
+        );
     }
 }

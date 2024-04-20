@@ -173,6 +173,7 @@
                                 <input type="text" name="sub_tugas[]"
                                     class="w-full border-1 rounded p-1 border-blue-border" id=""
                                     value="{{ $item->nama_sub_tugas }}">
+                                <input type="hidden" name="id_sub[]" value="{{ $item->id }}">
                             </div>
                         @endforeach
                     </div>
@@ -180,8 +181,8 @@
                     <button class="border-1 rounded border-kuning text-kuning block w-full p-1 text-center text-base"
                         type="button" id="add-sub">
                         <div class="flex justify-center items-center gap-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="w-6 h-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                 <path stroke-linecap="round" stroke-linejoin="round"
                                     d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                             </svg>

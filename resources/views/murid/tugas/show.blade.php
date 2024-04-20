@@ -118,9 +118,9 @@ int main() {
                         </summary>
                         <ul class="p-2 menu dropdown-content z-[1] w-[90%] gap-7 ml-12">
                             @foreach ($tugases->subTugas as $sub)
-                                <li
-                                    class="border rounded-xl bg-base-100 shadow p-1 {{ request()->sub == $sub->id ? 'bg-[#9d9d9d]' : '' }}">
-                                    <a href="{{ route('tugas.show', ['tuga' => $tugases->id]) }}?sub={{ $sub->id }}">{{ $sub->nama_sub_tugas }}
+                                <li class="border rounded-xl bg-base-100 shadow p-1  ">
+                                    <a href="{{ route('tugas.show', ['tuga' => $tugases->id]) }}?sub={{ $sub->id }}"
+                                        class="{{ request()->sub == $sub->id ? 'bg-[#9d9d9d]' : '' }}">{{ $sub->nama_sub_tugas }}
                                         <div class="flex justify-end w-full">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                 stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
@@ -171,14 +171,17 @@ int main() {
         </div>
         <div class="flex flex-col items-center mt-10 w-1/2 mx-10">
             <div class="border p-7 w-full">
-                
+
                 <p
                     class="border w-2/5 flex justify-center mb-8 items-center bg-[#F9D6D8] border-red-700 text-red-500 px-2 py-1">
-                    Tenggat : {{ \Carbon\Carbon::createFromTimestamp(strtotime($tugases->tenggat_waktu))->format('d M Y') }}</p>
+                    Tenggat : {{ \Carbon\Carbon::createFromTimestamp(strtotime($tugases->tenggat_waktu))->format('d M Y') }}
+                </p>
                 <div>
                     <div class="flex justify-between">
                         <h1 class="font-bold text-xl mb-4">Deskripsi Tugas</h1>
-                        <div class="flex">0/<p class="text-[#215784] font-semibold">100</p>
+                        <div class="flex text-[#215784] font-semibold">
+                            {{ $nilai_murid }}
+                            {{-- 0/<p class="text-[#215784] font-semibold">100</p> --}}
                         </div>
                     </div>
                     <p class="text-justify" class="w-full">
@@ -187,7 +190,8 @@ int main() {
                 </div>
                 <div class="flex justify-end w-full mt-4">
                     <a href="{{ route('tugas.edit', ['tuga' => $tugases->id]) }}?sub={{ request()->sub }}"
-                        class="flex items-center gap-4 text-[#E59B0C] font-bold">Unggah Tugas
+                        class="flex items-center gap-4 text-[#E59B0C] font-bold">
+                        {{ $nilai_murid == 'Sedang dinilai' ? 'Tugas sedang dinilai' : 'Unggah Tugas' }}
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="w-5 h-5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />

@@ -77,11 +77,29 @@ class TugasMuridController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $id, Request $request)
     {
         $tugases = Tugas::find($id);
+        $tugas_murid = Tugas::find($id)->whereHas('tugasResult', function ($query) use ($request) {
+            $query->where('user_id', auth()->user()->id)->where('sub_tugas_id', $request->sub);
+        })->first();
 
-        return view('murid.tugas.show', compact('tugases'));
+        $nilai_murid = null;
+        if ($tugas_murid) {
+            $nilai_murid = $tugas_murid->tugasResult->first()->nilai;
+        } 
+
+        if ($nilai_murid === 0) {
+            $nilai_murid = "Sedang dinilai";
+        } else if ($nilai_murid > 0) {
+            $nilai_murid = $nilai_murid;
+        } else {
+            $nilai_murid = "Belum mengumpulkan";
+        }
+
+        // dd($tugas_murid->tugasResult->first());
+
+        return view('murid.tugas.show', compact('tugases', 'nilai_murid'));
     }
 
     /**

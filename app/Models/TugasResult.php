@@ -31,4 +31,9 @@ class TugasResult extends Model
     {
         return $this->belongsTo(Tugas::class, 'tugas_id');
     }
+
+    public function subTugas()
+    {
+        return $this->belongsTo(SubTugas::class);
+    }
 }

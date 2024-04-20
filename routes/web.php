@@ -55,6 +55,7 @@ Route::group(['middleware' => 'role:guru'], function () {
             'referensi-guru' => ReferensiGuruController::class,
             'tutorial-guru' => TutorialGuruController::class,
         ]);
+        Route::get('/nilai/{id}', [TugasGuruController::class, 'getTugasResult'])->name('get-tugas-result');
         Route::get('/tugas-guru/{id}/nilai', [TugasGuruController::class, 'nilai'])->name('tugas-guru.nilai');
 
 
