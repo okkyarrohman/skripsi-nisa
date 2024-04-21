@@ -108,44 +108,45 @@
 
             </div>
         </div>
-        <div class="flex flex-col gap-2 items-center overflow-x-hidden">
-            <table class="border-spacing-x-5 border-spacing-y-2 border-separate text-center">
-                <thead>
-                    <tr class=" text-blue-border">
-                        <th class="rounded font-thin text-center p-2 border-1 border-kuning mr-10">No</th>
-                        <th class="rounded font-thin text-center px-12 border-1 border-kuning">Nama Absen</th>
-                        {{-- subkelompok, preview, nilai --}}
-                        <th class="rounded font-thin text-center px-12 border-1 border-kuning">Jumlah Siswa sudah absen</th>
-                        <th class="rounded font-thin text-center px-12 border-1 border-kuning">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{-- GARIS BIRU --}}
-                    <tr>
-                        <td colspan="5" class="border-t-2 border-blue-border"></td>
-                    </tr>
+        <div class="flex flex-col gap-2 px-4 items-center overflow-x-hidden">
+            <div class="w-full p-4 rounded-lg shadow-md">
+                <h1 class="text-xl text-kuning font-semibold text-center mb-6">Tambah Absen</h1>
 
-                    @forelse ($absens as $item)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $item->nama_absen }}</td>
-                            <td>
-                                {{ $item->murids->count() }}
-                            </td>
-                            <td class="flex items-center justify-center gap-2 text-white rounded">
-                                <a href="{{ route('absen.detail', ['id' => $item->id]) }}"
-                                    class="py-2 px-1 rounded bg-absen-hadir">
-                                    Lihat Detail
-                                </a>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="5" class="text-center">Belum ada absen</td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
+                @if ($errors->any())
+                    <div class="">
+                        <p class="flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+                            role="alert""><strong>Opps Something went wrong</strong></p>
+                        <ul class="list-disc ">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                <form action="{{ route('absen-guru.update', ['absen_guru' => $absen->id]) }}" method="post"
+                    class="space-y-3" enctype="multipart/form-data" id="form-tugas">
+                    @csrf
+                    @method('PUT')
+
+                    <div class="space-y-2">
+                        <p>Nama Absen</p>
+                        <input type="text" name="nama_absen" class="w-full border-1 rounded p-1 border-blue-border"
+                            value="{{ $absen->nama_absen }}" readonly>
+                    </div>
+
+                    <div class="space-y-2">
+                        <p>Tanggal Absen</p>
+                        <input type="date" name="tanggal_absen" class="w-full border-1 rounded p-1 border-blue-border"
+                            value="{{ \Carbon\Carbon::parse($absen->tanggal_absen)->format('Y-m-d') }}" readonly>
+                    </div>
+
+                    {{-- <button type="submit" class="w-full mt-5 bg-kuning text-white rounded p-1">
+                        Submit
+                    </button> --}}
+
+                </form>
+            </div>
         </div>
     </div>
 @endsection

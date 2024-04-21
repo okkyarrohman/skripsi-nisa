@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Guru;
 
 use App\Http\Controllers\Controller;
+use App\Models\Absen;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -14,8 +15,9 @@ class AbsenController extends Controller
     public function index()
     {
         $murids = User::role('murid')->get();
+        $absens = Absen::all();
 
-        return view('guru.absen.index', compact('murids'));
+        return view('guru.absen.index', compact('murids', 'absens'));
     }
 
     /**
@@ -23,7 +25,10 @@ class AbsenController extends Controller
      */
     public function create()
     {
-        //
+        $murids = User::role('murid')->get();
+        $absens = Absen::all();
+
+        return view('guru.absen.create', compact('murids', 'absens'));
     }
 
     /**
@@ -31,7 +36,17 @@ class AbsenController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama_absen' => 'required',
+            'tanggal_absen' => 'required',
+        ]);
+
+        Absen::create([
+            'nama_absen' => $request->nama_absen,
+            'tanggal_absen' => $request->tanggal_absen,
+        ]);
+
+        return redirect()->route('absen-guru.index');
     }
 
     /**
@@ -39,7 +54,10 @@ class AbsenController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $absen = Absen::find($id);
+        $absens = Absen::all();
+
+        return view('guru.absen.show', compact('absen', 'absens'));
     }
 
     /**
@@ -47,7 +65,10 @@ class AbsenController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $absen = Absen::find($id);
+        $absens = Absen::all();
+
+        return view('guru.absen.edit', compact('absen', 'absens'));
     }
 
     /**
@@ -55,7 +76,17 @@ class AbsenController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'nama_absen' => 'required',
+            'tanggal_absen' => 'required',
+        ]);
+
+        Absen::find($id)->update([
+            'nama_absen' => $request->nama_absen,
+            'tanggal_absen' => $request->tanggal_absen,
+        ]);
+
+        return redirect()->route('absen-guru.index');
     }
 
     /**
@@ -63,6 +94,18 @@ class AbsenController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Absen::destroy($id);
+
+        return redirect()->route('absen-guru.index');
+    }
+
+    public function detail(string $id)
+    {
+        $absen = Absen::find($id);
+
+        // dd($absen->absenMurids);
+        $absens = Absen::all();
+
+        return view('guru.absen.detail', compact('absens', 'absen'));
     }
 }

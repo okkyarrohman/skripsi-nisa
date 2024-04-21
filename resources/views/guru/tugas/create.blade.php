@@ -178,7 +178,7 @@
                     <div class="space-y-2">
                         <p>Nama Kelompok</p>
                         <select name="kelompok_id" id="" class="w-full border-1 rounded p-1 border-blue-border">
-                            <option selected>Pilih Kelompok</option>
+                            <option selected value="">Pilih Kelompok</option>
                             @foreach ($kelompoks as $item)
                                 <option value="{{ $item->id }}">{{ $item->nama }}</option>
                             @endforeach
