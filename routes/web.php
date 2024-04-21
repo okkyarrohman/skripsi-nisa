@@ -59,6 +59,7 @@ Route::group(['middleware' => 'role:guru'], function () {
         ]);
         Route::get('/nilai/{id}', [TugasGuruController::class, 'getTugasResult'])->name('get-tugas-result');
         Route::get('/tugas-guru/{id}/nilai', [TugasGuruController::class, 'nilai'])->name('tugas-guru.nilai');
+        Route::get('/absen/detail/{id}', [AbsenController::class, 'detail'])->name('absen.detail');
 
 
         Route::prefix('kuis')->group(function () {
