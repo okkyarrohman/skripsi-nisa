@@ -39,8 +39,9 @@ class ReferensiMuridController extends Controller
     public function show(string $id)
     {
 
-        $referensis = Referensi::find($id);
-        return view('murid.referensi.show', compact('referensis'));
+        $referensis = Referensi::all();
+        $referensi = Referensi::find($id);
+        return view('murid.referensi.show', compact('referensis', 'referensi'));
     }
 
     /**

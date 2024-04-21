@@ -19,6 +19,8 @@ use App\Http\Controllers\Murid\TugasMuridController;
 use App\Http\Controllers\Murid\TutorialMuridController;
 use App\Http\Controllers\CppController;
 use App\Http\Controllers\Guru\AbsenController;
+use App\Http\Controllers\Guru\KelompokController;
+use App\Http\Controllers\Guru\KelompokMuridController;
 use App\Http\Controllers\Murid\AbsenMuridController;
 
 /*
@@ -48,10 +50,12 @@ Route::group(['middleware' => 'role:guru'], function () {
             'absen-guru' => AbsenController::class,
             'data-murid' => DataSiswaController::class,
             'materi-guru' => MateriGuruController::class,
+            'kelompok-guru' => KelompokController::class,
             'tugas-guru' => TugasGuruController::class,
             'referensi-guru' => ReferensiGuruController::class,
             'tutorial-guru' => TutorialGuruController::class,
         ]);
+        Route::get('/nilai/{id}', [TugasGuruController::class, 'getTugasResult'])->name('get-tugas-result');
         Route::get('/tugas-guru/{id}/nilai', [TugasGuruController::class, 'nilai'])->name('tugas-guru.nilai');
 
 
@@ -83,6 +87,7 @@ Route::group(['middleware' => 'role:murid'], function () {
             'materi' => MateriMuridController::class,
             'tugas' => TugasMuridController::class,
             'kuis' => KuisController::class,
+            'kelompok-murid' => KelompokMuridController::class,
             'referensi' => ReferensiMuridController::class,
             'tutorial' => TutorialMuridController::class,
             "absen" => AbsenMuridController::class,

@@ -12,7 +12,8 @@ class Tutorial extends Model
     protected $table = 'tutorials';
 
     protected $fillable = [
-        'nama',
-        'link'
+        'judul',
+        'deskripsi',
+        'dokumen',
     ];
 }

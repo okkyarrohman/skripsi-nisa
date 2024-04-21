@@ -14,6 +14,8 @@
         btnFile.addEventListener('click', () => {
             if (!fileUpload.value) {
                 fileUpload.click();
+            } else if (fileUpload.value) {
+                $('#form-tugas').submit();
             }
         });
 
@@ -30,35 +32,50 @@
 @section('content')
     <div class="mb-20">
         <div class="flex flex-col items-center mt-10 mx-10">
-            <div class="border p-7">
+            <div class="border p-7 w-full">
                 <p
                     class="border w-fit flex justify-center mb-8 items-center bg-[#F9D6D8] border-red-700 text-red-500 px-2 py-1">
-                    Tenggat : 24 Oktober 2023</p>
+                    Tenggat : {{ \Carbon\Carbon::createFromTimestamp(strtotime($tugases->tenggat_waktu))->format('d M Y') }}
+                </p>
                 <div class="">
                     <div class="flex justify-between">
                         <h1 class="font-bold text-xl mb-4">Deskripsi Tugas</h1>
                         <div class="flex">0/<p class="text-[#215784] font-semibold">100</p>
                         </div>
                     </div>
-                    <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-                        tempor
-                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                        ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
-                        in
-                        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                        non
-                        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    <p class="text-justify">
+                        {{ $tugases->deskripsi }}
+                    </p>
                 </div>
-                <form action="">
+                <form action="{{ route('tugas.store') }}" method="POST" id="form-tugas" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="tugas_id" value="{{ $tugases->id }}">
+                    <input type="hidden" name="sub_tugas_id" value="{{ request()->sub }}">
                     <div>
+                        @if ($errors->any())
+                            <div class="">
+                                <p class="flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+                                    role="alert""><strong>Opps Something went wrong</strong></p>
+                                <ul class="list-disc ">
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
                         <div class="flex items-center gap-5 mt-6">
                             <label for="nama" class=" font-semibold">Nama</label>
-                            <input name="nama" type="text" placeholder="okky" class="border w-80 p-2">
+                            <input name="name" type="text" placeholder="okky" class="border w-80 p-2">
                         </div>
                         <div class="flex items-center gap-5 mt-6">
                             <label for="absen" class=" font-semibold">Absen</label>
-                            <input name="absen" type="text" placeholder="20012" class="border w-80 p-2">
+                            <input name="no_absen" type="text" placeholder="20012" class="border w-80 p-2">
                         </div>
+                    </div>
+
+                    <div>
+                        <textarea name="deskripsi" id="" class="w-full p-2 border-kuning border-1 mt-2 rounded-md" rows="6"
+                            placeholder="deskripsi jawaban"></textarea>
                     </div>
 
                     <div class="">
@@ -68,11 +85,12 @@
 
                                 <div class="input_field ">
                                     <div class="flex justify-between mt-4 mb-5">
-                                        <input class="text-sm cursor-pointer text-kuning" type="file" multiple
+                                        <input name="answer" class="text-sm cursor-pointer text-kuning" type="file"
                                             id="file-upload" />
 
                                         <button id="ganti-dok"
-                                            class="py-2 px-1 rounded border-1 border-kuning text-kuning font-semibold">
+                                            class="py-2 px-1 rounded border-1 border-kuning text-kuning font-semibold"
+                                            type="button">
                                             Ganti Dokumen
                                         </button>
                                     </div>

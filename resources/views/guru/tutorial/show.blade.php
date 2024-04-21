@@ -2,6 +2,10 @@
 
 {{-- @dd($tutorials) --}}
 
+@push('head-2')
+    @include('includes.base_font_style')
+@endpush
+
 @push('script-bottom')
     <script>
         // Swal.fire({
@@ -75,7 +79,7 @@
                                 </svg>
                             </div>
 
-                            <h1 class="text-lg font-semibold text-netral">{{ $item->nama }}</h1>
+                            <h1 class="text-lg font-semibold text-netral text-center">{{ $item->judul }}</h1>
 
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="w-6 h-6">
@@ -133,20 +137,19 @@
 
                     <div class="space-y-2">
                         <p>Judul tutorial</p>
-                        <input type="text" name="nama" class="w-full border-1 rounded p-1 border-blue-border"
-                            value="{{ $tutorial->nama }}" readonly>
+                        <input type="text" name="judul" class="w-full border-1 rounded p-1 border-blue-border"
+                            value="{{ $tutorial->judul }}" readonly>
                     </div>
 
                     <div class="space-y-2">
                         <p>Deskripsi tutorial</p>
-                        {{-- <input type="text" name="deskripsi" class="w-full border-1 rounded p-1 border-blue-border"
-                            id=""> --}}
 
-                        <textarea id="deskripsi" name="deskripsi" class="w-full border-1 rounded p-1 border-blue-border" cols="30"
-                            rows="5" readonly></textarea>
+                        <div class="border-1 rounded border-blue-border p-1">
+                            {!! $tutorial->deskripsi !!}
+                        </div>
                     </div>
 
-                    <div class="mt-8">
+                    <div class="mt-10">
                         @if ($tutorial->dokumen)
                             <a href="{{ asset('storage/tutorial/dokumen/' . $tutorial->dokumen) }}" target="_blank"
                                 class="rounded bg-kuning p-2">

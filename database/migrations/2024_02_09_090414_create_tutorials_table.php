@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('tutorials', function (Blueprint $table) {
             $table->id();
-            $table->string('nama')->nullable();
-            $table->string('link')->nullable();
+            $table->string('judul')->nullable();
+            $table->text('deskripsi')->nullable();
+            $table->string('dokumen')->nullable();
             $table->timestamps();
         });
     }

@@ -40,9 +40,10 @@ class TutorialMuridController extends Controller
     public function show(string $id)
     {
 
-        $tutorials = Tutorial::find($id);
+        $tutorials = Tutorial::all();
+        $tutorial = Tutorial::find($id);
 
-        return view('murid.tutorial.show', compact('tutorials'));
+        return view('murid.tutorial.show', compact('tutorials', 'tutorial'));
     }
 
     /**

@@ -54,8 +54,7 @@
                 </div>
 
                 @forelse ($referensis as $item)
-
-                {{-- @dd($item) --}}
+                    {{-- @dd($item) --}}
                     {{-- BUTTON --}}
                     <div class="flex items-center gap-3">
                         <a href="{{ route('referensi-guru.show', ['referensi_guru' => $item->id]) }}"
@@ -127,14 +126,16 @@
             <div class="p-4 rounded-lg shadow-md">
                 <h1 class="text-xl text-kuning font-semibold text-center mb-6">Edit Referensi</h1>
 
-                <form action="{{ route('referensi-guru.store') }}" method="post" class="space-y-3"
-                    enctype="multipart/form-data">
+                <form action="{{ route('referensi-guru.update', ['referensi_guru' => $referensi->id]) }}" method="post"
+                    class="space-y-3" enctype="multipart/form-data">
                     @csrf
-                    @method('POST')
+                    @method('PUT')
 
                     <div class="space-y-2">
                         <p>Judul Referensi</p>
-                        <input type="text" name="nama" class="w-full border-1 rounded p-1 border-blue-border" value="{{ $referensi->nama }}">
+                        <input type="text" name="nama"
+                            class="w-full border-1 rounded p-1 border-blue-border text-center"
+                            value="{{ $referensi->nama }}">
                     </div>
 
 
@@ -146,7 +147,9 @@
                             id=""> --}}
 
                         <textarea id="deskripsi" name="deskripsi" class="w-full border-1 rounded p-1 border-blue-border" cols="30"
-                            rows="5"></textarea>
+                            rows="5">
+                        {{ $referensi->deskripsi }}
+                        </textarea>
                     </div>
 
                     <div class="space-y-2">

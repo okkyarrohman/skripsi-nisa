@@ -133,17 +133,15 @@
 
                     <div class="space-y-2">
                         <p>Judul Referensi</p>
-                        <input type="text" name="nama" class="w-full border-1 rounded p-1 border-blue-border"
+                        <input type="text" name="nama" class="w-full border-1 rounded p-1 border-blue-border text-center"
                             value="{{ $referensi->nama }}" readonly>
                     </div>
 
                     <div class="space-y-2">
                         <p>Deskripsi referensi</p>
-                        {{-- <input type="text" name="deskripsi" class="w-full border-1 rounded p-1 border-blue-border"
-                            id=""> --}}
 
                         <textarea id="deskripsi" name="deskripsi" class="w-full border-1 rounded p-1 border-blue-border" cols="30"
-                            rows="5" readonly></textarea>
+                            rows="5" readonly>{{ $referensi->deskripsi }}</textarea>
                     </div>
 
                     <div class="mt-8">

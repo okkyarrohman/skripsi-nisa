@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@push('head-2')
+    @include('includes.base_font_style')
+@endpush
+
 {{-- @dd($materis) --}}
 @push('script-bottom')
     <script>
@@ -121,7 +125,7 @@
             </div>
         </div>
         <div class="max-h-96 overflow-auto">
-            <div>
+            <div class="render">
                 {!! $materis->deskripsi !!}
             </div>
 

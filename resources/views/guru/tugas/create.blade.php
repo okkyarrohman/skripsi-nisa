@@ -28,6 +28,21 @@
                 }
             })
         }
+
+        var sub = 2
+
+        $('#add-sub').click(function() {
+
+            const subTugas = document.createElement('div');
+            subTugas.classList.add('space-y-2');
+            subTugas.innerHTML = `
+                <p>Sub Tugas ${sub}</p>
+                <input type="text" name="sub_tugas[]" class="w-full border-1 rounded p-1 border-blue-border" id="">
+            `;
+
+            document.querySelector('#sub-tugas-container').appendChild(subTugas);
+            sub++;
+        })
     </script>
 @endpush
 
@@ -132,8 +147,20 @@
             <div class="w-full p-4 rounded-lg shadow-md">
                 <h1 class="text-xl text-kuning font-semibold text-center mb-6">Tambah Tugas</h1>
 
+                @if ($errors->any())
+                    <div class="">
+                        <p class="flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+                            role="alert""><strong>Opps Something went wrong</strong></p>
+                        <ul class="list-disc ">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
                 <form action="{{ route('tugas-guru.store') }}" method="post" class="space-y-3"
-                    enctype="multipart/form-data">
+                    enctype="multipart/form-data" id="form-tugas">
                     @csrf
                     @method('POST')
 
@@ -142,18 +169,35 @@
                         <input type="text" name="nama" class="w-full border-1 rounded p-1 border-blue-border">
                     </div>
 
+                    <div class="space-y-2">
+                        <p>Tenggat Waktu</p>
+                        <input type="date" name="tenggat_waktu" class="w-full border-1 rounded p-1 border-blue-border">
+
+                    </div>
 
                     <div class="space-y-2">
-                        <p>Sub Tugas</p>
-                        <input type="text" name="" class="w-full border-1 rounded p-1 border-blue-border"
-                            id="">
+                        <p>Nama Kelompok</p>
+                        <select name="kelompok_id" id="" class="w-full border-1 rounded p-1 border-blue-border">
+                            <option selected>Pilih Kelompok</option>
+                            @foreach ($kelompoks as $item)
+                                <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div id="sub-tugas-container">
+                        <div class="space-y-2">
+                            <p>Sub Tugas 1</p>
+                            <input type="text" name="sub_tugas[]" class="w-full border-1 rounded p-1 border-blue-border"
+                                id="">
+                        </div>
                     </div>
 
                     <button class="border-1 rounded border-kuning text-kuning block w-full p-1 text-center text-base"
-                        type="button">
+                        type="button" id="add-sub">
                         <div class="flex justify-center items-center gap-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="w-6 h-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                 <path stroke-linecap="round" stroke-linejoin="round"
                                     d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                             </svg>

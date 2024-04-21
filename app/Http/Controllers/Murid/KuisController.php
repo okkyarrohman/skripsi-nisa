@@ -33,6 +33,7 @@ class KuisController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $opsi = Opsi::find(array_values($request->input('soal')));
 
         $hasilSeluruh = new Hasil();
@@ -64,6 +65,8 @@ class KuisController extends Controller
             $query->whereId(auth()->id());
         })->find($result_id);
 
+        // dd($result->soal->last()->pivot);
+
         // if there is no result, return to index
         // if (!$result) {
         //     // result = null
@@ -86,8 +89,11 @@ class KuisController extends Controller
         }])
             ->whereHas('soal')
             ->get();
+        $kategori = KategoriKuis::find($id);
+        $kuises = KategoriKuis::all();
+        $is_pass_deadline = $kategori->tenggat_waktu < now();
 
-        return view('murid.kuis.edit', compact('categories'));
+        return view('murid.kuis.edit', compact('categories', 'kategori', 'is_pass_deadline', 'kuises'));
     }
 
     /**
@@ -108,7 +114,15 @@ class KuisController extends Controller
 
     public function mulai($id)
     {
+        $categories = KategoriKuis::where('id', $id)->with(['soal' => function ($query) {
+            $query->inRandomOrder()
+                ->with(['opsi' => function ($query) {
+                    $query->inRandomOrder();
+                }]);
+        }])
+            ->whereHas('soal')
+            ->get();
         $kategori = KategoriKuis::find($id);
-        return view('murid.kuis.mulai', compact('kategori'));
+        return view('murid.kuis.mulai', compact('kategori', 'categories'));
     }
 }

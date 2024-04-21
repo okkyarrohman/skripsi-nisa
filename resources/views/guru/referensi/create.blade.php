@@ -132,7 +132,7 @@
 
                     <div class="space-y-2">
                         <p>Judul Referensi</p>
-                        <input type="text" name="nama" class="w-full border-1 rounded p-1 border-blue-border">
+                        <input type="text" name="nama" class="w-full border-1 rounded p-1 border-blue-border text-center">
                     </div>
 
 

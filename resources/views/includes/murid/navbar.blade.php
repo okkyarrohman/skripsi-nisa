@@ -5,7 +5,7 @@
 <div class="mt-7 flex justify-between px-16 text-[#A2A3A7]">
     <a href="{{ route('materi.index') }}"
         class=" {{ request()->routeIs('materi.index') ? 'mb-2' : 'mb-0' }}  inline-block rounded-sm {{ request()->routeIs('materi*') ? 'text-[#215784] border-[#215784] border-b-4' : '' }}">Materi</a>
-    <a href="{{ route('tugas.belum_kelompok') }}"
+    <a href="{{ route('tugas.index') }}"
         class="{{ request()->routeIs('tugas.index') ? 'mb-2' : 'mb-0' }}  inline-block rounded-sm {{ request()->routeIs('tugas*') || request()->routeIs('tugas.index') ? 'text-[#215784] border-[#215784] border-b-4' : '' }}">Tugas</a>
     <a href="{{ route('kuis.index') }}"
         class="{{ request()->routeIs('kuis.index') ? 'mb-2' : 'mb-0' }}  inline-block rounded-sm {{ request()->routeIs('kuis*') ? 'text-[#215784] border-[#215784] border-b-4' : '' }}">Kuis</a>

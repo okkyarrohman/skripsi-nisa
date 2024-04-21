@@ -137,9 +137,24 @@
                     </div>
 
                     <div class="space-y-2">
+                        <p>Deskripsi Kuis</p>
+                        {{-- textarea --}}
+                        <textarea name="deskripsi" readonly id="deskripsi" class="w-full border-1 rounded p-1 border-blue-border">{{ $kategori->deskripsi }}</textarea>
+                    </div>
+
+                    {{-- tenggat_waktu --}}
+                    <div class="space-y-2">
+                        <p>Masukkan Tenggat Waktu:</p>
+                        <input type="date" readonly id="tenggat_waktu" name="tenggat_waktu"
+                            class="w-full border-1 rounded p-1 border-blue-border"
+                            value="{{ \Carbon\Carbon::parse($kategori->tenggat_waktu)->format('Y-m-d') }}">
+                    </div>
+
+                    <div class="space-y-2">
                         <p>waktu (menit):</p>
                         <input type="number" id="time" name="waktu" min="0"
-                            class="w-full border-1 rounded p-1 border-blue-border" placeholder="Masukkan waktu dalam menit" value="{{ $kategori->waktu }}" readonly>
+                            class="w-full border-1 rounded p-1 border-blue-border" placeholder="Masukkan waktu dalam menit"
+                            value="{{ $kategori->waktu }}" readonly>
                     </div>
 
 

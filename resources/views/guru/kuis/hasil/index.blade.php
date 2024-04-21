@@ -35,7 +35,7 @@
     <div class="grid grid-cols-2 gap-4 mb-14">
         <div class="px-14 w-full space-y-5">
             {{-- BUTTON KUNING --}}
-            <a href="{{ route('kategori.create') }}"
+            {{-- <a href="{{ route('kategori.create') }}"
                 class="border-1 rounded border-kuning text-kuning block w-full p-2 text-center text-lg">
                 <div class="flex justify-center items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -45,7 +45,7 @@
                     </svg>
                     Tambah kuis
                 </div>
-            </a>
+            </a> --}}
 
             <div class="w-full max-h-72 overflow-scroll space-y-6">
                 <div class="flex items-center">
@@ -53,10 +53,10 @@
                     <h1 class="w-24 text-xl font-semibold">Aksi</h1>
                 </div>
 
-                @forelse ($hasils as $item)
+                @forelse ($kategoris as $item)
                     {{-- BUTTON --}}
                     <div class="flex items-center gap-3">
-                        <a href="{{ route('kategori.show', ['kategori' => $item->id]) }}"
+                        <a href="{{ route('hasil.show', ['hasil' => $item->id]) }}"
                             class="flex-grow flex justify-between items-center px-4 py-1 border rounded">
                             <div class="rounded-full p-2 bg-primary-blue">
                                 <svg class="w-7 h-7 " viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -74,8 +74,10 @@
                                 </svg>
                             </div>
 
-                            <h1 class="text-lg font-semibold text-netral">{{ $item->user->name }} -
+                            {{-- <h1 class="text-lg font-semibold text-netral">{{ $item->user->name }} -
                                 {{ $item->kategori_kuis->kuis }}
+                            </h1> --}}
+                            <h1 class="text-lg font-semibold text-netral">{{ $item->kuis }}
                             </h1>
 
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -86,7 +88,7 @@
                         </a>
                         {{-- ACTION --}}
                         <div class="w-24 flex items-center justify-between">
-                            <a href="{{ route('kategori.edit', ['kategori' => $item->id]) }}">
+                            <a href="#">
                                 <div id="1-item" class="text-center space-y-1">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-black" viewBox="0 0 24 24">
                                         <path fill="currentColor"
@@ -105,8 +107,7 @@
 
                                 <p>Hapus</p>
 
-                                <form action="{{ route('kategori.destroy', ['kategori' => $item->id]) }}" method="post"
-                                    id="delete-{{ $item->id }}">
+                                <form action="#" method="post" id="delete-{{ $item->id }}">
                                     @csrf
                                     @method('delete')
                                 </form>
@@ -137,10 +138,10 @@
                 <tbody>
                     {{-- GARIS BIRU --}}
                     <tr>
-                        <td colspan="5" class="border-t-2 border-blue-border"></td>
+                        <td colspan="5" class="border-t-2 border-blue-border">Silakan Pilih Kuis</td>
                     </tr>
                     {{-- garis biru --}}
-                    @forelse ($hasils as $item)
+                    {{-- @forelse ($hasils as $item)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $item->user->name }}</td>
@@ -157,7 +158,7 @@
                         <tr>
                             <td colspan="5" class="border-t-2 border-blue-border">Belum ada hasil kuis</td>
                         </tr>
-                    @endforelse
+                    @endforelse --}}
                     {{-- <tr>
                         <td>1</td>
                         <td>Ester Howard</td>

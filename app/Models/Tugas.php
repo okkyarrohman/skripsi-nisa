@@ -14,11 +14,23 @@ class Tugas extends Model
     protected $fillable = [
         'nama',
         'deskripsi',
-        'dokumen'
+        'dokumen',
+        'kelompok_id',
+        'tenggat_waktu',
     ];
 
     public function tugasResult()
     {
         return $this->hasMany(TugasResult::class);
+    }
+
+    public function kelompok()
+    {
+        return $this->belongsTo(Kelompok::class);
+    }
+
+    public function subTugas()
+    {
+        return $this->hasMany(SubTugas::class);
     }
 }
