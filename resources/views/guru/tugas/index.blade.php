@@ -112,7 +112,7 @@
                             <a href="{{ route('tugas-guru.nilai', ['id' => $item->id]) }}">
                                 <div id="1-item"
                                     class="text-center space-y-1 cursor-pointer text-kuning border-2 border-kuning p-1 rounded">
-                                    Nilai Tugas
+                                    Beri Nilai
                                 </div>
                             </a>
                         </div>

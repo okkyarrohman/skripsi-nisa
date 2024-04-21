@@ -14,6 +14,8 @@
             left: 0;
         }
     </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
 @endpush
 
 @push('script-bottom')
@@ -21,6 +23,7 @@
         integrity="sha512-oz/97HdPI510jvvYzVqE2tzz+jWpvUeVkK5OT0S2kPZOxuR+9cE8zT1V6UgwtRG71ThICBEtkPEzN5tfP/YeYw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
+        window.location.hash = 1;
         var editor = ace.edit("editor");
         // seteditor value
         @if (null != session()->get('cpp_code'))
@@ -71,23 +74,48 @@ int main() {
             $('#java-div').removeClass('bg-[#a5aec6]')
             if (location.hash === "#1") {
                 editor.session.setMode("ace/mode/c_cpp");
-                editor.setValue(`#include <iostream>
+                @if (null != session()->get('cpp_code'))
+                    editor.setValue(`{!! session()->get('cpp_code') !!}`);
+                @else
+                    editor.setValue(`#include <iostream>
 using namespace std;
 int main() {
     cout << "Hello, World!";
     return 0;
 }`);
+                @endif
                 $('#java-div').addClass('bg-[#a5aec6]')
             } else if (location.hash === "#2") {
                 editor.session.setMode("ace/mode/java");
-                editor.setValue(`public class Main {
+                @if (null != session()->get('cpp_code'))
+                    editor.setValue(`{!! session()->get('cpp_code') !!}`);
+                @else
+                    editor.setValue(`public class Main {
     public static void main(String[] args) {
         System.out.println("Hello, World!");
     }
 }`)
+                @endif
                 $('#cpp-div').addClass('bg-[#a5aec6]')
             }
         }, {});
+
+        document.getElementById('btn-download').addEventListener('click', function() {
+            var fileExtension = 'cpp';
+            var type = "text/x-c++src;charset=utf-8"
+            var namaFile =
+                "{{ $tugases->nama }}_{{ $tugases->subTugas->where('id', request()->sub)->first()->nama_sub_tugas }}_{{ auth()->user()->name }}"
+            // Atau 'java' tergantung pada kebutuhan Anda
+
+            if (location.hash === "#2") {
+                fileExtension = 'java';
+                type = "text/x-java-source;charset=utf-8"
+            }
+            var blob = new Blob([editor.getValue()], {
+                type: type
+            });
+            saveAs(blob, `${namaFile}.${fileExtension}`); // Nama file dengan ekstensi yang sesuai
+        });
     </script>
 @endpush
 
@@ -241,8 +269,25 @@ int main() {
                     </div>
 
                     <button type="submit"
-                        class="border-1 text-kuning border-kuning p-2 rounded-lg hover:bg-kuning hover:text-white mt-4 w-full">
+                        class="border-1 text-kuning border-kuning p-2 rounded-lg hover:bg-kuning hover:text-white mt-4 w-full flex items-center gap-2 justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-8
+                         h-8"
+                            viewBox="0 0 16 16">
+                            <g fill="currentColor">
+                                <path d="M2.78 2L2 2.41v12l.78.42l9-6V8zM3 13.48V3.35l7.6 5.07z" />
+                                <path fill-rule="evenodd" d="m6 14.683l8.78-5.853V8L6 2.147V3.35l7.6 5.07L6 13.48z"
+                                    clip-rule="evenodd" />
+                            </g>
+                        </svg>
                         Run Program
+                    </button>
+
+                    <button type="button" id="btn-download"
+                        class="border-1  p-2 rounded-lg bg-kuning hover:bg-yellow-800 text-white hover:text-kuning mt-4 w-full flex items-center gap-2 justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" viewBox="0 0 24 24">
+                            <path fill="currentColor" d="M5 20h14v-2H5zM19 9h-4V3H9v6H5l7 7z" />
+                        </svg>
+                        Download Code File
                     </button>
                 </form>
                 <img src="./asset/filetugas1.png" alt="">
@@ -253,12 +298,12 @@ int main() {
                     <p id="output">
 
                     </p>
-                    <a href="">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="w-4 h-4 text-white">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-                        </svg>
-                    </a>
+
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-4 h-4 text-white">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                    </svg>
+
                 </div>
                 <textarea name="" id=""
                     class="min-w-96 min-h-40 mt-2 p-2 border-slate-700 rounded-2xl border-1 bg-slate-700 text-white font-mono"

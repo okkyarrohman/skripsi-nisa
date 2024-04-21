@@ -40,7 +40,8 @@
                 <div class="">
                     <div class="flex justify-between">
                         <h1 class="font-bold text-xl mb-4">Deskripsi Tugas</h1>
-                        <div class="flex">0/<p class="text-[#215784] font-semibold">100</p>
+                        <div class="flex">
+                            {{ $nilai_murid == 'Belum mengumpulkan' ? 'Belum mengumpulkan' : $tugas_murid->tugasResult->first()->nilai . ' / 100' }}
                         </div>
                     </div>
                     <p class="text-justify">
@@ -65,50 +66,65 @@
                         @endif
                         <div class="flex items-center gap-5 mt-6">
                             <label for="nama" class=" font-semibold">Nama</label>
-                            <input name="name" type="text" placeholder="okky" class="border w-80 p-2">
+                            <input name="name" type="text" placeholder="okky" class="border w-80 p-2"
+                                {{ $nilai_murid != 'Belum mengumpulkan' ? 'disabled' : '' }}
+                                value="{{ $nilai_murid != 'Belum mengumpulkan' ? $tugas_murid->tugasResult->first()->name : '' }}">
+
                         </div>
                         <div class="flex items-center gap-5 mt-6">
                             <label for="absen" class=" font-semibold">Absen</label>
-                            <input name="no_absen" type="text" placeholder="20012" class="border w-80 p-2">
+                            <input name="no_absen" type="text" placeholder="20012" class="border w-80 p-2"
+                                {{ $nilai_murid != 'Belum mengumpulkan' ? 'disabled' : '' }}
+                                value="{{ $nilai_murid != 'Belum mengumpulkan' ? $tugas_murid->tugasResult->first()->no_absen : '' }}">
                         </div>
                     </div>
 
                     <div>
                         <textarea name="deskripsi" id="" class="w-full p-2 border-kuning border-1 mt-2 rounded-md" rows="6"
-                            placeholder="deskripsi jawaban"></textarea>
+                            placeholder="deskripsi jawaban" {{ $nilai_murid != 'Belum mengumpulkan' ? 'disabled' : '' }}>{{ $nilai_murid != 'Belum mengumpulkan' ? $tugas_murid->tugasResult->first()->deskripsi : '' }}</textarea>
                     </div>
 
                     <div class="">
-                        <div class="mt-0">
-                            <div class="file_upload ">
-                                <!-- <svg class="text-indigo-500 w-24 mx-auto mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" /></svg> -->
+                        @if ($nilai_murid != 'Belum mengumpulkan')
+                            {{-- lihat file tugas --}}
+                            <a target="_blank"
+                                href="{{ asset('storage/tugas/answer') . '/' . $tugas_murid->tugasResult->first()->answer }}"
+                                class="flex items-center gap-4 justify-center text bg-[#E59B0C] text-white border border-gray-300 rounded-xl py-2 font-semibold cursor-pointer p-1 px-3 hover:bg-yellow-700">
+                                Lihat File Tugas
+                            </a>
+                        @else
+                            <div class="mt-0">
+                                <div class="file_upload ">
+                                    <!-- <svg class="text-indigo-500 w-24 mx-auto mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" /></svg> -->
 
-                                <div class="input_field ">
-                                    <div class="flex justify-between mt-4 mb-5">
-                                        <input name="answer" class="text-sm cursor-pointer text-kuning" type="file"
-                                            id="file-upload" />
+                                    <div class="input_field ">
+                                        <div class="flex justify-between mt-4 mb-5">
+                                            <input name="answer" class="text-sm cursor-pointer text-kuning" type="file"
+                                                id="file-upload" />
 
-                                        <button id="ganti-dok"
-                                            class="py-2 px-1 rounded border-1 border-kuning text-kuning font-semibold"
-                                            type="button">
-                                            Ganti Dokumen
-                                        </button>
+                                            <button id="ganti-dok"
+                                                class="py-2 px-1 rounded border-1 border-kuning text-kuning font-semibold"
+                                                type="button">
+                                                Ganti Dokumen
+                                            </button>
+                                        </div>
+                                        <div id="btn-file"
+                                            class="flex items-center gap-4 justify-center text bg-[#E59B0C] text-white border border-gray-300 rounded-xl py-2 font-semibold cursor-pointer p-1 px-3 hover:bg-yellow-700">
+                                            Unggah Tugas
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
+                                            </svg>
+                                        </div>
+
+                                        <!-- <div class="title text-indigo-500 uppercase">or drop files here</div> -->
                                     </div>
-                                    <div id="btn-file"
-                                        class="flex items-center gap-4 justify-center text bg-[#E59B0C] text-white border border-gray-300 rounded-xl py-2 font-semibold cursor-pointer p-1 px-3 hover:bg-yellow-700">
-                                        Unggah Tugas
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
-                                        </svg>
-                                    </div>
 
-                                    <!-- <div class="title text-indigo-500 uppercase">or drop files here</div> -->
                                 </div>
-
                             </div>
-                        </div>
+                        @endif
+
                     </div>
                 </form>
 

@@ -78,7 +78,7 @@
                         </a>
                         {{-- ACTION --}}
                         <div class="w-24 flex items-center justify-between">
-                            <a href="{{ route('data-murid.edit', ['data_murid' => $item->id]) }}">
+                            <a href="#">
                                 <div id="1-item" class="text-center space-y-1">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-black" viewBox="0 0 24 24">
                                         <path fill="currentColor"
