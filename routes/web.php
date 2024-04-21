@@ -21,6 +21,7 @@ use App\Http\Controllers\CppController;
 use App\Http\Controllers\Guru\AbsenController;
 use App\Http\Controllers\Guru\KelompokController;
 use App\Http\Controllers\Guru\KelompokMuridController;
+use App\Http\Controllers\Guru\NilaiGuruController;
 use App\Http\Controllers\Murid\AbsenMuridController;
 
 /*
@@ -54,6 +55,7 @@ Route::group(['middleware' => 'role:guru'], function () {
             'tugas-guru' => TugasGuruController::class,
             'referensi-guru' => ReferensiGuruController::class,
             'tutorial-guru' => TutorialGuruController::class,
+            'nilai-guru' => NilaiGuruController::class
         ]);
         Route::get('/nilai/{id}', [TugasGuruController::class, 'getTugasResult'])->name('get-tugas-result');
         Route::get('/tugas-guru/{id}/nilai', [TugasGuruController::class, 'nilai'])->name('tugas-guru.nilai');
