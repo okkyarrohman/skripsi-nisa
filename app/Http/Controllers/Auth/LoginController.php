@@ -7,6 +7,9 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+use App\Models\User;
 
 class LoginController extends Controller
 {
@@ -42,11 +45,18 @@ class LoginController extends Controller
 
     protected function authenticated($user)
     {
-        if ($user->hasRoles('guru')) {
+        $users = Auth::user();
+        // Mendapatkan peran dari pengguna
+        $roles = $users->getRoleNames()->toArray();
+        // Jika pengguna memiliki peran 'guru'
+        if (in_array('guru', $roles)) {
             return redirect()->route('dashboard.guru');
-        } else if ($user->hasRoles('murid')) {
-            $user->session_login_at = Carbon::now();
-            $user->save();
+        }
+        // Jika pengguna memiliki peran 'murid'
+        elseif (in_array('murid', $roles)) {
+            // Lakukan sesuatu, seperti memperbarui catatan login
+            $users->session_login_at = Carbon::now();
+            $users->save();
 
             return redirect()->route('dashboard.murid');
         }
