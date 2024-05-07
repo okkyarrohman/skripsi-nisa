@@ -23,6 +23,7 @@ use App\Http\Controllers\Guru\KelompokController;
 use App\Http\Controllers\Guru\KelompokMuridController;
 use App\Http\Controllers\Guru\NilaiGuruController;
 use App\Http\Controllers\Murid\AbsenMuridController;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +41,9 @@ Route::view('/', 'landingpage')->name('landingpage');
 
 // Auth Routes
 Auth::routes();
+Route::get('/foo', function () {
+    Artisan::call('storage:link');
+});
 
 // Guru Routes
 Route::group(['middleware' => 'role:guru'], function () {
