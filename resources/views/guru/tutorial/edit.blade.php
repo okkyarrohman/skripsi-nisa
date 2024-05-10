@@ -144,9 +144,11 @@
                     <div class="space-y-2">
                         <p>Deskripsi tutorial</p>
 
-                        <textarea id="myeditorinstance" name="deskripsi">
-                            {!! $tutorial->deskripsi !!}
-                        </textarea>
+                        <textarea id="deskripsi" name="deskripsi" class="w-full border-1 rounded p-1 border-blue-border" cols="30"
+                            rows="5">{!! $tutorial->deskripsi !!}</textarea>
+                        {{-- <textarea id="myeditorinstance" name="deskripsi">
+
+                        </textarea> --}}
                     </div>
 
                     <div class="space-y-2">
