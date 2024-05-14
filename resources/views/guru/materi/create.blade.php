@@ -139,7 +139,10 @@
 
                     <div class="space-y-2">
                         <p>Deskripsi Materi</p>
-                        <x-forms.tinymce-editor />
+                        {{-- <x-forms.tinymce-editor /> --}}
+                        <textarea id="deskripsi" name="deskripsi" class="w-full border-1 rounded p-1 border-blue-border" cols="30"
+                            rows="5">
+                        </textarea>
                     </div>
 
                     <div class="space-y-2">

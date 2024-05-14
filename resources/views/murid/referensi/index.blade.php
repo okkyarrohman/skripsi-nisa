@@ -9,7 +9,7 @@
             <ul class="p-2 menu dropdown-content z-[1] w-[90%] gap-7">
                 @forelse ($referensis as $item)
                     <li class="border rounded-xl shadow p-1">
-                        <a class="" href="{{ route('referensi.show', ['referensi'=>1]) }}">
+                        <a class="" href="{{ route('referensi.show', ['referensi' => $item->id]) }}">
                             <div class="bg-[#ACC9E2] rounded-full p-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                     stroke="currentColor" class="w-4 h-4 text-[#055EA8]">
