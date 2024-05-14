@@ -11,8 +11,8 @@
         class="{{ request()->routeIs('kuis.index') ? 'mb-2' : 'mb-0' }}  inline-block rounded-sm {{ request()->routeIs('kuis*') ? 'text-[#215784] border-[#215784] border-b-4' : '' }}">Kuis</a>
     <a href="{{ route('referensi.index') }}"
         class="{{ request()->routeIs('referensi.index') ? 'mb-2' : 'mb-0' }}  inline-block rounded-sm {{ request()->routeIs('referensi*') ? 'text-[#215784] border-[#215784] border-b-4' : '' }}">Referensi</a>
-    <a href="{{ route('tutorial.index') }}"
-        class="{{ request()->routeIs('tutorial.index') ? 'mb-2' : 'mb-0' }}  inline-block rounded-sm {{ request()->routeIs('tutorial*') ? 'text-[#215784] border-[#215784] border-b-4' : '' }}">Tutorial</a>
+    {{-- <a href="{{ route('tutorial.index') }}"
+        class="{{ request()->routeIs('tutorial.index') ? 'mb-2' : 'mb-0' }}  inline-block rounded-sm {{ request()->routeIs('tutorial*') ? 'text-[#215784] border-[#215784] border-b-4' : '' }}">Tutorial</a> --}}
     <a href="{{ route('absen.index') }}"
         class="{{ request()->routeIs('absen.index') ? 'mb-2' : 'mb-0' }}  inline-block rounded-sm {{ request()->routeIs('absen*') ? 'text-[#215784] border-[#215784] border-b-4' : '' }}">Absen</a>
 </div>

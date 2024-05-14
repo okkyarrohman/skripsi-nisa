@@ -14,8 +14,8 @@
         class="{{ request()->routeIs('kategori.index') ? 'mb-2' : 'mb-5' }}  inline-block rounded-sm {{ request()->routeIs('kategori.*', 'soal.*', 'opsi.*', 'hasil.*') ? 'text-[#215784] border-[#215784] border-b-4' : '' }}">Kuis</a>
     <a href="{{ route('referensi-guru.index') }}"
         class="{{ request()->routeIs('tugas-guru.nilai') ? 'mb-2' : 'mb-5' }}  inline-block rounded-sm {{ request()->routeIs('referensi-guru*') ? 'text-[#215784] border-[#215784] border-b-4' : '' }}">Referensi</a>
-    <a href="{{ route('tutorial-guru.index') }}"
-        class="{{ request()->routeIs('tugas-guru.nilai') ? 'mb-2' : 'mb-5' }}  inline-block rounded-sm {{ request()->routeIs('tutorial-guru*') ? 'text-[#215784] border-[#215784] border-b-4' : '' }}">Tutorial</a>
+    {{-- <a href="{{ route('tutorial-guru.index') }}"
+        class="{{ request()->routeIs('tugas-guru.nilai') ? 'mb-2' : 'mb-5' }}  inline-block rounded-sm {{ request()->routeIs('tutorial-guru*') ? 'text-[#215784] border-[#215784] border-b-4' : '' }}">Tutorial</a> --}}
     <a href="{{ route('absen-guru.index') }}"
         class="mb-0 inline-block rounded-sm {{ request()->routeIs('absen*') ? 'text-[#215784] border-[#215784] border-b-4' : '' }}">Absen</a>
 </div>
