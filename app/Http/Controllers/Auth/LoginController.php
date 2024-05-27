@@ -42,6 +42,7 @@ class LoginController extends Controller
 
     protected function authenticated($user)
     {
+        // dd(Carbon::now()->toDateTimeString());
         $users = Auth::user();
         // Mendapatkan peran dari pengguna
         $roles = $users->getRoleNames()->toArray();
@@ -52,7 +53,7 @@ class LoginController extends Controller
         // Jika pengguna memiliki peran 'murid'
         elseif (in_array('murid', $roles)) {
             // Lakukan sesuatu, seperti memperbarui catatan login
-            $users->session_login_at = Carbon::now();
+            $users->session_login_at = Carbon::now()->toDateTimeString();
             $users->save();
 
             return redirect()->route('dashboard.murid');
