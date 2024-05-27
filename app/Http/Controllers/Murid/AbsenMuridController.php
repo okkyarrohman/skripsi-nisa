@@ -41,7 +41,7 @@ class AbsenMuridController extends Controller
         $absenLewat = Absen::where('tanggal_absen', '<', date('Y-m-d'))->first();
 
         // jika absen telah lewat hari
-        if ($absenLewat) {
+        if ($absenLewat && !$absenMurid) {
             return redirect()->back()->with('error', 'Maaf, Absen telah lewat!');
         } else if (!$absenMurid) {
             return redirect()->back()->with('error', 'Tidak ada absen untuk hari ini!');
@@ -54,7 +54,7 @@ class AbsenMuridController extends Controller
 
         // jika sudah absen
         if ($isAbsen) {
-            return redirect()->back()->with('error', 'Anda sudah melakukan absen!');
+            return redirect()->back()->with('error', 'Anda sudah melakukan absen hari ini!');
         }
 
         // absen
@@ -66,7 +66,10 @@ class AbsenMuridController extends Controller
             'no_absen' => $request->absen,
         ]);
 
-        return redirect()->back()->with('success', 'Absen berhasil');
+        // convert tanggal absen ke manusia
+        $tanggalAbsen = date('d F Y', strtotime($absenMurid->tanggal_absen));
+
+        return redirect()->back()->with('success', 'Absen ' . $tanggalAbsen . ' berhasil dilakukan!');
     }
 
     /**
