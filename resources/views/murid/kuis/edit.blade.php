@@ -8,7 +8,8 @@
 
         hapusForm.onclick = function() {
             const lewatDeadline = @json($is_pass_deadline);
-            const point = {{ $kategori ? $kategori->hasil->first()->total_points : 0 }};
+            const point =
+                {{ $kategori->hasil->where('user_id', auth()->user()->id)->first() ? $kategori->hasil->where('user_id', auth()->user()->id)->first()->total_points : 0 }};
             if (lewatDeadline) {
                 Swal.fire({
                     title: 'Waktu kuis sudah berakhir!',
