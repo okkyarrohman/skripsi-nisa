@@ -67,13 +67,21 @@
             });
         }
 
-        $('#btn-update').click(function(e) {
-            e.preventDefault();
-            const nilai = $('#input-nilai').val();
+        function update_nilai(id) {
+            // preventdefault form
+            const nilai = $('#input-nilai-' + id).val();
 
-            $('#update-nilai').append(`<input type="hidden" name="nilai" value="${nilai}">`);
-            $('#update-nilai').submit();
-        });
+            $('#update-nilai-' + id).append(`<input type="hidden" name="nilai" value="${nilai}">`);
+            $('#update-nilai-' + id).submit();
+        }
+
+        // $('#btn-update').click(function(e) {
+        //     e.preventDefault();
+        //     const nilai = $('#input-nilai').val();
+
+        //     $('#update-nilai').append(`<input type="hidden" name="nilai" value="${nilai}">`);
+        //     $('#update-nilai').submit();
+        // });
     </script>
 @endpush
 
@@ -134,6 +142,14 @@
                 </div>
             </dialog>
 
+            @if (session('success'))
+                <div class="text-white">
+                    <div class="bg-green-500 p-2 rounded-lg">
+                        {{ session('success') }}
+                    </div>
+                </div>
+            @endif
+
 
             {{-- TABLE --}}
             <table class="border-spacing-x-5 border-spacing-y-2 border-separate text-center">
@@ -171,15 +187,17 @@
                                 </svg>
                             </td>
                             <td class="border-1 border-kuning rounded text-kuning p-0 m-0">
-                                <input type="text" id="input-nilai" class="p-1 m-0" value="{{ $item->nilai }}">
+                                <input type="text" id="input-nilai-{{ $item->id }}" class="p-1 m-0"
+                                    value="{{ $item->nilai }}">
                             </td>
+
                             <td class="flex items-center gap-4 text-white">
                                 <form action="{{ route('nilai-guru.update', ['nilai_guru' => $item->id]) }}" method="POST"
-                                    id="update-nilai">
+                                    id="update-nilai-{{ $item->id }}">
                                     @csrf
                                     @method('PUT')
-                                    <button type="submit" class="bg-sky-800 p-2 rounded-lg hover:bg-sky-600"
-                                        id="btn-update">
+                                    <button type="button" class="bg-sky-800 p-2 rounded-lg hover:bg-sky-600"
+                                        id="btn-update" onclick="update_nilai({{ $item->id }})">
                                         Beri Nilai
                                     </button>
                                 </form>

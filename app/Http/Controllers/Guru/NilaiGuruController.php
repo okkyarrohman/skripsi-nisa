@@ -53,12 +53,16 @@ class NilaiGuruController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        // dd($request->all());
+        // dd([
+        //     $request->all(),
+        //     'id' => $id,
+        // ]);
         TugasResult::find($id)->update([
             'nilai' => $request->nilai
         ]);
+        $tugas = TugasResult::find($id);
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Nilai ' . $tugas->user->name . ' berhasil diupdate');
     }
 
     /**

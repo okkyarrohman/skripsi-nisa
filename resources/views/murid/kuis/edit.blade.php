@@ -8,7 +8,7 @@
 
         hapusForm.onclick = function() {
             const lewatDeadline = @json($is_pass_deadline);
-            const point = {{ $kategori->hasil->first()->total_points ?? 0 }};
+            const point = {{ $kategori ? $kategori->hasil->first()->total_points : 0 }};
             if (lewatDeadline) {
                 Swal.fire({
                     title: 'Waktu kuis sudah berakhir!',
@@ -199,7 +199,8 @@
                     <div class="flex justify-between">
                         <h1 class="font-bold text-xl mb-4">{{ $kategori->kuis }}</h1>
                         <div class="flex">
-                            {{ $kategori->hasil->first()->total_points ?? 0 }}/<p class="text-[#215784] font-semibold">100
+                            {{ $kategori->hasil->where('user_id', auth()->user()->id)->first()->total_points ?? 0 }}/
+                            <p class="text-[#215784] font-semibold">100
                             </p>
                         </div>
                     </div>
@@ -208,7 +209,7 @@
 
 
                 <div class="flex justify-end w-full mt-4 gap-x-11">
-                    @if (isset($kategori->hasil->first()->total_points))
+                    @if (isset($kategori->hasil->where('user_id', auth()->user()->id)->first()->total_points))
                         <a id="lihat" href="{{ route('kuis.show', ['kui' => $kategori->hasil->first()->id]) }}"
                             class="flex items-center text-white bg-kuning p-2 rounded-lg font-bold">Lihat Nilai
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"

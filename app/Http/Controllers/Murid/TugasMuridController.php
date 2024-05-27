@@ -80,9 +80,14 @@ class TugasMuridController extends Controller
     public function show(string $id, Request $request)
     {
         $tugases = Tugas::find($id);
-        $tugas_murid = Tugas::find($id)->whereHas('tugasResult', function ($query) use ($request) {
-            $query->where('user_id', auth()->user()->id)->where('sub_tugas_id', $request->sub);
-        })->first();
+        $tugas_murid = Tugas::find($id)
+            ->whereHas('tugasResult', function ($query) use ($request) {
+                $query->where('user_id', auth()->user()->id)->where('sub_tugas_id', $request->sub);
+            })
+            ->with('tugasResult', function ($query) use ($request) {
+                $query->where('user_id', auth()->user()->id)->where('sub_tugas_id', $request->sub);
+            })
+            ->first();
 
         $nilai_murid = null;
         if ($tugas_murid) {
