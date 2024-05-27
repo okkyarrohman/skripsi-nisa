@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+{{-- @dd($result) --}}
 {{-- @dd($result->soal) --}}
 
 @section('content')

@@ -61,9 +61,13 @@ class KuisController extends Controller
      */
     public function show($result_id)
     {
-        $result = Hasil::whereHas('user', function ($query) {
-            $query->whereId(auth()->id());
-        })->find($result_id);
+        // $result = Hasil::whereHas('user', function ($query) {
+        //     $query->whereId(auth()->id());
+        // })->find($result_id);
+
+        $result = Hasil::where('kategori_kuis_id', $result_id)->where('user_id', auth()->id())->first();
+
+        // dd($result);
 
         // dd($result->soal->last()->pivot);
 
