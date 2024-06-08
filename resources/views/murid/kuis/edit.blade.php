@@ -210,7 +210,7 @@
 
 
                 <div class="flex justify-end w-full mt-4 gap-x-11">
-                    @if (isset($kategori->hasil->where('user_id', auth()->user()->id)->first()->total_points))
+                    {{-- @if (isset($kategori->hasil->where('user_id', auth()->user()->id)->first()->total_points))
                         <a id="lihat" href="{{ route('kuis.show', ['kui' => $kategori->hasil->first()->id]) }}"
                             class="flex items-center text-white bg-kuning p-2 rounded-lg font-bold">Lihat Nilai
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -218,7 +218,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
                             </svg>
                         </a>
-                    @endif
+                    @endif --}}
                     <a id="mulai" href="#" class="flex items-center gap-4 text-[#E59B0C] font-bold">Mulai Kuis
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="w-5 h-5">
