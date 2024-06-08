@@ -121,14 +121,22 @@
                 <h1 class="text-blue-border text-xl font">{{ $murid->name }}</h1>
 
                 <div class="flex-grow border-2 rounded w-full p-4">
-                    <h4 class="text mb-2">Nama : {{ $murid->name }}</h4>
-                    <h4 class="text mb-2">Email : {{ $murid->email }}</h4>
+                    <h4 class="text-lg font-semibold mb-2">Nama : {{ $murid->name }}</h4>
+                    <h4 class="text-lg font-semibold mb-2">Email : {{ $murid->email }}</h4>
 
                 </div>
             </div>
             <div class="flex flex-col items-center h-full">
                 <div class="flex-grow border-2 rounded w-full p-4">
-                    <h2>Keterangan Login</h2>
+                    <h2 class="text-lg font-semibold mb-2">Keterangan Login</h2>
+                    @if ($murid->session_login_at == null)
+                        <h2 class="text-red-500 font-semibold mb-2">Tidak Login</h2>
+                    @else
+                        <h2 class="text-green-500 font-semibold mb-2">Sedang Login</h2>
+                    @endif
+
+                    <h2 class="text-lg font-semibold mt-14 mb-2">Total Waktu Login</h2>
+                    <h2 class="text mb-2 font-semibold text-green-500">{{ $murid->total_login }}</h2>
                 </div>
             </div>
         </div>
