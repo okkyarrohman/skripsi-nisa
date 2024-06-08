@@ -35,8 +35,7 @@
     <div class="grid grid-cols-2 gap-4 mb-14">
         <div class="px-14 w-full space-y-5">
             {{-- BUTTON KUNING --}}
-            <a href="#"
-                class="border-1 rounded border-kuning text-kuning block w-full p-2 text-center text-lg">
+            <a href="#" class="border-1 rounded border-kuning text-kuning block w-full p-2 text-center text-lg">
                 <div class="flex justify-center items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="w-6 h-6">
@@ -121,13 +120,15 @@
                     class="rounded-full w-20 h-20" alt="">
                 <h1 class="text-blue-border text-xl font">{{ $murid->name }}</h1>
 
-                <div class="flex-grow border-2 rounded w-full">
+                <div class="flex-grow border-2 rounded w-full p-4">
+                    <h4 class="text mb-2">Nama : {{ $murid->name }}</h4>
+                    <h4 class="text mb-2">Email : {{ $murid->email }}</h4>
 
                 </div>
             </div>
             <div class="flex flex-col items-center h-full">
-                <div class="flex-grow border-2 rounded w-full">
-
+                <div class="flex-grow border-2 rounded w-full p-4">
+                    <h2>Keterangan Login</h2>
                 </div>
             </div>
         </div>
