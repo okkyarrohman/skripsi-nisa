@@ -32,4 +32,11 @@ class HomeController extends Controller
     {
         return view('murid.dashboard');
     }
+
+
+    public function downloadPanduan()
+    {
+        $panduan = public_path('assets/image/1.jpg');
+        return response()->download($panduan);
+    }
 }

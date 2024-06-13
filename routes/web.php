@@ -39,6 +39,8 @@ use Illuminate\Support\Facades\Artisan;
 // Landing Page
 Route::view('/', 'landingpage')->name('landingpage');
 
+Route::get('/download-panduan', [HomeController::class, 'downloadPanduan'])->name('downloadPanduan');
+
 // Auth Routes
 Auth::routes();
 Route::get('/foo', function () {
@@ -101,5 +103,7 @@ Route::group(['middleware' => 'role:murid'], function () {
         ]);
     });
 });
+
+
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');

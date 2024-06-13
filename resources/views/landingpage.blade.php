@@ -30,7 +30,7 @@
                 <path
                     d="M13.5 22.1c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05zM0 38.3c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05z" />
             </svg>
-            <img src="{{ asset('assets/image/logo-nisa.jpg') }}" class="w-auto h-16" alt="Logo">
+            {{-- <img src="{{ asset('assets/image/logo-nisa.jpg') }}" class="w-auto h-16" alt="Logo"> --}}
         </div>
         <div class="block lg:hidden">
             <button
@@ -54,6 +54,11 @@
                 <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white">
                     Blog
                 </a> -->
+            </div>
+
+            <div>
+                <a href="/download-panduan"
+                    class="inline-block text-lg font-semibold px-4 py-2 mx-3 leading-none border rounded-2xl border-transparent text-[#055EA8] hover:border-[#215784] hover:border-x-transparent hover:border-t-transparent mt-4 lg:mt-0">Panduan</a>
             </div>
 
             <div>
@@ -84,12 +89,15 @@
     <div class="mt-10 mx-12">
         <div class="flex h-[500px] ">
             <div class="flex flex-col justify-center gap-3 ml-2">
-                <h1 class="text-5xl font-bold ">Kembangkan Potensi,</h1>
-                <h1 class="text-5xl font-bold "> Kerjakan Tugasmu Di sini!</h1>
-                <p class="text-base text-[#83858A] my-5">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut
+                <h6 class="text-3xl  ">Selamat Datang,</h6>
+                <h1 class="text-5xl font-bold ">Website Pembelajaran
+                    Pemrograman Terstruktur</h1>
+                {{-- <p class="text-base text-[#83858A] my-5">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut
                     odit aut fugit, sed quia
-                    consequuntur ma</p>
+                    consequuntur ma</p> --}}
+                <br>
                 <h3 class="text-2xl font-semibold">Daftar Sekarang dan Mulai Belajar Hari Ini!</h3>
+
                 <div class="flex border-2 shadow-lg rounded-3xl px-6 items-center justify-center py-3 ml-3 w-[60%]">
                     <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512">
                         <path fill="currentColor"
@@ -117,8 +125,8 @@
             </div>
             <div class="flex flex-col w-[50%] gap-4">
                 <h1 class="text-xl font-bold">Buat Akun Sekarang!</h1>
-                <p class="text-[#83858A] text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                    eiusmod tempor incididunt ut labore </p>
+                {{-- <p class="text-[#83858A] text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                    eiusmod tempor incididunt ut labore </p> --}}
                 <button
                     class="bg-[#215784] w-1/4 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                     type="button">
