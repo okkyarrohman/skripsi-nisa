@@ -53,7 +53,10 @@ class DataSiswaController extends Controller
         $murids = User::role('murid')->get();
         $murid = User::findOrFail($id); // Menggunakan findOrFail agar melempar 404 jika tidak ditemukan
 
-        $tugases = Tugas::get();
+        $kelompok_id = $murid->kelompok_id;
+
+
+        $tugases = Tugas::where('kelompok_id', $kelompok_id)->get();
         $totalSubtugas = []; // Menggunakan array untuk menyimpan total subtugas per tugas
         $totalTugasAnswer = []; // Menggunakan array untuk menyimpan total jawaban tugas per tugas
 
