@@ -17,4 +17,9 @@ class KelompokMurid extends Model
     {
         return $this->belongsTo(User::class, 'id', 'murid_id');
     }
+
+    public function kelompok()
+    {
+        return $this->belongsTo(Kelompok::class, 'kelompok_id', 'id');
+    }
 }
