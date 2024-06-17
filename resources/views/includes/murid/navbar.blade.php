@@ -15,4 +15,6 @@
         class="{{ request()->routeIs('tutorial.index') ? 'mb-2' : 'mb-0' }}  inline-block rounded-sm {{ request()->routeIs('tutorial*') ? 'text-[#215784] border-[#215784] border-b-4' : '' }}">Tutorial</a> --}}
     <a href="{{ route('absen.index') }}"
         class="{{ request()->routeIs('absen.index') ? 'mb-2' : 'mb-0' }}  inline-block rounded-sm {{ request()->routeIs('absen*') ? 'text-[#215784] border-[#215784] border-b-4' : '' }}">Absen</a>
+    <a href="{{ route('download-panduan.murid') }}"
+        class="{{ request()->routeIs('download-panduan.murid') ? 'mb-2' : 'mb-0' }}  inline-block rounded-sm {{ request()->routeIs('download-panduan.murid*') ? 'text-[#215784] border-[#215784] border-b-4' : '' }}">Panduan</a>
 </div>

@@ -77,6 +77,7 @@ Route::group(['middleware' => 'role:guru'], function () {
                 'hasil' => HasilKuisController::class
             ]);
         });
+        Route::get('/download-panduan', [HomeController::class, 'panduanGuru'])->name('download-panduan.guru');
     });
 });
 
@@ -101,6 +102,7 @@ Route::group(['middleware' => 'role:murid'], function () {
             'tutorial' => TutorialMuridController::class,
             "absen" => AbsenMuridController::class,
         ]);
+        Route::get('/download-panduan', [HomeController::class, 'panduanMurid'])->name('download-panduan.murid');
     });
 });
 

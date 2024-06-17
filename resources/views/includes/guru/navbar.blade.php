@@ -18,4 +18,6 @@
         class="{{ request()->routeIs('tugas-guru.nilai') ? 'mb-2' : 'mb-5' }}  inline-block rounded-sm {{ request()->routeIs('tutorial-guru*') ? 'text-[#215784] border-[#215784] border-b-4' : '' }}">Tutorial</a> --}}
     <a href="{{ route('absen-guru.index') }}"
         class="mb-0 inline-block rounded-sm {{ request()->routeIs('absen*') ? 'text-[#215784] border-[#215784] border-b-4' : '' }}">Absen</a>
+    <a href="{{ route('download-panduan.guru') }}"
+        class="mb-0 inline-block rounded-sm {{ request()->routeIs('download-panduan.guru') ? 'text-[#215784] border-[#215784] border-b-4' : '' }}">Panduan</a>
 </div>

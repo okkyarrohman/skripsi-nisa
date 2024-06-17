@@ -34,9 +34,15 @@ class HomeController extends Controller
     }
 
 
-    public function downloadPanduan()
+    public function panduanMurid()
     {
-        $panduan = public_path('assets/image/1.jpg');
+        $panduan = public_path('panduan/Siswa.pdf');
+        return response()->download($panduan);
+    }
+
+    public function panduanGuru()
+    {
+        $panduan = public_path('panduan/Guru.pdf');
         return response()->download($panduan);
     }
 }
