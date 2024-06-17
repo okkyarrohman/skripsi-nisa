@@ -141,8 +141,21 @@
                     <div class="flex-grow border-2 rounded w-full p-4 mb-4">
                         <h4 class="text-lg font-semibold mb-2">{{ $tugas->nama }}</h4>
                         <span> Tugas Yang dikumpulkan</span>
-                        <h4 class="text mb-2 font-semibold text-green-500">{{ $totalTugasAnswer[$tugas->id] }} /
-                            {{ $totalSubtugas[$tugas->id] }}</h4>
+                        <div class="progress" style="height: 25px;">
+                            @php
+                                $percentage = 0;
+                                if ($totalSubtugas[$tugas->id] > 0) {
+                                    $percentage = round(
+                                        ($totalTugasAnswer[$tugas->id] / $totalSubtugas[$tugas->id]) * 100,
+                                    );
+                                }
+                            @endphp
+                            <div class="progress-bar bg-success" role="progressbar" style="width: {{ $percentage }}%;"
+                                aria-valuenow="{{ $percentage }}" aria-valuemin="0" aria-valuemax="100">
+                                {{ $percentage }}%
+                            </div>
+                        </div>
+
                     </div>
                 @endforeach
             </div>
