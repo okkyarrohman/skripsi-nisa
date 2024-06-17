@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Guru;
 
 use App\Http\Controllers\Controller;
 use App\Models\Kelompok;
+use App\Models\SubTugas;
+use App\Models\Tugas;
+use App\Models\TugasResult;
 use Illuminate\Http\Request;
 use App\Models\User;
 
@@ -48,9 +51,23 @@ class DataSiswaController extends Controller
     public function show(string $id)
     {
         $murids = User::role('murid')->get();
-        $murid = User::find($id);
-        return view('guru.dataMurid.show', compact('murids', 'murid'));
+        $murid = User::findOrFail($id); // Menggunakan findOrFail agar melempar 404 jika tidak ditemukan
+
+        $tugases = Tugas::get();
+        $totalSubtugas = []; // Menggunakan array untuk menyimpan total subtugas per tugas
+        $totalTugasAnswer = []; // Menggunakan array untuk menyimpan total jawaban tugas per tugas
+
+        foreach ($tugases as $tugas) {
+            $totalSubtugas[$tugas->id] = SubTugas::where('tugas_id', $tugas->id)->count();
+
+            $totalTugasAnswer[$tugas->id] = TugasResult::where('tugas_id', $tugas->id)
+                ->where('user_id', $id)
+                ->count();
+        }
+
+        return view('guru.dataMurid.show', compact('murids', 'murid', 'tugases', 'totalSubtugas', 'totalTugasAnswer'));
     }
+
 
     /**
      * Show the form for editing the specified resource.

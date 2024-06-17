@@ -123,21 +123,28 @@
                 <div class="flex-grow border-2 rounded w-full p-4">
                     <h4 class="text-lg font-semibold mb-2">Nama : {{ $murid->name }}</h4>
                     <h4 class="text-lg font-semibold mb-2">Email : {{ $murid->email }}</h4>
+                    <h2 class="text-lg font-semibold ">Keterangan Login</h2>
+                    @if ($murid->session_login_at == null)
+                        <h4 class="text-red-500 font-semibold ">Tidak Login</h4>
+                    @else
+                        <h4 class="text-green-500 font-semibold ">Sedang Login</h4>
+                    @endif
+
+                    <h4 class="text-lg font-semibold mt-2 ">Total Waktu Login</h4>
+                    <h4 class="text mb-2 font-semibold text-green-500">{{ $murid->total_login }}</h4>
 
                 </div>
             </div>
             <div class="flex flex-col items-center h-full">
-                <div class="flex-grow border-2 rounded w-full p-4">
-                    <h2 class="text-lg font-semibold mb-2">Keterangan Login</h2>
-                    @if ($murid->session_login_at == null)
-                        <h2 class="text-red-500 font-semibold mb-2">Tidak Login</h2>
-                    @else
-                        <h2 class="text-green-500 font-semibold mb-2">Sedang Login</h2>
-                    @endif
-
-                    <h2 class="text-lg font-semibold mt-14 mb-2">Total Waktu Login</h2>
-                    <h2 class="text mb-2 font-semibold text-green-500">{{ $murid->total_login }}</h2>
-                </div>
+                <h2 class="text-lg font-semibold mb-2">List Tugas</h2>
+                @foreach ($tugases as $tugas)
+                    <div class="flex-grow border-2 rounded w-full p-4 mb-4">
+                        <h4 class="text-lg font-semibold mb-2">{{ $tugas->nama }}</h4>
+                        <span> Tugas Yang dikumpulkan</span>
+                        <h4 class="text mb-2 font-semibold text-green-500">{{ $totalTugasAnswer[$tugas->id] }} /
+                            {{ $totalSubtugas[$tugas->id] }}</h4>
+                    </div>
+                @endforeach
             </div>
         </div>
     </div>
