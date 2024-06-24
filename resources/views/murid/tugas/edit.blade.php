@@ -66,14 +66,14 @@
                         @endif
                         <div class="flex items-center gap-5 mt-6">
                             <label for="nama" class=" font-semibold">Nama</label>
-                            <input name="name" type="text" placeholder="okky" class="border w-80 p-2"
+                            <input name="name" type="text" placeholder="Masukkan Nama" class="border w-80 p-2"
                                 {{ $nilai_murid != 'Belum mengumpulkan' ? 'disabled' : '' }}
                                 value="{{ $nilai_murid != 'Belum mengumpulkan' ? $tugas_murid->tugasResult->first()->name : '' }}">
 
                         </div>
                         <div class="flex items-center gap-5 mt-6">
                             <label for="absen" class=" font-semibold">Absen</label>
-                            <input name="no_absen" type="text" placeholder="20012" class="border w-80 p-2"
+                            <input name="no_absen" type="text" placeholder="Masukkan Absen" class="border w-80 p-2"
                                 {{ $nilai_murid != 'Belum mengumpulkan' ? 'disabled' : '' }}
                                 value="{{ $nilai_murid != 'Belum mengumpulkan' ? $tugas_murid->tugasResult->first()->no_absen : '' }}">
                         </div>

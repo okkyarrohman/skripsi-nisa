@@ -66,7 +66,9 @@ class DataSiswaController extends Controller
             $totalSubtugas[$tugas->id] = SubTugas::where('tugas_id', $tugas->id)->count();
 
             $totalTugasAnswer[$tugas->id] = TugasResult::where('tugas_id', $tugas->id)
-                ->where('user_id', $id)
+                ->whereHas('user.kelompokMurid.kelompok', function ($query) use ($kelompok_id) {
+                    $query->where('id', $kelompok_id);
+                })
                 ->count();
         }
 
